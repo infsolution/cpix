@@ -1,4 +1,4 @@
-import { Text, View, } from 'react-native';
+import { Text, View, Linking } from 'react-native';
 import { styles } from "./styles";
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
@@ -18,6 +18,7 @@ export function Login() {
                     <Input placeholder='**********' secureTextEntry={true} />
                 </View>
                 <Button title='Entrar'></Button>
+
             </View>
         </View>
     )
