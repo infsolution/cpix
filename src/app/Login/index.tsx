@@ -1,9 +1,13 @@
-import { Text, View, Linking } from 'react-native';
+import { Text, View, Linking, TouchableOpacity } from 'react-native';
 import { styles } from "./styles";
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
+import Entypo from '@expo/vector-icons/Entypo';
+import { useState } from 'react';
+import { InputPassword } from '@/components/InputPassword';
 
 export function Login() {
+    const [activeSecureTextEntry, setActiveSecureTextEntry] = useState(true);
     return (
         <View style={styles.container}>
             <Text style={styles.title}>CPIX</Text>
@@ -15,9 +19,13 @@ export function Login() {
                 </View>
                 <View style={styles.formControl}>
                     <Text style={styles.label}>Senha</Text>
-                    <Input placeholder='**********' secureTextEntry={true} />
+                    <InputPassword activeSecureTextEntry={activeSecureTextEntry} setActiveSecureTextEntry={setActiveSecureTextEntry} />
                 </View>
                 <Button title='Entrar'></Button>
+
+                <TouchableOpacity style={styles.forgotContainer} activeOpacity={0.8}>
+                    <Text style={styles.forgot}>Esqueci minha senha</Text>
+                </TouchableOpacity>
 
             </View>
         </View>
