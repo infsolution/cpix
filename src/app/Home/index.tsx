@@ -1,4 +1,6 @@
 import { Text, View, Image, TouchableOpacity, FlatList } from 'react-native';
+
+import { StackRouterProps } from '@/routes/StackRoutes';
 import { styles } from "./styles";
 import { Input } from '@/components/Input';
 import { AppBar } from '@/components/AppBar';
@@ -8,8 +10,9 @@ import { Item } from '@/components/Item';
 import { ITEMS } from '../Type/mock';
 import { useState } from 'react';
 
-export function Home() {
-  //const ITEMSS: ItemPix[] = ITEMS
+
+export function Home({navigation}: StackRouterProps<"home">) {
+
   const [listItemsId, setListItemsId] = useState<string[]>([]);
   const [listItems, setListItems] = useState<ItemPix[]>(ITEMS);
 
@@ -48,7 +51,7 @@ export function Home() {
           </View>
           <View style={styles.headerList}>
             <Text>Chaves Cadastradas</Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=> navigation.navigate("add")}>
               <Text>Adicionar Chave</Text>
             </TouchableOpacity>
           </View>

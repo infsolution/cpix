@@ -3,15 +3,17 @@ import { styles } from "./styles";
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { AppBar } from '@/components/AppBar';
+import { StackRouterProps } from '@/routes/StackRoutes';
 
-export function Add() {
+export function Add({route}:StackRouterProps<"add">) {
+
     return (
         <AppBar>
             <View style={styles.container}>
                 <Text style={styles.title}>Adicionar nova chave PIX</Text>
                 <View style={styles.formContainer}>
                     <View style={styles.formControl}>
-                        <Text style={styles.label}>Nome</Text>
+                        <Text style={styles.label}>Nome {route.params?.id}</Text>
                         <Input placeholder='Nome' />
                     </View>
                     <View style={styles.formControl}>
