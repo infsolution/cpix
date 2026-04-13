@@ -5,7 +5,7 @@ import { Input } from '@/components/Input';
 import { AppBar } from '@/components/AppBar';
 import { StackRouterProps } from '@/routes/StackRoutes';
 
-export function Add({route}:StackRouterProps<"add">) {
+export function Edit({route}:StackRouterProps<"edit">) {
 
     return (
         <AppBar>
@@ -13,7 +13,7 @@ export function Add({route}:StackRouterProps<"add">) {
                 <Text style={styles.title}>Adicionar nova chave PIX</Text>
                 <View style={styles.formContainer}>
                     <View style={styles.formControl}>
-                        <Text style={styles.label}>Nome</Text>
+                        <Text style={styles.label}>Nome {route.params?.id}</Text>
                         <Input placeholder='Nome' />
                     </View>
                     <View style={styles.formControl}>

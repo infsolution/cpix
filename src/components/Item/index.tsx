@@ -10,11 +10,11 @@ type Props = ItemPix & {
     onCopyItem: () => void,
 }
 export function Item({ id, name, bank, selected, onCopyItem, onMarkItem }: Props) {
-    const navigation = useNavigation();
+    const itemNavigation = useNavigation();
     return (
         <View style={styles.container} key={id}>
             <Checkbox color="white" style={styles.checkbox} value={selected} onValueChange={() => onMarkItem(id, selected)} />
-            <TouchableOpacity style={styles.texts} activeOpacity={0.8} onPress={() => navigation.navigate("add", { id: id })}>
+            <TouchableOpacity style={styles.texts} activeOpacity={0.8} onPress={() => itemNavigation.navigate("edit", {id})}>
                 <Text style={styles.text}>{name}</Text>
                 <Text style={styles.text}>{bank}</Text>
             </TouchableOpacity>
