@@ -8,30 +8,28 @@ import { StackRouterProps } from '@/routes/StackRoutes';
 export function Edit({route}:StackRouterProps<"edit">) {
 
     return (
-        <AppBar>
-            <View style={styles.container}>
-                <Text style={styles.title}>Adicionar nova chave PIX</Text>
-                <View style={styles.formContainer}>
-                    <View style={styles.formControl}>
-                        <Text style={styles.label}>Nome {route.params?.id}</Text>
-                        <Input placeholder='Nome' />
-                    </View>
-                    <View style={styles.formControl}>
-                        <Text style={styles.label}>Banco</Text>
-                        <Input placeholder='Banco' />
-                    </View>
-                    <View style={styles.formControl}>
-                        <Text style={styles.label}>Chave</Text>
-                        <Input placeholder='Chave' />
-                    </View>
-
-
-                    <View style={styles.formControl}>
-                        <Text style={styles.label}>Conta publica</Text>
-                    </View>
-                    <Button title='Salvar'></Button>
+        <View style={styles.container}>
+            <Text style={styles.title}>Adicionar nova chave PIX</Text>
+            <View style={styles.formContainer}>
+                <View style={styles.formControl}>
+                    <Text style={styles.label}>Nome {route.params?.id}</Text>
+                    <Input placeholder='Nome' />
                 </View>
+                <View style={styles.formControl}>
+                    <Text style={styles.label}>Banco</Text>
+                    <Input placeholder='Banco' />
+                </View>
+                <View style={styles.formControl}>
+                    <Text style={styles.label}>Chave</Text>
+                    <Input placeholder='Chave' />
+                </View>
+
+
+                <View style={styles.formControl}>
+                    <Text style={styles.label}>Conta publica</Text>
+                </View>
+                <Button title='Salvar'></Button>
             </View>
-        </AppBar>
+        </View>
     )
 }

@@ -5,10 +5,9 @@ import { Input } from '@/components/Input';
 import { AppBar } from '@/components/AppBar';
 import { StackRouterProps } from '@/routes/StackRoutes';
 
-export function Add({route}:StackRouterProps<"add">) {
+export function Add() {
 
     return (
-        <AppBar>
             <View style={styles.container}>
                 <Text style={styles.title}>Adicionar nova chave PIX</Text>
                 <View style={styles.formContainer}>
@@ -32,6 +31,5 @@ export function Add({route}:StackRouterProps<"add">) {
                     <Button title='Salvar'></Button>
                 </View>
             </View>
-        </AppBar>
     )
 }

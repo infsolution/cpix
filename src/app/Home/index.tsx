@@ -9,10 +9,12 @@ import { ItemPix } from '@/app/Type/types';
 import { Item } from '@/components/Item';
 import { ITEMS } from '../Type/mock';
 import { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 
-export function Home({navigation}: StackRouterProps<"home">) {
+export function Home() {
 
+  const navigation = useNavigation();
   const [listItemsId, setListItemsId] = useState<string[]>([]);
   const [listItems, setListItems] = useState<ItemPix[]>(ITEMS);
 
@@ -42,7 +44,7 @@ export function Home({navigation}: StackRouterProps<"home">) {
     console.log("Lista", listItemsId);
   }
   return (
-    <AppBar>
+    <>
       <View style={styles.container}>
         <Input placeholder='Buscar chave...' />
         <View style={styles.formContainer}>
@@ -75,7 +77,7 @@ export function Home({navigation}: StackRouterProps<"home">) {
       <View style={{ borderColor: "black", borderWidth: 1, width: "100%", height: 56, alignItems: "center", justifyContent: "center", backgroundColor: "gray" }}>
         <Text>ADS</Text>
       </View>
-    </AppBar>
+      </>
   );
 }
 
