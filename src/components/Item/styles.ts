@@ -6,25 +6,24 @@ export const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         gap: 8,
-        borderColor: "green",
+        borderColor: "#5BD5C7",
         borderWidth: 1,
-        borderRadius: 4,
-        height: 36,
+        borderRadius: 16,
+        height: 56,
         paddingStart: 12,
         paddingEnd: 12,
-        backgroundColor: "green"
+        backgroundColor: "#E4F7F6"
     },
     texts: {
         flex: 1,
-        flexDirection: "row",
-        gap: 12,
+        gap: 1,
     },
     text: {
-        color: "white",
+        color: "#035149",
     },
     checkbox: {
-        width: 12,
-        height: 12,
-        color: "white"
+        width: 42,
+        height: 42,
+        borderRadius: 50,
     }
 })

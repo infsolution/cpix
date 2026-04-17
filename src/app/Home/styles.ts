@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         width: "100%",
         paddingTop: 60,
+        paddingBottom: 72,
         padding: 24
 
     },
@@ -28,5 +29,15 @@ export const styles = StyleSheet.create({
         width: "100%",
         height: 3,
         backgroundColor: "#32FT99"
+    },
+    actions:{
+        flexDirection: "row",
+        justifyContent: "center",
+        width: "100%",
+        height: 24,
+        gap:120,
+        alignItems: "center",
+        marginBottom:8,
+        marginTop: 8,
     }
 })

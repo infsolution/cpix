@@ -10,13 +10,17 @@ import { Item } from '@/components/Item';
 import { ITEMS } from '../Type/mock';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import Feather from '@expo/vector-icons/Feather';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 
-export function Home() {
+export function Home({route}:StackRouterProps<"home">) {
 
   const navigation = useNavigation();
   const [listItemsId, setListItemsId] = useState<string[]>([]);
   const [listItems, setListItems] = useState<ItemPix[]>(ITEMS);
+  const [showActions, setShowActions] = useState(false);
 
   const copyItem = (id: string) => {
     console.log(id);
@@ -41,23 +45,50 @@ export function Home() {
           : item
       )
     );
+
+    if(listItemsId.length > 0){
+      setShowActions(true);
+    }else{
+      setShowActions(false);
+    }
     console.log("Lista", listItemsId);
   }
   return (
-    <>
+    <AppBar>
       <View style={styles.container}>
         <Input placeholder='Buscar chave...' />
+        
         <View style={styles.formContainer}>
           <View style={styles.formControl}>
             <TabBar />
           </View>
+ 
           <View style={styles.headerList}>
-            <Text>Chaves Cadastradas</Text>
-            <TouchableOpacity onPress={()=> navigation.navigate("add")}>
+            <View style={{alignItems:"center", flexDirection:"row"}}>
+              <MaterialIcons name="key" size={24} color="#035149" />
+              <Text style={{alignItems:"center"}}>  Chaves</Text>
+            </View>
+            <TouchableOpacity onPress={()=> navigation.navigate("add")} style={{alignItems:"center", flexDirection:"row", gap:6}}>
+              <MaterialIcons name="format-list-bulleted-add" size={20} color="black" />
               <Text>Adicionar Chave</Text>
             </TouchableOpacity>
           </View>
-
+          {
+        showActions && (
+          <View style={styles.actions}>
+            <TouchableOpacity style={{alignItems:"center"}}>
+              <FontAwesome5 name="share" size={24} color="#035149" />
+              <Text>Compartilhar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={{alignItems:"center"}}>
+              <Feather name="trash-2" size={24} color="red" />
+            <Text>Excluir</Text>
+            </TouchableOpacity>
+  
+          </View>
+        )
+      }
+  
           <View style={styles.listItem}>
             <FlatList
               data={listItems}
@@ -71,13 +102,8 @@ export function Home() {
 
           </View>
         </View>
-
-
       </View>
-      <View style={{ borderColor: "black", borderWidth: 1, width: "100%", height: 56, alignItems: "center", justifyContent: "center", backgroundColor: "gray" }}>
-        <Text>ADS</Text>
-      </View>
-      </>
+      </AppBar>
   );
 }
 
