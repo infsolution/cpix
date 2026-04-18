@@ -18,8 +18,8 @@ export type StackRoutelist ={
 
 export type StackRouterProps<T extends keyof StackRoutelist> = NativeStackScreenProps<StackRoutelist, T>;
 const Stack = createNativeStackNavigator<StackRoutelist>();
-
 export function StackRoutes(){
+    
     return(
     <Stack.Navigator initialRouteName="home" screenOptions={{headerShown:false}}>
         <Stack.Screen name="home" component={Home} />

@@ -2,7 +2,6 @@ import { Text, View, Image, TouchableOpacity, FlatList } from 'react-native';
 
 import { StackRouterProps } from '@/routes/StackRoutes';
 import { styles } from "./styles";
-import { Input } from '@/components/Input';
 import { AppBar } from '@/components/AppBar';
 import { TabBar } from '@/components/TabBar';
 import { ItemPix } from '@/app/Type/types';
@@ -11,8 +10,9 @@ import { ITEMS } from '../Type/mock';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Feather from '@expo/vector-icons/Feather';
-import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { colors } from '@/theme/colors';
+import { Header } from '@/components/Header';
 
 
 export function Home({route}:StackRouterProps<"home">) {
@@ -55,39 +55,30 @@ export function Home({route}:StackRouterProps<"home">) {
   }
   return (
     <AppBar>
+        <Header />
       <View style={styles.container}>
-        <Input placeholder='Buscar chave...' />
+        
         
         <View style={styles.formContainer}>
+          
+ 
+          <View style={styles.headerList}>
+            { !showActions && (<TouchableOpacity onPress={()=> navigation.navigate("add")} style={{alignItems:"center", flexDirection:"row", gap:6}}>
+              <MaterialIcons name="format-list-bulleted-add" size={20} color={colors.text.titles} />
+              <Text  style={{color:colors.text.titles}}>Adicionar Chave</Text>
+            </TouchableOpacity>)}
+          {
+            showActions &&(
+            <TouchableOpacity style={{alignItems:"center", flexDirection:"row"}}>
+              <Feather name="trash-2" size={20} color={colors.red.delete} />
+            <Text style={{color:colors.red.delete}}>Excluir chaves</Text>
+            </TouchableOpacity>
+            )
+          }
+          </View>
           <View style={styles.formControl}>
             <TabBar />
           </View>
- 
-          <View style={styles.headerList}>
-            <View style={{alignItems:"center", flexDirection:"row"}}>
-              <MaterialIcons name="key" size={24} color="#035149" />
-              <Text style={{alignItems:"center"}}>  Chaves</Text>
-            </View>
-            <TouchableOpacity onPress={()=> navigation.navigate("add")} style={{alignItems:"center", flexDirection:"row", gap:6}}>
-              <MaterialIcons name="format-list-bulleted-add" size={20} color="black" />
-              <Text>Adicionar Chave</Text>
-            </TouchableOpacity>
-          </View>
-          {
-        showActions && (
-          <View style={styles.actions}>
-            <TouchableOpacity style={{alignItems:"center"}}>
-              <FontAwesome5 name="share" size={24} color="#035149" />
-              <Text>Compartilhar</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={{alignItems:"center"}}>
-              <Feather name="trash-2" size={24} color="red" />
-            <Text>Excluir</Text>
-            </TouchableOpacity>
-  
-          </View>
-        )
-      }
   
           <View style={styles.listItem}>
             <FlatList

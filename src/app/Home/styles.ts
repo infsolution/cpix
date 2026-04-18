@@ -1,3 +1,4 @@
+import { colors } from "@/theme/colors";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
@@ -5,7 +6,7 @@ export const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         width: "100%",
-        paddingTop: 60,
+        paddingTop: 8,
         paddingBottom: 72,
         padding: 24
 
@@ -19,7 +20,7 @@ export const styles = StyleSheet.create({
     },
     headerList: {
         flexDirection: "row",
-        justifyContent: "space-between",
+        justifyContent: "flex-end",
         paddingBottom: 8
     },
     listItem: {
@@ -28,7 +29,7 @@ export const styles = StyleSheet.create({
     separators: {
         width: "100%",
         height: 3,
-        backgroundColor: "#32FT99"
+        backgroundColor: colors.background
     },
     actions:{
         flexDirection: "row",
