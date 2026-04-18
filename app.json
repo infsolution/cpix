@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "key-pix",
-    "slug": "key-pix",
+    "name": "c-pix",
+    "slug": "c-pix",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -14,16 +14,17 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.keypix"
+      "bundleIdentifier": "br.com.clsdev.cpix",
+      "icon":"./assets/adaptive-icon.png"
     },
     "android": {
+      "package": "br.com.clsdev.cpix",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#32BCAD"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false,
-      "package": "com.anonymous.keypix"
+      "predictiveBackGestureEnabled": false
     },
     "web": {
       "favicon": "./assets/favicon.png"

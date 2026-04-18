@@ -1,8 +1,9 @@
+import { colors } from "@/theme/colors";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
     container: {
-        backgroundColor: "#32BCAD",
+        backgroundColor: colors.green.btn,
         height: 48,
         width: "100%",
         borderRadius: 12,
@@ -10,7 +11,7 @@ export const styles = StyleSheet.create({
         justifyContent: "center"
     },
     title: {
-        color: "#F2FBFB",
+        color: colors.white,
         fontSize: 20,
         fontWeight: 500
     }

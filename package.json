@@ -1,5 +1,5 @@
 {
-  "name": "key-pix",
+  "name": "c-pix",
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "@types/react": "~19.1.0",
+    "eslint": "^10.2.1",
     "typescript": "~5.9.2"
   },
   "private": true
