@@ -15,7 +15,7 @@ import { colors } from '@/theme/colors';
 import { Header } from '@/components/Header';
 
 
-export function Home({route}:StackRouterProps<"home">) {
+export function Home({ route }: StackRouterProps<"home">) {
 
   const navigation = useNavigation();
   const [listItemsId, setListItemsId] = useState<string[]>([]);
@@ -46,40 +46,40 @@ export function Home({route}:StackRouterProps<"home">) {
       )
     );
 
-    if(listItemsId.length > 0){
+    if (listItemsId.length > 0) {
       setShowActions(true);
-    }else{
+    } else {
       setShowActions(false);
     }
     console.log("Lista", listItemsId);
   }
   return (
     <AppBar>
-        <Header />
+      <Header />
       <View style={styles.container}>
-        
-        
+
+
         <View style={styles.formContainer}>
-          
- 
+
+
           <View style={styles.headerList}>
-            { !showActions && (<TouchableOpacity onPress={()=> navigation.navigate("add")} style={{alignItems:"center", flexDirection:"row", gap:6}}>
+            {!showActions && (<TouchableOpacity onPress={() => navigation.navigate("add")} style={{ alignItems: "center", flexDirection: "row", gap: 6 }}>
               <MaterialIcons name="format-list-bulleted-add" size={20} color={colors.text.titles} />
-              <Text  style={{color:colors.text.titles}}>Adicionar Chave</Text>
+              <Text style={{ color: colors.text.titles }}>Adicionar Chave</Text>
             </TouchableOpacity>)}
-          {
-            showActions &&(
-            <TouchableOpacity style={{alignItems:"center", flexDirection:"row"}}>
-              <Feather name="trash-2" size={20} color={colors.red.delete} />
-            <Text style={{color:colors.red.delete}}>Excluir chaves</Text>
-            </TouchableOpacity>
-            )
-          }
+            {
+              showActions && (
+                <TouchableOpacity style={{ alignItems: "center", flexDirection: "row" }}>
+                  <Feather name="trash-2" size={20} color={colors.red.delete} />
+                  <Text style={{ color: colors.red.delete }}>Excluir chaves</Text>
+                </TouchableOpacity>
+              )
+            }
           </View>
           <View style={styles.formControl}>
             <TabBar />
           </View>
-  
+
           <View style={styles.listItem}>
             <FlatList
               data={listItems}
@@ -94,7 +94,7 @@ export function Home({route}:StackRouterProps<"home">) {
           </View>
         </View>
       </View>
-      </AppBar>
+    </AppBar>
   );
 }
 

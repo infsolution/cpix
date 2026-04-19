@@ -1,3 +1,4 @@
+import { colors } from "@/theme/colors";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
@@ -5,9 +6,10 @@ export const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         width: "100%",
-        paddingTop: 100,
+        backgroundColor: colors.white
     },
     title: {
+        marginTop: 24,
         fontSize: 24,
         fontWeight: 400
     },
@@ -22,9 +24,36 @@ export const styles = StyleSheet.create({
     formControl: {
         width: "100%",
     },
+    formControlPublic: {
+        flexDirection: "row",
+        alignItems: "center",
+        width: "100%",
+        height: 26,
+        marginBottom: 16
+    },
     label: {
         marginBottom: 8,
         color: "#080808",
         marginLeft: 2
+    },
+    readyOnlyContainer: {
+        width: "100%",
+        paddingHorizontal: 24,
+        marginTop: 24,
+    },
+    readOnlyTitleConteiner: {
+        width: "100%",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+    },
+    readyOnlyTitle: {
+        fontSize: 28,
+        fontWeight: 500,
+        color: colors.text.titles
+    },
+    readyOnlyText: {
+        fontSize: 16,
+        color: colors.text.label
     }
 })

@@ -1,3 +1,4 @@
+import { colors } from "@/theme/colors";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
@@ -5,11 +6,12 @@ export const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         width: "100%",
-        paddingTop: 100,
+        backgroundColor: colors.white
     },
     title: {
         fontSize: 24,
-        fontWeight: 400
+        fontWeight: 400,
+        marginTop: 24
     },
     subTitle: {
         fontSize: 14

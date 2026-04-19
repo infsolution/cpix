@@ -2,11 +2,13 @@ import { Text, View, Linking, TouchableOpacity } from 'react-native';
 import { styles } from "./styles";
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
-import Entypo from '@expo/vector-icons/Entypo';
 import { useState } from 'react';
 import { InputPassword } from '@/components/InputPassword';
+import { useNavigation } from '@react-navigation/native';
+import { TabGoBack } from '@/components/TabGoBack';
 
 export function Login() {
+    const navigation = useNavigation();
     const [activeSecureTextEntry, setActiveSecureTextEntry] = useState(true);
     return (
         <View style={styles.container}>
@@ -21,9 +23,9 @@ export function Login() {
                     <Text style={styles.label}>Senha</Text>
                     <InputPassword activeSecureTextEntry={activeSecureTextEntry} setActiveSecureTextEntry={setActiveSecureTextEntry} />
                 </View>
-                <Button title='Entrar'></Button>
+                <Button title='Entrar' onPress={() => navigation.navigate("home")}></Button>
 
-                <TouchableOpacity style={styles.forgotContainer} activeOpacity={0.8}>
+                <TouchableOpacity style={styles.forgotContainer} activeOpacity={0.8} onPress={() => console.log("forgot password")}>
                     <Text style={styles.forgot}>Esqueci minha senha</Text>
                 </TouchableOpacity>
 

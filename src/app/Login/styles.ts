@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: "center",
-        paddingTop: 140,
+        paddingTop: 90,
         padding: 24,
     },
     title: {
@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
         flex: 1,
         width: "100%",
         alignItems: "center",
-        paddingTop: 125
+        paddingTop: 70
     },
     formControl: {
         width: "100%",
