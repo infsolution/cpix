@@ -10,7 +10,7 @@ type Props = TextInputProps & {
 export function InputPassword({ activeSecureTextEntry, setActiveSecureTextEntry, ...rest }: Props) {
     return (
         <View style={styles.passwordInput}>
-            <TextInput placeholder='**********' secureTextEntry={activeSecureTextEntry} style={styles.inputStyle} />
+            <TextInput placeholder='**********' secureTextEntry={activeSecureTextEntry} style={styles.inputStyle} {...rest} />
             {activeSecureTextEntry ?
                 <Entypo name="eye" size={24} color="#32BCAD" style={styles.iconStyle} onPress={() => setActiveSecureTextEntry(!activeSecureTextEntry)} /> :
                 <Entypo name="eye-with-line" size={24} color="#32BCAD" style={styles.iconStyle} onPress={() => setActiveSecureTextEntry(!activeSecureTextEntry)} />

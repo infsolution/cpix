@@ -15,7 +15,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "br.com.clsdev.cpix",
-      "icon":"./assets/adaptive-icon.png"
+      "icon": "./assets/adaptive-icon.png"
     },
     "android": {
       "package": "br.com.clsdev.cpix",
@@ -30,7 +30,8 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-font"
+      "expo-font",
+      "expo-sqlite"
     ]
   }
 }

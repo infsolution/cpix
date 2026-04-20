@@ -21,7 +21,7 @@ const Stack = createNativeStackNavigator<StackRoutelist>();
 export function StackRoutes() {
 
     return (
-        <Stack.Navigator initialRouteName="add" screenOptions={{ headerShown: false }}>
+        <Stack.Navigator initialRouteName="login" screenOptions={{ headerShown: false }}>
             <Stack.Screen name="home" component={Home} />
             <Stack.Screen name="login" component={Login} />
             <Stack.Screen name="signIn" component={SignIn} />

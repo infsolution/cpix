@@ -34,7 +34,8 @@ export const styles = StyleSheet.create({
     forgotContainer: {
         width: "100%",
         justifyContent: "flex-start",
-        marginTop: 8
+        marginTop: 8,
+        marginBottom: 24
     },
     passwordInput: {
         width: "100%",
@@ -54,4 +55,8 @@ export const styles = StyleSheet.create({
     inputStyle: {
         flex: 1,
     },
+    linkSignin: {
+        color: "#140EFF",
+        fontWeight: 500
+    }
 })
