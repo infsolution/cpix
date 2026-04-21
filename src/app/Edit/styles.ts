@@ -55,5 +55,10 @@ export const styles = StyleSheet.create({
     readyOnlyText: {
         fontSize: 16,
         color: colors.text.label
+    },
+    readyOnlyTextkey: {
+        fontSize: 20,
+        color: colors.text.label,
+        fontWeight: "bold"
     }
 })

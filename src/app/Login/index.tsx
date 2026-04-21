@@ -2,18 +2,22 @@ import { Text, View, Linking, TouchableOpacity, Alert } from 'react-native';
 import { styles } from "./styles";
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { InputPassword } from '@/components/InputPassword';
 import { useNavigation } from '@react-navigation/native';
 import { usePixDatabase } from '@/database/usePixDatabase';
+import { Loading } from '@/components/Loading';
 
 export function Login() {
     const pixDatabase = usePixDatabase();
     const navigation = useNavigation();
     const [activeSecureTextEntry, setActiveSecureTextEntry] = useState(true);
     const [isProcessing, setIsProcessing] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [email, SetEmail] = useState('');
     const [password, SetPassword] = useState('');
+    const [isLoged, setIsloged] = useState(false);
+
 
     async function handleLogin() {
         if (!email || !password) {
@@ -28,19 +32,18 @@ export function Login() {
     async function login() {
         try {
             const response = await pixDatabase.login({
-                email,
-                password
+                email: email.trim(),
+                password: password.trim()
             });
-
             if (!response) {
-                Alert.alert("Error", "Email ou senha incorretosssss");
+                Alert.alert("Error", "Email ou senha incorretos");
                 setIsProcessing(false);
                 return;
             }
 
             setIsProcessing(false);
 
-            console.log(response);
+            setIsloged(true);
             navigation.navigate("home")
 
 
@@ -48,6 +51,18 @@ export function Login() {
             Alert.alert("Error", "Erro de validação dos dados");
             setIsProcessing(false);
         }
+    }
+
+    useEffect(() => {
+        if (isLoged) {
+            navigation.navigate("home");
+        } else {
+            setIsLoading(false);
+        }
+    }, [])
+
+    if (isLoading) {
+        return <Loading />
     }
     return (
         <View style={styles.container}>

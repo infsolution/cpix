@@ -1,5 +1,4 @@
-import { Text, View, Image, TouchableOpacity, FlatList } from 'react-native';
-
+import { Text, View, Image, TouchableOpacity, FlatList, Alert } from 'react-native';
 import { StackRouterProps } from '@/routes/StackRoutes';
 import { styles } from "./styles";
 import { AppBar } from '@/components/AppBar';
@@ -7,29 +6,35 @@ import { TabBar } from '@/components/TabBar';
 import { ItemPix } from '@/app/Type/types';
 import { Item } from '@/components/Item';
 import { ITEMS } from '../Type/mock';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Feather from '@expo/vector-icons/Feather';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { colors } from '@/theme/colors';
 import { Header } from '@/components/Header';
+import { usePixDatabase } from '@/database/usePixDatabase';
+import { useFocusEffect } from '@react-navigation/native';
+import { EmptyList } from '@/components/EmptyList';
 
 
 export function Home({ route }: StackRouterProps<"home">) {
-
+  const usepixDatabase = usePixDatabase();
   const navigation = useNavigation();
   const [listItemsId, setListItemsId] = useState<string[]>([]);
-  const [listItems, setListItems] = useState<ItemPix[]>(ITEMS);
+  const [listItems, setListItems] = useState<ItemPix[]>([]);
   const [showActions, setShowActions] = useState(false);
 
   const copyItem = (id: string) => {
     console.log(id);
   }
-
-  const onMarkItem = (id: string, selected: boolean) => {
+  /**
+   * Select or deselect item in list
+   * @param id 
+   * @param selected 
+   */
+  const onMarkItem = (id: string, selected: boolean | null) => {
     if (!selected) {
       listItemsId.push(id)
-      console.log("Add");
       setListItemsId([...listItemsId])
     } else {
       const index = listItemsId.indexOf(id);
@@ -51,17 +56,27 @@ export function Home({ route }: StackRouterProps<"home">) {
     } else {
       setShowActions(false);
     }
-    console.log("Lista", listItemsId);
   }
+
+  async function getKeys() {
+    try {
+      const response = await usepixDatabase.listKeys();
+      setListItems(response)
+    } catch (error) {
+      Alert.alert("Error", "Error fetching keys");
+      console.error("Error fetching keys:", error);
+    }
+  }
+  useFocusEffect(
+    useCallback(() => {
+      getKeys();
+    }, [])
+  )
   return (
     <AppBar>
       <Header />
       <View style={styles.container}>
-
-
         <View style={styles.formContainer}>
-
-
           <View style={styles.headerList}>
             {!showActions && (<TouchableOpacity onPress={() => navigation.navigate("add")} style={{ alignItems: "center", flexDirection: "row", gap: 6 }}>
               <MaterialIcons name="format-list-bulleted-add" size={20} color={colors.text.titles} />
@@ -89,6 +104,7 @@ export function Home({ route }: StackRouterProps<"home">) {
               )}
               ItemSeparatorComponent={() => <View style={styles.separators} />}
               showsVerticalScrollIndicator={false}
+              ListEmptyComponent={<EmptyList />}
             />
 
           </View>

@@ -16,18 +16,18 @@ export function Item({ id, name, bank, selected, onCopyItem, onMarkItem }: Props
     return (
         <View style={styles.container} key={id}>
             {
-                
-                selected &&<Checkbox color={colors.list.captular} style={styles.checkbox} value={selected} onValueChange={() => onMarkItem(id, selected)} />
+
+                selected && <Checkbox color={colors.list.captular} style={styles.checkbox} value={selected} onValueChange={() => onMarkItem(id, selected)} />
             }
             {
                 !selected && <ItemCircle name={name} onMarkItem={onMarkItem} />
             }
-            <TouchableOpacity style={styles.texts} activeOpacity={0.8} onPress={() => itemNavigation.navigate("edit", {id})}>
+            <TouchableOpacity style={styles.texts} activeOpacity={0.8} onPress={() => itemNavigation.navigate("edit", { id })}>
                 <Text style={styles.title}>{name}</Text>
                 <Text style={styles.text}>{bank}</Text>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={0.8} onPress={() => onCopyItem()}>
-                <Feather name="copy" size={24} color={colors.list.captular}  />
+                <Feather name="copy" size={24} color={colors.list.captular} />
             </TouchableOpacity>
 
         </View>

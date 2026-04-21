@@ -19,14 +19,14 @@ export const styles = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 16,
     },
-    text:{
+    text: {
         color: colors.list.textItem,
-         fontWeight: "normal",
+        fontWeight: "normal",
         fontSize: 16,
     },
     checkbox: {
-        width: 42,
-        height: 42,
+        width: 44,
+        height: 44,
         borderRadius: 50,
     }
 })

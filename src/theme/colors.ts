@@ -14,7 +14,7 @@ export const colors = {
         titles: "#1F1F1F",
         tab: "#919191",
         placeholder: "#333333",
-        label: "080808",
+        label: "#080808",
         iconItem: "#898989"
     },
     tab: {

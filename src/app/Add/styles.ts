@@ -28,5 +28,14 @@ export const styles = StyleSheet.create({
         marginBottom: 8,
         color: "#080808",
         marginLeft: 2
+    },
+    formControlPublic: {
+        flexDirection: "row",
+        alignItems: "center",
+        width: "100%",
+        height: 26,
+        marginBottom: 16
     }
+
+
 })
