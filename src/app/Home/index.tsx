@@ -5,7 +5,6 @@ import { AppBar } from '@/components/AppBar';
 import { TabBar } from '@/components/TabBar';
 import { ItemPix } from '@/app/Type/types';
 import { Item } from '@/components/Item';
-import { ITEMS } from '../Type/mock';
 import { useState, useCallback } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Feather from '@expo/vector-icons/Feather';
@@ -18,7 +17,7 @@ import { EmptyList } from '@/components/EmptyList';
 
 
 export function Home({ route }: StackRouterProps<"home">) {
-  const usepixDatabase = usePixDatabase();
+  const pixDatabase = usePixDatabase();
   const navigation = useNavigation();
   const [listItemsId, setListItemsId] = useState<string[]>([]);
   const [listItems, setListItems] = useState<ItemPix[]>([]);
@@ -60,12 +59,33 @@ export function Home({ route }: StackRouterProps<"home">) {
 
   async function getKeys() {
     try {
-      const response = await usepixDatabase.listKeys();
+      const response = await pixDatabase.listKeys();
       setListItems(response)
     } catch (error) {
       Alert.alert("Error", "Error fetching keys");
       console.error("Error fetching keys:", error);
     }
+  }
+
+  function remove() {
+    deleteKey();
+  }
+
+  async function deleteKey() {
+    try {
+      await pixDatabase.deleteKey(listItemsId);
+      hideActions()
+      Alert.alert("Excluidos", "Chaves Excluídas com sucesso.");
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Erro", "Erro ao tentar excluir as chaves");
+    }
+  }
+
+  function hideActions() {
+    setListItemsId([])
+    setShowActions(false);
+    getKeys()
   }
   useFocusEffect(
     useCallback(() => {
@@ -84,7 +104,12 @@ export function Home({ route }: StackRouterProps<"home">) {
             </TouchableOpacity>)}
             {
               showActions && (
-                <TouchableOpacity style={{ alignItems: "center", flexDirection: "row" }}>
+                <TouchableOpacity
+                  style={{ alignItems: "center", flexDirection: "row" }}
+                  onPress={() => Alert.alert("Excluir?", "Tem certeza que vai excluir todas as chaves selecionadas? \nNão tem mais volta.", [
+                    { text: "Não", style: "cancel" },
+                    { text: "Sim", onPress: remove },
+                  ])}>
                   <Feather name="trash-2" size={20} color={colors.red.delete} />
                   <Text style={{ color: colors.red.delete }}>Excluir chaves</Text>
                 </TouchableOpacity>

@@ -6,7 +6,7 @@ import { Checkbox } from "expo-checkbox";
 import { useState } from 'react';
 import { InputPassword } from '@/components/InputPassword';
 import { useNavigation } from '@react-navigation/native';
-import { usePixDatabase } from '@/database/usePixDatabase';
+import { useUserDatabase } from '@/database/useUserDatabase';
 
 export function SignIn() {
     const navigation = useNavigation();
@@ -19,7 +19,7 @@ export function SignIn() {
     const [password, SetPassword] = useState('');
     const [confirmPassword, SetConfirmPassword] = useState('');
 
-    const pixDatabase = usePixDatabase();
+    const userDatabase = useUserDatabase();
 
     function handleSignIn() {
 
@@ -42,7 +42,7 @@ export function SignIn() {
 
     async function create() {
         try {
-            await pixDatabase.create({
+            await userDatabase.create({
                 name,
                 email,
                 password,

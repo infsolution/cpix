@@ -5,18 +5,18 @@ import { Input } from '@/components/Input';
 import { useState, useEffect } from 'react';
 import { InputPassword } from '@/components/InputPassword';
 import { useNavigation } from '@react-navigation/native';
-import { usePixDatabase } from '@/database/usePixDatabase';
+import { useUserDatabase } from '@/database/useUserDatabase';
 import { Loading } from '@/components/Loading';
 
 export function Login() {
-    const pixDatabase = usePixDatabase();
+    const userDatabase = useUserDatabase();
     const navigation = useNavigation();
     const [activeSecureTextEntry, setActiveSecureTextEntry] = useState(true);
     const [isProcessing, setIsProcessing] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [email, SetEmail] = useState('');
     const [password, SetPassword] = useState('');
-    const [isLoged, setIsloged] = useState(false);
+    const [isLoged, setIsloged] = useState(true);
 
 
     async function handleLogin() {
@@ -31,7 +31,7 @@ export function Login() {
 
     async function login() {
         try {
-            const response = await pixDatabase.login({
+            const response = await userDatabase.login({
                 email: email.trim(),
                 password: password.trim()
             });

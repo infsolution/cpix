@@ -5,17 +5,6 @@ import { useSQLiteContext } from "expo-sqlite"
 export function usePixDatabase() {
     const database = useSQLiteContext()
 
-    //Creates
-    async function create(data: UserCrete) {
-        const statement = await database.prepareAsync(`INSERT INTO users (name, email, password) VALUES ($name, $email, $password)`);
-
-        await statement.executeAsync({
-            $name: data.name,
-            $email: data.email,
-            $password: data.password
-        })
-    }
-
     async function addKey(data: KeyCreate) {
         const statement = await database.prepareAsync(`INSERT INTO keys (user_id, name, key, bank, is_public) VALUES ($user_id, $name, $key, $bank, $is_public)`);
 
@@ -27,16 +16,6 @@ export function usePixDatabase() {
             $is_public: data.is_public,
         })
     }
-
-    //Gets
-    function login(data: { email: string, password: string }) {
-        const response = database.getFirstAsync<UserLoged>(`SELECT * FROM users WHERE email = '${data.email}' AND password = '${data.password}'`, {
-            $email: data.email,
-            $password: data.password
-        })
-        return response;
-    }
-
 
     function listKeys() {
         const data = database.getAllAsync<KeyResponse>(`SELECT *, null AS selected FROM keys`)
@@ -75,8 +54,6 @@ export function usePixDatabase() {
     }
 
     return {
-        create,
-        login,
         listKeys,
         addKey,
         getKey,
