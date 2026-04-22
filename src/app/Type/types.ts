@@ -2,6 +2,7 @@ export type ItemPix = {
     id: string,
     name: string,
     bank: string,
+    key?: string,
     selected: boolean | null
 }
 

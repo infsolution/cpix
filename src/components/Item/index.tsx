@@ -9,7 +9,7 @@ import { colors } from "@/theme/colors";
 
 type Props = ItemPix & {
     onMarkItem: (id: string, selected: boolean) => void,
-    onCopyItem: () => void,
+    onCopyItem: (id: string) => void,
 }
 export function Item({ id, name, bank, selected, onCopyItem, onMarkItem }: Props) {
     const itemNavigation = useNavigation();
@@ -26,7 +26,7 @@ export function Item({ id, name, bank, selected, onCopyItem, onMarkItem }: Props
                 <Text style={styles.title}>{name}</Text>
                 <Text style={styles.text}>{bank}</Text>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={0.8} onPress={() => onCopyItem()}>
+            <TouchableOpacity activeOpacity={0.8} onPress={() => onCopyItem(id)}>
                 <Feather name="copy" size={24} color={colors.list.captular} />
             </TouchableOpacity>
 

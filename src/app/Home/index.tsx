@@ -14,7 +14,7 @@ import { Header } from '@/components/Header';
 import { usePixDatabase } from '@/database/usePixDatabase';
 import { useFocusEffect } from '@react-navigation/native';
 import { EmptyList } from '@/components/EmptyList';
-
+import { copyText } from '@/utils/structure'
 
 export function Home({ route }: StackRouterProps<"home">) {
   const pixDatabase = usePixDatabase();
@@ -23,8 +23,11 @@ export function Home({ route }: StackRouterProps<"home">) {
   const [listItems, setListItems] = useState<ItemPix[]>([]);
   const [showActions, setShowActions] = useState(false);
 
-  const copyItem = (id: string) => {
-    console.log(id);
+  const copyItem = async (id: string) => {
+    const item = listItems.find(key => key.id === id);
+    if (item && item.key) {
+      copyText(item.key)
+    }
   }
   /**
    * Select or deselect item in list
