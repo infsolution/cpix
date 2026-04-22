@@ -30,7 +30,7 @@ export function Add() {
 
     async function add() {
         try {
-            await pixDatabase.addKey({
+            await pixDatabase.create({
                 user_id,
                 name,
                 bank,

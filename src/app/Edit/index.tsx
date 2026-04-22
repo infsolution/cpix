@@ -10,6 +10,7 @@ import { Switch } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
 import { colors } from '@/theme/colors';
 import { usePixDatabase } from '@/database/usePixDatabase';
+import dayjs from "dayjs"
 import { Loading } from '@/components/Loading';
 import { KeyUpdate } from '../Type/types';
 
@@ -91,7 +92,7 @@ export function Edit({ route }: StackRouterProps<"edit">) {
                                 <Feather name="edit-2" size={20} color="black" />
                             </TouchableOpacity>
                         </View>
-                        <Text style={{ fontSize: 10 }}>Chave cadstrada em {createdAt}</Text>
+                        <Text style={{ fontSize: 10 }}>Chave cadstrada em {dayjs(createdAt).format("DD/MM/YYYY")}</Text>
 
                         <Text style={styles.readyOnlyText}>{bank}</Text>
                         <TouchableOpacity activeOpacity={0.8} onPress={() => { Alert.alert("Chave copiada!", "Cole no app do seu banco") }}>

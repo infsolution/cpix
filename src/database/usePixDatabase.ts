@@ -5,7 +5,7 @@ import { useSQLiteContext } from "expo-sqlite"
 export function usePixDatabase() {
     const database = useSQLiteContext()
 
-    async function addKey(data: KeyCreate) {
+    async function create(data: KeyCreate) {
         const statement = await database.prepareAsync(`INSERT INTO keys (user_id, name, key, bank, is_public) VALUES ($user_id, $name, $key, $bank, $is_public)`);
 
         await statement.executeAsync({
@@ -55,7 +55,7 @@ export function usePixDatabase() {
 
     return {
         listKeys,
-        addKey,
+        create,
         getKey,
         updateKey,
         deleteKey
