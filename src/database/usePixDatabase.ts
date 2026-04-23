@@ -18,7 +18,7 @@ export function usePixDatabase() {
     }
 
     function listKeys() {
-        const data = database.getAllAsync<KeyResponse>(`SELECT *, null AS selected FROM keys`)
+        const data = database.getAllAsync<KeyResponse>(`SELECT *, null AS selected, key AS keyPix FROM keys`)
         return data;
     }
 

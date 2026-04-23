@@ -11,8 +11,11 @@ type Props = ItemPix & {
     onMarkItem: (id: string, selected: boolean) => void,
     onCopyItem: (id: string) => void,
 }
-export function Item({ id, name, bank, selected, onCopyItem, onMarkItem }: Props) {
+export function Item({ id, name, bank, selected, keyPix, onCopyItem, onMarkItem }: Props) {
     const itemNavigation = useNavigation();
+    if (keyPix) {
+        // 
+    }
     return (
         <View style={styles.container} key={id}>
             {

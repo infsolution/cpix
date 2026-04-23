@@ -7,7 +7,7 @@ import { colors } from '@/theme/colors';
 
 export function Profile() {
     return (
-        <AppBar>
+        <AppBar keys={[]} currentRoute='profile'>
             <TabGoBack />
             <View style={styles.formContainer}>
                 <View style={styles.formControl}>

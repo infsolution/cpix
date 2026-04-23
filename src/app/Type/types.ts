@@ -2,7 +2,7 @@ export type ItemPix = {
     id: string,
     name: string,
     bank: string,
-    key?: string,
+    keyPix: string,
     selected: boolean | null
 }
 
@@ -24,7 +24,7 @@ export type KeyResponse = {
     id: string,
     user_id: string,
     name: string,
-    key: string,
+    keyPix: string,
     bank: string,
     is_public: boolean,
     selected: boolean | null
@@ -53,4 +53,10 @@ export type KeyUpdate = {
     key: string,
     bank: string,
     is_public: boolean,
+}
+
+export type KeysToShare = {
+    id: string,
+    name: string,
+    keyPix: string,
 }

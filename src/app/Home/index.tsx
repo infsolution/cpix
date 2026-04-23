@@ -3,7 +3,7 @@ import { StackRouterProps } from '@/routes/StackRoutes';
 import { styles } from "./styles";
 import { AppBar } from '@/components/AppBar';
 import { TabBar } from '@/components/TabBar';
-import { ItemPix } from '@/app/Type/types';
+import { ItemPix, KeysToShare } from '@/app/Type/types';
 import { Item } from '@/components/Item';
 import { useState, useCallback } from 'react';
 import { useNavigation } from '@react-navigation/native';
@@ -21,12 +21,13 @@ export function Home({ route }: StackRouterProps<"home">) {
   const navigation = useNavigation();
   const [listItemsId, setListItemsId] = useState<string[]>([]);
   const [listItems, setListItems] = useState<ItemPix[]>([]);
+  const [keysToShare, setKeysToShare] = useState<KeysToShare[]>([]);
   const [showActions, setShowActions] = useState(false);
 
   const copyItem = async (id: string) => {
     const item = listItems.find(key => key.id === id);
-    if (item && item.key) {
-      copyText(item.key)
+    if (item && item.keyPix) {
+      copyText(item.keyPix)
     }
   }
   /**
@@ -38,11 +39,20 @@ export function Home({ route }: StackRouterProps<"home">) {
     if (!selected) {
       listItemsId.push(id)
       setListItemsId([...listItemsId])
+      const item = listItems.find(key => key.id === id);
+      if (item) {
+        keysToShare.push({ id: item.id, name: item.name, keyPix: item.keyPix })
+        setKeysToShare([...keysToShare])
+      }
     } else {
       const index = listItemsId.indexOf(id);
       if (index > -1) {
         listItemsId.splice(index, 1);
       }
+
+      const filteredKeys = keysToShare.filter(key => key.id !== id);
+      setKeysToShare(filteredKeys)
+
     }
 
     setListItems(prev =>
@@ -58,6 +68,7 @@ export function Home({ route }: StackRouterProps<"home">) {
     } else {
       setShowActions(false);
     }
+
   }
 
   async function getKeys() {
@@ -87,6 +98,7 @@ export function Home({ route }: StackRouterProps<"home">) {
 
   function hideActions() {
     setListItemsId([])
+    setKeysToShare([]);
     setShowActions(false);
     getKeys()
   }
@@ -96,7 +108,7 @@ export function Home({ route }: StackRouterProps<"home">) {
     }, [])
   )
   return (
-    <AppBar>
+    <AppBar keys={keysToShare} currentRoute={'home'}>
       <Header />
       <View style={styles.container}>
         <View style={styles.formContainer}>
@@ -107,15 +119,21 @@ export function Home({ route }: StackRouterProps<"home">) {
             </TouchableOpacity>)}
             {
               showActions && (
-                <TouchableOpacity
-                  style={{ alignItems: "center", flexDirection: "row" }}
-                  onPress={() => Alert.alert("Excluir?", "Tem certeza que vai excluir todas as chaves selecionadas? \nNão tem mais volta.", [
-                    { text: "Não", style: "cancel" },
-                    { text: "Sim", onPress: remove },
-                  ])}>
-                  <Feather name="trash-2" size={20} color={colors.red.delete} />
-                  <Text style={{ color: colors.red.delete }}>Excluir chaves</Text>
-                </TouchableOpacity>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", width: "100%" }}>
+                  <TouchableOpacity onPress={hideActions} style={{ alignItems: "center", flexDirection: "row", gap: 6 }}>
+                    <MaterialIcons name="filter-list-off" size={20} color={colors.text.titles} />
+                    <Text style={{ color: colors.text.titles }}>Limpar Seleção</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={{ alignItems: "center", flexDirection: "row" }}
+                    onPress={() => Alert.alert("Excluir?", "Tem certeza que vai excluir todas as chaves selecionadas? \nNão tem mais volta.", [
+                      { text: "Não", style: "cancel" },
+                      { text: "Sim", onPress: remove },
+                    ])}>
+                    <Feather name="trash-2" size={20} color={colors.red.delete} />
+                    <Text style={{ color: colors.red.delete }}>Excluir chaves</Text>
+                  </TouchableOpacity>
+                </View>
               )
             }
           </View>
@@ -128,7 +146,7 @@ export function Home({ route }: StackRouterProps<"home">) {
               data={listItems}
               keyExtractor={(item) => item.id}
               renderItem={({ item }) => (
-                <Item id={item.id} name={item.name} bank={item.bank} selected={item.selected} onCopyItem={() => copyItem(item.id)} onMarkItem={() => onMarkItem(item.id, item.selected)} />
+                <Item id={item.id} name={item.name} bank={item.bank} keyPix={item.keyPix} selected={item.selected} onCopyItem={() => copyItem(item.id)} onMarkItem={() => onMarkItem(item.id, item.selected)} />
               )}
               ItemSeparatorComponent={() => <View style={styles.separators} />}
               showsVerticalScrollIndicator={false}
