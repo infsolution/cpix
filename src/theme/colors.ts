@@ -15,7 +15,8 @@ export const colors = {
         tab: "#919191",
         placeholder: "#333333",
         label: "#080808",
-        iconItem: "#898989"
+        iconItem: "#898989",
+        input: "#383838"
     },
     tab: {
         background: "#F2F2F0",
@@ -44,5 +45,7 @@ export const colors = {
         btnOn: "#11C36D",
         backOff: "#B2B2B2",
         btnOff: "#ECECEC"
-    }
+    },
+    visibilityPassword: "#32BCAD"
+
 }

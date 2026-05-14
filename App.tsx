@@ -1,4 +1,4 @@
-import { Routes } from "@/routes";
+import { NavigationRoutes } from "@/routes";
 import { useEffect, Suspense } from "react";
 import * as SplashScreen from 'expo-splash-screen';
 import {
@@ -8,6 +8,7 @@ import {
 import { Loading } from "@/components/Loading";
 import { SQLiteProvider } from "expo-sqlite";
 import { migrate } from "@/database/migrate";
+import { AuthContextProvider } from "@/context/auth.context";
 
 export default function App() {
   const [fontLoaded, error] = useFonts({
@@ -26,9 +27,11 @@ export default function App() {
   }
   return (
     <Suspense fallback={<Loading />}>
-      <SQLiteProvider databaseName="cpix.db" onInit={migrate} useSuspense>
-        <Routes />
-      </SQLiteProvider>
+      <AuthContextProvider>
+        <SQLiteProvider databaseName="cpix.db" onInit={migrate} useSuspense>
+          <NavigationRoutes />
+        </SQLiteProvider>
+      </AuthContextProvider>
     </Suspense>
   );
 }

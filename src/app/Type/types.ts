@@ -6,7 +6,7 @@ export type ItemPix = {
     selected: boolean | null
 }
 
-export type UserCrete = {
+export type UserCreate = {
     name: string,
     email: string,
     password: string,
@@ -17,7 +17,8 @@ export type UserCrete = {
 export type UserLoged = {
     id: string,
     name: string,
-    email: string
+    email: string,
+    isLoged: boolean,
 }
 
 export type KeyResponse = {

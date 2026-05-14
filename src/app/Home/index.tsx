@@ -16,6 +16,52 @@ import { useFocusEffect } from '@react-navigation/native';
 import { EmptyList } from '@/components/EmptyList';
 import { copyText } from '@/utils/structure'
 
+/**
+ * Home component displays the saved PIX keys, handles navigation to add new keys,
+ * manages item selection for sharing or deletion, and renders the key list.
+ *
+ * @param route - navigation route props for the home screen.
+ * @returns JSX.Element
+ */
+
+/**
+ * Copies the PIX key text for the given item id to the clipboard.
+ *
+ * @param id - The id of the item whose keyPix should be copied.
+ * @returns Promise<void> resolved when the copy operation completes.
+ */
+
+/**
+ * Selects or deselects an item in the list and updates related state.
+ *
+ * @param id - The id of the item to mark or unmark.
+ * @param selected - Current selection state of the item. If false or null, the item will be selected.
+ * @returns void
+ */
+
+/**
+ * Fetches the list of PIX keys from the database and updates component state.
+ *
+ * @returns Promise<void> resolved after the keys are loaded or an error is handled.
+ */
+
+/**
+ * Initiates deletion of the currently selected keys.
+ *
+ * @returns void
+ */
+
+/**
+ * Deletes the selected keys from the database, hides action controls, and shows a result alert.
+ *
+ * @returns Promise<void> resolved after deletion is attempted and state is updated.
+ */
+
+/**
+ * Clears all selection state, hides action controls, resets share data, and reloads the keys list.
+ *
+ * @returns void
+ */
 export function Home({ route }: StackRouterProps<"home">) {
   const pixDatabase = usePixDatabase();
   const navigation = useNavigation();
@@ -23,6 +69,7 @@ export function Home({ route }: StackRouterProps<"home">) {
   const [listItems, setListItems] = useState<ItemPix[]>([]);
   const [keysToShare, setKeysToShare] = useState<KeysToShare[]>([]);
   const [showActions, setShowActions] = useState(false);
+
 
   const copyItem = async (id: string) => {
     const item = listItems.find(key => key.id === id);
@@ -152,6 +199,7 @@ export function Home({ route }: StackRouterProps<"home">) {
               showsVerticalScrollIndicator={false}
               ListEmptyComponent={<EmptyList />}
             />
+
 
           </View>
         </View>

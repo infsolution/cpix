@@ -1,5 +1,5 @@
 
-import { KeyCreate, KeyResponse, KeyUpdate, TypeKey, UserCrete, UserLoged } from "@/app/Type/types"
+import { KeyCreate, KeyResponse, KeyUpdate, TypeKey, UserCreate, UserLoged } from "@/app/Type/types"
 import { useSQLiteContext } from "expo-sqlite"
 
 export function usePixDatabase() {
