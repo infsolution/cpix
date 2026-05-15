@@ -7,6 +7,13 @@ export const styles = StyleSheet.create({
         paddingTop: 10,
         padding: 24,
     },
+    title: {
+        fontSize: 38,
+        fontWeight: 700
+    },
+    subTitle: {
+        fontSize: 14
+    },
     formContainer: {
         flex: 1,
         width: "100%",

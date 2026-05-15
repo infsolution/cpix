@@ -8,9 +8,12 @@ import { useNavigation } from '@react-navigation/native';
 import { yupResolver } from "@hookform/resolvers/yup"
 import { schema } from "./schema";
 import { FormLoginParams } from "@/app/Type/interfaces";
+import { useUserDatabase } from '@/database/useUserDatabase';
+import { useAuthContext } from "@/context/auth.context";
 
 export const LoginForm = () => {
     const navigation = useNavigation();
+    const userDatabase = useUserDatabase();
     const { control, handleSubmit, formState: { isSubmitting } } = useForm<FormLoginParams>({
         defaultValues: {
             email: "",
@@ -18,8 +21,15 @@ export const LoginForm = () => {
         },
         resolver: yupResolver(schema)
     });
-    const onSubmit = async () => {
-
+    const { setUser } = useAuthContext();
+    const onSubmit = async (data: FormLoginParams) => {
+        try {
+            const response = await userDatabase.login(data);
+            setUser(response);
+            navigation.navigate("home")
+        } catch (error) {
+            console.log("Error login user", error);
+        }
     }
 
     return (

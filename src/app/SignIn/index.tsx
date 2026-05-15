@@ -1,52 +1,17 @@
-import { Text, View, Image, Alert } from 'react-native';
+
 import { styles } from "./styles";
-import { Button } from '@/components/Button';
-import { Input } from '@/components/Input';
-import { Checkbox } from "expo-checkbox";
-import { useState } from 'react';
-import { InputPassword } from '@/components/InputPassword';
-import { useNavigation } from '@react-navigation/native';
-import { useUserDatabase } from '@/database/useUserDatabase';
+import { Text, View, Linking, TouchableOpacity, Alert } from 'react-native';
 import { DismissKeiboardview } from '@/components/DismissKeyboardView';
 import { SigninForm } from './SigninForm';
 
 export function SignIn() {
-    const navigation = useNavigation();
-    const [termChecked, SetTermeChecked] = useState(false);
-    const [activeSecureTextEntry, setActiveSecureTextEntry] = useState(true);
-    const [activeSecureTextEntryConfirm, setActiveSecureTextEntryConfiorm] = useState(true);
-    const [isProcessing, setIsProcessing] = useState(false);
-    const [name, SetName] = useState('');
-    const [email, SetEmail] = useState('');
-    const [password, SetPassword] = useState('');
-    const [confirmPassword, SetConfirmPassword] = useState('');
-
-    const userDatabase = useUserDatabase();
-
-    function handleSignIn() {
-
-        if (!name || !email || !password || !confirmPassword) {
-            Alert.alert("Atenção", "Preencha todos os campos");
-            return;
-        }
-        if (password !== confirmPassword) {
-            Alert.alert("Atenção", "As senhas não coincidem");
-            return;
-        }
-        if (!termChecked) {
-            Alert.alert("Atenção", "Você deve concordar com os termos e condições");
-            return;
-        }
-
-        setIsProcessing(true);
-
-    }
-
-
-
     return (
         <DismissKeiboardview >
-            <SigninForm />
+            <View style={styles.container}>
+                <Text style={styles.title}>CPIX</Text>
+                <Text style={styles.subTitle}>Deixa o PIX ainda mais prático</Text>
+                <SigninForm />
+            </View>
         </DismissKeiboardview>
     )
 }

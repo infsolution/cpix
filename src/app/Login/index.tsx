@@ -16,43 +16,7 @@ export function Login() {
     const [password, SetPassword] = useState('');
 
 
-    async function handleLogin() {
-        if (!email || !password) {
-            Alert.alert("Atenção", "Preencha email e senha");
-            return;
-        }
-        setIsProcessing(true);
 
-        login();
-    }
-
-    async function login() {
-        try {
-            const response = await userDatabase.login({
-                email: email.trim(),
-                password: password.trim()
-            });
-            if (!response) {
-                Alert.alert("Error", "Email ou senha incorretos");
-                setIsProcessing(false);
-                return;
-            }
-
-            setIsProcessing(false);
-
-
-            // navigation.navigate("home")
-
-
-        } catch (error) {
-            Alert.alert("Error", "Erro de validação dos dados");
-            setIsProcessing(false);
-        }
-    }
-
-    // if (isLoading) {
-    //     return <Loading />
-    // }
     return (
         <DismissKeiboardview >
             <View style={styles.container}>

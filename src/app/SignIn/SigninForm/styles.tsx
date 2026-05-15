@@ -5,7 +5,6 @@ export const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         paddingTop: 10,
-        padding: 24,
     },
     formContainer: {
         flex: 1,
