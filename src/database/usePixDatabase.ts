@@ -36,6 +36,7 @@ export function usePixDatabase() {
             name = $name, 
             key = $key, 
             bank = $bank,
+            is_public = $is_public,
             updated_at = CURRENT_TIMESTAMP
             WHERE id = $id`);
         await statement.executeAsync({
@@ -43,6 +44,7 @@ export function usePixDatabase() {
             $name: data.name,
             $key: data.key,
             $bank: data.bank,
+            $is_public: data.is_public
         })
     }
 
@@ -53,11 +55,26 @@ export function usePixDatabase() {
         await database.runAsync(`DELETE FROM keys WHERE id IN  (${placeholders})`, keys)
     }
 
+    async function createOrUodate(date: KeyCreate) {
+        if (date.id) {
+            await updateKey({
+                id: date.id,
+                name: date.name,
+                key: date.key,
+                bank: date.bank,
+                is_public: date.is_public
+            })
+        } else {
+            await create(date);
+        }
+    }
+
     return {
         listKeys,
         create,
         getKey,
         updateKey,
-        deleteKey
+        deleteKey,
+        createOrUodate
     }
 }

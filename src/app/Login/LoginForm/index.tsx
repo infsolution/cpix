@@ -30,8 +30,8 @@ export const LoginForm = () => {
                 setUser(response);
                 await setStorageUser("userLoged", response);
             }
-            navigation.navigate("home")
         } catch (error) {
+
             console.log("Error login user", error);
         }
     }
