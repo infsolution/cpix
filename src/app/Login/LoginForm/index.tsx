@@ -10,6 +10,7 @@ import { schema } from "./schema";
 import { FormLoginParams } from "@/app/Type/interfaces";
 import { useUserDatabase } from '@/database/useUserDatabase';
 import { useAuthContext } from "@/context/auth.context";
+import { setStorageUser } from "@/shared/storage/service/user";
 
 export const LoginForm = () => {
     const navigation = useNavigation();
@@ -25,7 +26,10 @@ export const LoginForm = () => {
     const onSubmit = async (data: FormLoginParams) => {
         try {
             const response = await userDatabase.login(data);
-            setUser(response);
+            if (response) {
+                setUser(response);
+                await setStorageUser("userLoged", response);
+            }
             navigation.navigate("home")
         } catch (error) {
             console.log("Error login user", error);
