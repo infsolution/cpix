@@ -10,8 +10,9 @@ import { colors } from "@/theme/colors";
 type Props = ItemPix & {
     onMarkItem: (id: string, selected: boolean) => void,
     onCopyItem: (id: string) => void,
+    own: number;
 }
-export function Item({ id, name, bank, selected, keyPix, onCopyItem, onMarkItem }: Props) {
+export function Item({ id, name, bank, selected, keyPix, onCopyItem, onMarkItem, own }: Props) {
     const itemNavigation = useNavigation();
     if (keyPix) {
         // 
@@ -25,7 +26,7 @@ export function Item({ id, name, bank, selected, keyPix, onCopyItem, onMarkItem 
             {
                 !selected && <ItemCircle name={name} onMarkItem={onMarkItem} />
             }
-            <TouchableOpacity style={styles.texts} activeOpacity={0.8} onPress={() => itemNavigation.navigate("edit", { id })}>
+            <TouchableOpacity style={styles.texts} activeOpacity={0.8} onPress={() => itemNavigation.navigate("edit", { id, own })}>
                 <Text style={styles.title}>{name}</Text>
                 <Text style={styles.text}>{bank}</Text>
             </TouchableOpacity>

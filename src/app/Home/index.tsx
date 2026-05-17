@@ -24,44 +24,6 @@ import { copyText } from '@/utils/structure'
  * @returns JSX.Element
  */
 
-/**
- * Copies the PIX key text for the given item id to the clipboard.
- *
- * @param id - The id of the item whose keyPix should be copied.
- * @returns Promise<void> resolved when the copy operation completes.
- */
-
-/**
- * Selects or deselects an item in the list and updates related state.
- *
- * @param id - The id of the item to mark or unmark.
- * @param selected - Current selection state of the item. If false or null, the item will be selected.
- * @returns void
- */
-
-/**
- * Fetches the list of PIX keys from the database and updates component state.
- *
- * @returns Promise<void> resolved after the keys are loaded or an error is handled.
- */
-
-/**
- * Initiates deletion of the currently selected keys.
- *
- * @returns void
- */
-
-/**
- * Deletes the selected keys from the database, hides action controls, and shows a result alert.
- *
- * @returns Promise<void> resolved after deletion is attempted and state is updated.
- */
-
-/**
- * Clears all selection state, hides action controls, resets share data, and reloads the keys list.
- *
- * @returns void
- */
 export function Home({ route }: StackRouterProps<"home">) {
   const pixDatabase = usePixDatabase();
   const navigation = useNavigation();
@@ -70,7 +32,12 @@ export function Home({ route }: StackRouterProps<"home">) {
   const [keysToShare, setKeysToShare] = useState<KeysToShare[]>([]);
   const [showActions, setShowActions] = useState(false);
 
-
+  /**
+   * Copies the PIX key text for the given item id to the clipboard.
+   *
+   * @param id - The id of the item whose keyPix should be copied.
+   * @returns Promise<void> resolved when the copy operation completes.
+   */
   const copyItem = async (id: string) => {
     const item = listItems.find(key => key.id === id);
     if (item && item.keyPix) {
@@ -78,9 +45,11 @@ export function Home({ route }: StackRouterProps<"home">) {
     }
   }
   /**
-   * Select or deselect item in list
-   * @param id 
-   * @param selected 
+   * Selects or deselects an item in the list and updates related state.
+   *
+   * @param id - The id of the item to mark or unmark.
+   * @param selected - Current selection state of the item. If false or null, the item will be selected.
+   * @returns void
    */
   const onMarkItem = (id: string, selected: boolean | null) => {
     if (!selected) {
@@ -118,9 +87,14 @@ export function Home({ route }: StackRouterProps<"home">) {
 
   }
 
+  /**
+   * Fetches the list of PIX keys from the database and updates component state.
+   *
+   * @returns Promise<void> resolved after the keys are loaded or an error is handled.
+   */
   async function getKeys() {
     try {
-      const response = await pixDatabase.listKeys();
+      const response = await pixDatabase.listKeys(0);
       setListItems(response)
     } catch (error) {
       Alert.alert("Error", "Error fetching keys");
@@ -128,10 +102,20 @@ export function Home({ route }: StackRouterProps<"home">) {
     }
   }
 
+  /**
+ * Initiates deletion of the currently selected keys.
+ *
+ * @returns void
+ */
   function remove() {
     deleteKey();
   }
 
+  /**
+ * Deletes the selected keys from the database, hides action controls, and shows a result alert.
+ *
+ * @returns Promise<void> resolved after deletion is attempted and state is updated.
+ */
   async function deleteKey() {
     try {
       await pixDatabase.deleteKey(listItemsId);
@@ -142,7 +126,11 @@ export function Home({ route }: StackRouterProps<"home">) {
       Alert.alert("Erro", "Erro ao tentar excluir as chaves");
     }
   }
-
+  /**
+   * Clears all selection state, hides action controls, resets share data, and reloads the keys list.
+   *
+   * @returns void
+   */
   function hideActions() {
     setListItemsId([])
     setKeysToShare([]);
@@ -160,7 +148,7 @@ export function Home({ route }: StackRouterProps<"home">) {
       <View style={styles.container}>
         <View style={styles.formContainer}>
           <View style={styles.headerList}>
-            {!showActions && (<TouchableOpacity onPress={() => navigation.navigate("add")} style={{ alignItems: "center", flexDirection: "row", gap: 6 }}>
+            {!showActions && (<TouchableOpacity onPress={() => navigation.navigate("add", { own: 0 })} style={{ alignItems: "center", flexDirection: "row", gap: 6 }}>
               <MaterialIcons name="format-list-bulleted-add" size={20} color={colors.text.titles} />
               <Text style={{ color: colors.text.titles }}>Adicionar Chave</Text>
             </TouchableOpacity>)}

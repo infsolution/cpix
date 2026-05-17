@@ -20,7 +20,7 @@ export function Edit({ route }: StackRouterProps<"edit">) {
     const [bank, setBank] = useState('');
     const [key, setKey] = useState('');
     const [createdAt, setCreatedAt] = useState('');
-
+    console.log("Route params", route.params);
     async function fetchKey() {
         try {
             const response = await pixDatabase.getKey(route.params.id);
@@ -77,7 +77,7 @@ export function Edit({ route }: StackRouterProps<"edit">) {
                 {editable && (
                     <>
                         <Text style={styles.title}>Editar chave PIX</Text>
-                        <AddForm id={route.params.id} />
+                        <AddForm id={route.params.id} own={route.params.own} />
                     </>
 
                 )}

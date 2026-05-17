@@ -27,7 +27,7 @@ export type KeyResponse = {
     name: string,
     keyPix: string,
     bank: string,
-    is_public: boolean,
+    own: number,
     selected: boolean | null
 }
 
@@ -37,7 +37,8 @@ export type KeyCreate = {
     name: string,
     key: string,
     bank: string,
-    is_public: boolean
+    is_public: boolean,
+    own: number,
 }
 
 export type TypeKey = {
@@ -55,6 +56,7 @@ export type KeyUpdate = {
     key: string,
     bank: string,
     is_public: boolean,
+    own: number,
 }
 
 export type KeysToShare = {

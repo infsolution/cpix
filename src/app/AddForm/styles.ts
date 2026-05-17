@@ -35,7 +35,19 @@ export const styles = StyleSheet.create({
         width: "100%",
         height: 26,
         marginBottom: 16
-    }
+    },
+    termContainer: {
+        flexDirection: "row",
+        gap: 8,
+        alignItems: "center",
+        width: "100%",
+        paddingHorizontal: 4,
+        paddingBottom: 16
+    },
+    checkbox: {
+        width: 18,
+        height: 18,
+    },
 
 
 })

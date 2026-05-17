@@ -6,7 +6,7 @@ export function usePixDatabase() {
     const database = useSQLiteContext()
 
     async function create(data: KeyCreate) {
-        const statement = await database.prepareAsync(`INSERT INTO keys (user_id, name, key, bank, is_public) VALUES ($user_id, $name, $key, $bank, $is_public)`);
+        const statement = await database.prepareAsync(`INSERT INTO keys (user_id, name, key, bank, is_public, own) VALUES ($user_id, $name, $key, $bank, $is_public, $own)`);
 
         await statement.executeAsync({
             $user_id: data.user_id,
@@ -14,11 +14,12 @@ export function usePixDatabase() {
             $key: data.key,
             $bank: data.bank,
             $is_public: data.is_public,
+            $own: data.own
         })
     }
 
-    function listKeys() {
-        const data = database.getAllAsync<KeyResponse>(`SELECT *, null AS selected, key AS keyPix FROM keys`)
+    function listKeys(own: number) {
+        const data = database.getAllAsync<KeyResponse>(`SELECT *, null AS selected, key AS keyPix FROM keys WHERE own = ${own}`)
         return data;
     }
 
@@ -37,6 +38,7 @@ export function usePixDatabase() {
             key = $key, 
             bank = $bank,
             is_public = $is_public,
+            own = $own,
             updated_at = CURRENT_TIMESTAMP
             WHERE id = $id`);
         await statement.executeAsync({
@@ -44,7 +46,8 @@ export function usePixDatabase() {
             $name: data.name,
             $key: data.key,
             $bank: data.bank,
-            $is_public: data.is_public
+            $is_public: data.is_public,
+            $own: data.own
         })
     }
 
@@ -62,7 +65,8 @@ export function usePixDatabase() {
                 name: date.name,
                 key: date.key,
                 bank: date.bank,
-                is_public: date.is_public
+                is_public: date.is_public,
+                own: date.own
             })
         } else {
             await create(date);

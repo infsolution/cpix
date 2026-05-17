@@ -5,12 +5,8 @@ import { SignIn } from "@/app/SignIn";
 
 
 export type PublicStackRoutelist = {
-    home: undefined;
     login: undefined;
     signIn: undefined;
-    profile: undefined;
-    add: undefined;
-    edit: { id: string };
 }
 
 export type PublicStackRouterProps<T extends keyof PublicStackRoutelist> = NativeStackScreenProps<PublicStackRoutelist, T>;

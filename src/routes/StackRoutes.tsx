@@ -8,8 +8,8 @@ import { Edit } from "@/app/Edit";
 export type StackRoutelist = {
     home: undefined;
     profile: undefined;
-    add: undefined;
-    edit: { id: string };
+    add: { own: number };
+    edit: { id: string, own: number };
 }
 
 export type StackRouterProps<T extends keyof StackRoutelist> = NativeStackScreenProps<StackRoutelist, T>;
