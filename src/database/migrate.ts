@@ -8,7 +8,9 @@ export async function migrate(db: SQLiteDatabase) {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
             email TEXT NOT NULL UNIQUE,
+            universal_uuid TEXT NOT NULL UNIQUE,
             password TEXT NOT NULL,
+            is_public BOOLEAN NOT NULL DEFAULT 0, 
             created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
         );

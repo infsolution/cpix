@@ -9,9 +9,10 @@ export type ItemPix = {
 export type UserCreate = {
     name: string,
     email: string,
+    universal_uuid: string,
     password: string,
     confirmPassword: string,
-    termChecked: boolean
+    termChecked: boolean,
 }
 
 export type KeyResponse = {

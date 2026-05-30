@@ -1,8 +1,10 @@
 export interface FormSigninParams {
     name: string;
+    userName: string;
     email: string;
     password: string;
     confirmPassword: string;
+    uuid?:string;
     termChecked: boolean;
 }
 

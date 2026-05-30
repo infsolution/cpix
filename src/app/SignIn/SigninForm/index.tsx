@@ -1,23 +1,24 @@
-import { Controller, useForm } from "react-hook-form";
-import { styles } from "../styles";
-import { View, Text } from "react-native";
-import { FormInput } from "@/components/FormInput";
-import { FormButton } from "@/components/FormButton";
-import { yupResolver } from "@hookform/resolvers/yup"
-import { schema } from "./schema";
-import { FormSigninParams } from "@/app/Type/interfaces";
 import { useUserDatabase } from '@/database/useUserDatabase';
-import { useAuthContext } from "@/context/auth.context";
-import Checkbox from "expo-checkbox";
+import { FormSigninParams } from "@/app/Type/interfaces";
 import { ErrorMessage } from "@/components/ErrorMessage";
 import { useNavigation } from '@react-navigation/native';
-
+import { useAuthContext } from "@/context/auth.context";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Controller, useForm } from "react-hook-form";
+import { FormButton } from "@/components/FormButton";
+import { FormInput } from "@/components/FormInput";
+import { View, Text } from "react-native";
+import * as Crypto from 'expo-crypto';
+import Checkbox from "expo-checkbox";
+import { styles } from "../styles";
+import { schema } from "./schema";
 
 export const SigninForm = () => {
     const navigation = useNavigation();
     const { control, handleSubmit, formState: { isSubmitting } } = useForm<FormSigninParams>({
         defaultValues: {
             name: "",
+            userName: "",
             email: "",
             password: "",
             confirmPassword: "",
@@ -26,13 +27,29 @@ export const SigninForm = () => {
         resolver: yupResolver(schema)
     });
     const userDatabase = useUserDatabase();
-    const { setUser } = useAuthContext();
+    const { handleSignin } = useAuthContext();
 
     const onSubmit = async (data: FormSigninParams) => {
         try {
-            const user = await userDatabase.create(data);
-            setUser(user);
-            navigation.navigate("home")
+            const uuid = Crypto.randomUUID();
+            data.uuid = uuid;
+            const code = await handleSignin(data);
+
+            if(code == "201"){
+                const localUser = {
+                    name: data.name,
+                    email: data.email,
+                    universal_uuid: data.uuid,
+                    password: data.password,
+                    confirmPassword: data.confirmPassword,
+                    termChecked: data.termChecked,
+                }
+                await userDatabase.create(localUser);
+
+            }else{
+                throw new Error("Error to saving new user");
+            }
+
         } catch (error) {
             console.log("Error creating user", error);
 
@@ -46,6 +63,12 @@ export const SigninForm = () => {
                 name="name"
                 label="Nome"
                 placeholder="Nome"
+            />
+            <FormInput
+                control={control}
+                name="userName"
+                label="Nome de Usuário"
+                placeholder="@username"
             />
             <FormInput
                 control={control}
