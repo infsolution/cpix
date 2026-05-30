@@ -14,13 +14,6 @@ export type UserCreate = {
     termChecked: boolean
 }
 
-export type UserLoged = {
-    id: string,
-    name: string,
-    email: string,
-    isLoged: boolean,
-}
-
 export type KeyResponse = {
     id: string,
     user_id: string,
