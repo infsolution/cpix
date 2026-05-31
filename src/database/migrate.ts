@@ -1,4 +1,5 @@
 import { type SQLiteDatabase } from "expo-sqlite";
+import { seedDatabaseFromCSV } from "./bankSeeder";
 
 export async function migrate(db: SQLiteDatabase) {
     await db.execAsync(`
@@ -33,4 +34,6 @@ export async function migrate(db: SQLiteDatabase) {
             code TEXT NOT NULL UNIQUE
         );
         `)
+
+        await seedDatabaseFromCSV();
 }

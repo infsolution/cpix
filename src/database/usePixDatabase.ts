@@ -1,80 +1,89 @@
-
-import { KeyCreate, KeyResponse, KeyUpdate, TypeKey, UserCreate} from "@/app/Type/types"
-import { useSQLiteContext } from "expo-sqlite"
+import { KeyCreate, KeyResponse, KeyUpdate, TypeKey } from "@/app/Type/types";
+import { useSQLiteContext } from "expo-sqlite";
 
 export function usePixDatabase() {
-    const database = useSQLiteContext()
+  const database = useSQLiteContext();
 
-    async function create(data: KeyCreate) {
-        const statement = await database.prepareAsync(`INSERT INTO keys (user_id, name, key, bank, is_public) VALUES ($user_id, $name, $key, $bank, $is_public)`);
+  async function create(data: KeyCreate) {
+    const statement = await database.prepareAsync(
+      `INSERT INTO keys (user_id, name, key, bank, is_public) VALUES ($user_id, $name, $key, $bank, $is_public)`,
+    );
 
-        await statement.executeAsync({
-            $user_id: data.user_id,
-            $name: data.name,
-            $key: data.key,
-            $bank: data.bank,
-            $is_public: data.is_public,
-        })
-    }
+    await statement.executeAsync({
+      $user_id: data.user_id,
+      $name: data.name,
+      $key: data.key,
+      $bank: data.bank,
+      $is_public: data.is_public,
+    });
+  }
 
-    function listKeys() {
-        const data = database.getAllAsync<KeyResponse>(`SELECT *, null AS selected, key AS keyPix FROM keys`)
-        return data;
-    }
+  function listKeys() {
+    const data = database.getAllAsync<KeyResponse>(
+      `SELECT *, null AS selected, key AS keyPix FROM keys`,
+    );
+    return data;
+  }
 
-    function getKey(id: string) {
-        const response = database.getFirstAsync<TypeKey>(`SELECT * FROM keys WHERE id = '${id}'`, {
-            $id: id,
-        })
-        return response;
-    }
+  function getKey(id: string) {
+    const response = database.getFirstAsync<TypeKey>(
+      `SELECT * FROM keys WHERE id = '${id}'`,
+      {
+        $id: id,
+      },
+    );
+    return response;
+  }
 
-    //Updates
+  //Updates
 
-    async function updateKey(data: KeyUpdate) {
-        const statement = await database.prepareAsync(`UPDATE keys SET 
+  async function updateKey(data: KeyUpdate) {
+    const statement = await database.prepareAsync(`UPDATE keys SET 
             name = $name, 
             key = $key, 
             bank = $bank,
             is_public = $is_public,
             updated_at = CURRENT_TIMESTAMP
             WHERE id = $id`);
-        await statement.executeAsync({
-            $id: data.id,
-            $name: data.name,
-            $key: data.key,
-            $bank: data.bank,
-            $is_public: data.is_public
-        })
-    }
+    await statement.executeAsync({
+      $id: data.id,
+      $name: data.name,
+      $key: data.key,
+      $bank: data.bank,
+      $is_public: data.is_public,
+    });
+  }
 
-    //Deletes
+  //Deletes
 
-    async function deleteKey(keys: string[]) {
-        const placeholders = keys.map(() => '?').join(',');
-        await database.runAsync(`DELETE FROM keys WHERE id IN  (${placeholders})`, keys)
-    }
+  async function deleteKey(keys: string[]) {
+    const placeholders = keys.map(() => "?").join(",");
+    await database.runAsync(
+      `DELETE FROM keys WHERE id IN  (${placeholders})`,
+      keys,
+    );
+  }
 
-    async function createOrUodate(date: KeyCreate) {
-        if (date.id) {
-            await updateKey({
-                id: date.id,
-                name: date.name,
-                key: date.key,
-                bank: date.bank,
-                is_public: date.is_public
-            })
-        } else {
-            await create(date);
-        }
+  async function createOrUodate(date: KeyCreate) {
+    if (date.id) {
+      await updateKey({
+        id: date.id,
+        name: date.name,
+        key: date.key,
+        bank: date.bank,
+        is_public: date.is_public,
+      });
+    } else {
+      await create(date);
     }
+  }
 
-    return {
-        listKeys,
-        create,
-        getKey,
-        updateKey,
-        deleteKey,
-        createOrUodate
-    }
+  return {
+    listKeys,
+    create,
+    getKey,
+    updateKey,
+    deleteKey,
+    createOrUodate,
+  };
 }
