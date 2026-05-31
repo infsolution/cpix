@@ -15,6 +15,7 @@ import { usePixDatabase } from '@/database/usePixDatabase';
 import { useFocusEffect } from '@react-navigation/native';
 import { EmptyList } from '@/components/EmptyList';
 import { copyText } from '@/utils/structure'
+import { PixList } from '@/components/PixList';
 
 /**
  * Home component displays the saved PIX keys, handles navigation to add new keys,
@@ -157,53 +158,7 @@ export function Home({ route }: StackRouterProps<"home">) {
   return (
     <AppBar keys={keysToShare} currentRoute={'home'}>
       <Header />
-      <View style={styles.container}>
-        <View style={styles.formContainer}>
-          <View style={styles.headerList}>
-            {!showActions && (<TouchableOpacity onPress={() => navigation.navigate("add")} style={{ alignItems: "center", flexDirection: "row", gap: 6 }}>
-              <MaterialIcons name="format-list-bulleted-add" size={20} color={colors.text.titles} />
-              <Text style={{ color: colors.text.titles }}>Adicionar Chave</Text>
-            </TouchableOpacity>)}
-            {
-              showActions && (
-                <View style={{ flexDirection: "row", justifyContent: "space-between", width: "100%" }}>
-                  <TouchableOpacity onPress={hideActions} style={{ alignItems: "center", flexDirection: "row", gap: 6 }}>
-                    <MaterialIcons name="filter-list-off" size={20} color={colors.text.titles} />
-                    <Text style={{ color: colors.text.titles }}>Limpar Seleção</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={{ alignItems: "center", flexDirection: "row" }}
-                    onPress={() => Alert.alert("Excluir?", "Tem certeza que vai excluir todas as chaves selecionadas? \nNão tem mais volta.", [
-                      { text: "Não", style: "cancel" },
-                      { text: "Sim", onPress: remove },
-                    ])}>
-                    <Feather name="trash-2" size={20} color={colors.red.delete} />
-                    <Text style={{ color: colors.red.delete }}>Excluir chaves</Text>
-                  </TouchableOpacity>
-                </View>
-              )
-            }
-          </View>
-          <View style={styles.formControl}>
-            <TabBar />
-          </View>
-
-          <View style={styles.listItem}>
-            <FlatList
-              data={listItems}
-              keyExtractor={(item) => item.id}
-              renderItem={({ item }) => (
-                <Item id={item.id} name={item.name} bank={item.bank} keyPix={item.keyPix} selected={item.selected} onCopyItem={() => copyItem(item.id)} onMarkItem={() => onMarkItem(item.id, item.selected)} />
-              )}
-              ItemSeparatorComponent={() => <View style={styles.separators} />}
-              showsVerticalScrollIndicator={false}
-              ListEmptyComponent={<EmptyList />}
-            />
-
-
-          </View>
-        </View>
-      </View>
+      <PixList own={0}/>
     </AppBar>
   );
 }

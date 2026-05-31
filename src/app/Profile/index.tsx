@@ -4,6 +4,7 @@ import { AppBar } from '@/components/AppBar';
 import { TabGoBack } from '@/components/TabGoBack';
 import Entypo from '@expo/vector-icons/Entypo';
 import { colors } from '@/theme/colors';
+import { PixList } from '@/components/PixList';
 
 export function Profile() {
     return (
@@ -27,6 +28,7 @@ export function Profile() {
                     <Text style={styles.label}>Sua conta está pública</Text>
                 </View>
             </View>
+            <PixList own={1}/>
         </AppBar>
     )
 }
