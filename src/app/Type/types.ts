@@ -8,10 +8,9 @@ export type ItemPix = {
 
 export type UserCreate = {
     name: string,
+    user_name: string,
     email: string,
     universal_uuid: string,
-    password: string,
-    confirmPassword: string,
     termChecked: boolean,
 }
 

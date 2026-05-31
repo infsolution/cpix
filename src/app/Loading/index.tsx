@@ -1,7 +1,7 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import { colors } from "@/theme/colors";
-import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
+import { View, Text, ActivityIndicator } from "react-native";
 import { styles } from "./styles";
 import { useAuthContext } from "@/context/auth.context";
 import { FC, useEffect } from "react";
@@ -18,12 +18,12 @@ export const  Loading: FC<Props>= ({setLoading})=>{
                 try {
                     const user = await restoreUserSession();
                     if(!user){
-                        await handleLogout();
+                        handleLogout();
                     }
                 } catch (error) {
-                    await handleLogout();
+                    handleLogout();
                 }finally{
-                    // setLoading(false);
+                    setLoading(false);
                 }
             }
         )();

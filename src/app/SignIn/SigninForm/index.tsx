@@ -38,10 +38,9 @@ export const SigninForm = () => {
             if(code == "201"){
                 const localUser = {
                     name: data.name,
+                    user_name: data.userName,
                     email: data.email,
                     universal_uuid: data.uuid,
-                    password: data.password,
-                    confirmPassword: data.confirmPassword,
                     termChecked: data.termChecked,
                 }
                 await userDatabase.create(localUser);

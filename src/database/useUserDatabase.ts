@@ -6,13 +6,13 @@ export function useUserDatabase() {
     const database = useSQLiteContext();
 
     async function create(data: UserCreate): Promise<IUser | null> {
-        const statement = await database.prepareAsync(`INSERT INTO users (name, email, universal_uuid, password, is_public) VALUES ($name, $email, $universal_uuid, $password, $is_public)`);
+        const statement = await database.prepareAsync(`INSERT INTO users (name, user_name, email, universal_uuid, is_public) VALUES ($name, $user_name, $email, $universal_uuid, $is_public)`);
 
         const { lastInsertRowId } = await statement.executeAsync({
             $name: data.name,
+            $user_name: data.user_name,
             $email: data.email,
             $universal_uuid: data.universal_uuid,
-            $password: data.password,
             $is_public: data.termChecked,
         })
         return getUserById(lastInsertRowId.toString()) as Promise<IUser | null>;
@@ -30,8 +30,14 @@ export function useUserDatabase() {
         return response;
     }
 
+    async function getUserByUuid(uuid: string): Promise<IUser | null> {
+        const response = await database.getFirstAsync<IUser>(`SELECT * FROM users WHERE universal_uuid = ${uuid}`);
+        return response;
+    }
+
     return {
         create,
         login,
+        getUserByUuid,
     }
 }

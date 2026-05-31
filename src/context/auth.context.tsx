@@ -35,6 +35,7 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
        if(data.token){
             setUser(data);
             setJWT('user-jwt', data.token);
+            setStorageUser('user-data', data);
         }
         console.log("login", data, code, message);
     }

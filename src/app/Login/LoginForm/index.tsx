@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import { useState } from "react";
 import { Text, View, Linking, TouchableOpacity, Alert } from 'react-native';
 import { styles } from "./styles";
 import { FormInput } from "@/components/FormInput";
@@ -10,7 +9,6 @@ import { schema } from "./schema";
 import { FormLoginParams } from "@/app/Type/interfaces";
 import { useUserDatabase } from '@/database/useUserDatabase';
 import { useAuthContext } from "@/context/auth.context";
-import { setStorageUser, getStorageUser } from "@/shared/storage/service/user";
 
 export const LoginForm = () => {
     const navigation = useNavigation();
@@ -22,15 +20,23 @@ export const LoginForm = () => {
         },
         resolver: yupResolver(schema)
     });
-    const { setUser, handleLogin } = useAuthContext();
+    const { user, handleLogin } = useAuthContext();
     const onSubmit = async (data: FormLoginParams) => {
         try {
             await handleLogin(data)
-            // const response = await userDatabase.login(data);
-            // if (response) {
-            //     setUser(response);
-            //     await setStorageUser("userLoged", response);
-            // }
+            if(user?.universal_uuid){
+                const localUser = await userDatabase.getUserByUuid(user.universal_uuid);
+                if(!localUser){
+                    const newUser = {
+                    name: user.name,
+                    user_name: user.user_name,
+                    email: user.email,
+                    universal_uuid: user.universal_uuid,
+                    termChecked: user.is_public,
+                }
+                await userDatabase.create(newUser);
+                }
+            }
         } catch (error) {
 
             console.log("Error login user", error);
