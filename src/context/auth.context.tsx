@@ -19,7 +19,7 @@ type AuthContextType = {
   user: IUser | null;
   setUser: (user: IUser | null) => void;
   handleLogin: (params: FormLoginParams) => Promise<IUser | null>;
-  handleSignin: (params: FormSigninParams) => Promise<string>;
+  handleSignin: (params: FormSigninParams) => Promise<IUser | null>;
   restoreUserSession: () => Promise<IUser | null>;
   handleLogout: () => void;
 };
@@ -31,15 +31,16 @@ export const AuthContext = createContext<AuthContextType>(
 export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [user, setUser] = useState<IUser | null>(null);
 
-  const handleSignin = async (userData: FormSigninParams): Promise<string> => {
+  const handleSignin = async (
+    userData: FormSigninParams,
+  ): Promise<IUser | null> => {
     const { message, code, data } = await authService.register(userData);
     if (data.token) {
-      setUser(data);
       setJWT("user-jwt", data.token);
       setStorageUser("user-data", data);
     }
     console.log("login", data, code, message);
-    return code;
+    return data;
   };
 
   const handleLogin = async (userData: FormLoginParams) => {
