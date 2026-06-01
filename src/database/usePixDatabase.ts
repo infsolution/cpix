@@ -6,11 +6,11 @@ export function usePixDatabase() {
 
   async function create(data: KeyCreate) {
     const statement = await database.prepareAsync(
-      `INSERT INTO keys (user_id, name, key, bank, is_public) VALUES ($user_id, $name, $key, $bank, $is_public)`,
+      `INSERT INTO keys (universal_uuid, name, key, bank, is_public) VALUES ($universal_uuid, $name, $key, $bank, $is_public)`,
     );
 
     await statement.executeAsync({
-      $user_id: data.user_id,
+      $universal_uuid: data.universal_uuid,
       $name: data.name,
       $key: data.key,
       $bank: data.bank,
@@ -64,7 +64,7 @@ export function usePixDatabase() {
     );
   }
 
-  async function createOrUodate(date: KeyCreate) {
+  async function createOrUpdate(date: KeyCreate) {
     if (date.id) {
       await updateKey({
         id: date.id,
@@ -84,6 +84,6 @@ export function usePixDatabase() {
     getKey,
     updateKey,
     deleteKey,
-    createOrUodate,
+    createOrUpdate,
   };
 }

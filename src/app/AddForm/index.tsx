@@ -20,7 +20,7 @@ export const AddForm = ({ id }: Params) => {
     const { control, handleSubmit, formState: { isSubmitting }, setValue } = useForm<KeyCreate>({
         defaultValues: {
             id: id,
-            user_id: user?.id || "",
+            universal_uuid: String(user?.universal_uuid) || "",
             name: "",
             bank: "",
             key: "",
@@ -33,8 +33,11 @@ export const AddForm = ({ id }: Params) => {
     async function onSubmit(data: KeyCreate) {
         const message = id ? "Chave atualizada com sucesso" : "Chave adicionada com sucesso.";
         try {
-            await pixDatabase.createOrUodate(data);
-            Alert.alert("Sucesso", message, [{ text: " OK", onPress: () => navigation.navigate("home") }]);
+            if(user){
+                data.universal_uuid = user.universal_uuid
+                await pixDatabase.createOrUpdate(data);
+                Alert.alert("Sucesso", message, [{ text: " OK", onPress: () => navigation.navigate("home") }]);
+            }
 
         } catch (error) {
             console.log(error);

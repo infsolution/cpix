@@ -26,7 +26,7 @@ export type KeyResponse = {
 
 export type KeyCreate = {
   id?: string;
-  user_id: string;
+  universal_uuid: string;
   name: string;
   key: string;
   bank: string;
