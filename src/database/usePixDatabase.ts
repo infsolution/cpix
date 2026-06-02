@@ -18,9 +18,9 @@ export function usePixDatabase() {
     });
   }
 
-  function listKeys() {
+  function listKeys(own: number) {
     const data = database.getAllAsync<KeyResponse>(
-      `SELECT *, null AS selected, key AS keyPix FROM keys`,
+      `SELECT *, null AS selected, key AS keyPix FROM keys WHERE own = ${own}`,
     );
     return data;
   }

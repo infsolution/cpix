@@ -4,6 +4,8 @@ export type ItemPix = {
   bank: string;
   keyPix: string;
   selected: boolean | null;
+  image?: string;
+  is_public?: boolean;
 };
 
 export type UserCreate = {
@@ -31,6 +33,7 @@ export type KeyCreate = {
   key: string;
   bank: string;
   is_public: boolean;
+  own?: number;
 };
 
 export type TypeKey = {
@@ -60,7 +63,6 @@ export type Bank = {
   name: string;
   code: string;
   ispb: string;
-
 };
 
 export type DbCount = {

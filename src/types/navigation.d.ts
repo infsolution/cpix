@@ -1,14 +1,14 @@
 export type RoootStackParamList = {
-    home: undefined;
-    login: undefined;
-    signIn: undefined;
-    profile: undefined;
-    add: undefined;
-    edit: {id: string};
-}
+  home: undefined;
+  login: undefined;
+  signIn: undefined;
+  profile: undefined;
+  add: { own: number };
+  edit: { id: string };
+};
 
 declare global {
-    namespace ReactNavigation {
-        interface RootParamList extends RoootStackParamList {}
-    }
+  namespace ReactNavigation {
+    interface RootParamList extends RoootStackParamList {}
+  }
 }
