@@ -104,7 +104,11 @@ export const PixList = ({ own, keysToShare, setKeysToShare }: ListProps) => {
   async function getLocalKeys() {
     try {
       const response = await pixDatabase.listKeys(own);
-      setListItems(response);
+      if (response.length > 0) {
+        setListItems(response);
+      } else {
+        setListItems([]);
+      }
     } catch (error) {
       Alert.alert("Error", "Error fetching keys");
       console.error("Error fetching keys:", error);
@@ -114,7 +118,11 @@ export const PixList = ({ own, keysToShare, setKeysToShare }: ListProps) => {
   async function getSharedKeys() {
     try {
       const { message, code, data } = await keyService.getKeys();
-      setListItems(data);
+      if (data.length > 0) {
+        setListItems(data);
+      } else {
+        setListItems([]);
+      }
     } catch (error) {
       Alert.alert("Error", "Error fetching shared keys");
       console.error("Error fetching shared keys:", error);
@@ -124,7 +132,11 @@ export const PixList = ({ own, keysToShare, setKeysToShare }: ListProps) => {
   async function getOwnKeys() {
     try {
       const { message, code, data } = await keyService.getUserKeys();
-      setListItems(data);
+      if (data.length > 0) {
+        setListItems(data);
+      } else {
+        setListItems([]);
+      }
     } catch (error) {
       Alert.alert("Error", "Error fetching own keys");
       console.error("Error fetching own keys:", error);

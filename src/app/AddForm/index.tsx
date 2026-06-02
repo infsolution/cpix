@@ -12,6 +12,9 @@ import { FormButton } from "@/components/FormButton";
 import { useEffect } from "react";
 import { Checkbox } from "expo-checkbox";
 import { ErrorMessage } from "@/components/ErrorMessage";
+import { FormSelect } from "@/components/FormSelect";
+import { addKey } from "@/shared/services/c-pix/keys.service";
+
 type Params = {
   id?: string | undefined;
   own?: number | undefined;
@@ -45,8 +48,22 @@ export const AddForm = ({ id, own }: Params) => {
 
     try {
       if (user) {
-        data.universal_uuid = user.universal_uuid;
-        await pixDatabase.createOrUpdate(data);
+        if (own === 1) {
+          const createKey = {
+            key: data.key,
+            bank_id: data.bank,
+            is_public: data.is_public,
+            own: true,
+          };
+
+          const { code } = await addKey(createKey);
+          if (code != "201") {
+            Alert.alert("Error", "Erro ao tentar adicionar sua chave");
+          }
+        } else {
+          data.universal_uuid = user.universal_uuid;
+          await pixDatabase.createOrUpdate(data);
+        }
         Alert.alert("Sucesso", message, [
           { text: " OK", onPress: () => navigation.navigate(routeToBack) },
         ]);
@@ -96,11 +113,11 @@ export const AddForm = ({ id, own }: Params) => {
         editable={own === 1 ? false : true}
         value={own === 1 ? user?.name : ""}
       />
-      <FormInput
+      <FormSelect
         control={control}
         name="bank"
         label="Banco"
-        placeholder="Banco"
+        placeholder="Selecione o banco"
       />
       <FormInput
         control={control}

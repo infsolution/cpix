@@ -18,7 +18,7 @@ export type UserCreate = {
 
 export type KeyResponse = {
   id: string;
-  user_id: string;
+  universal_uuid: string;
   name: string;
   keyPix: string;
   bank: string;
@@ -60,9 +60,10 @@ export type KeysToShare = {
 };
 
 export type Bank = {
+  id?: string | number;
   name: string;
   code: string;
-  ispb: string;
+  ispb?: string;
 };
 
 export type DbCount = {

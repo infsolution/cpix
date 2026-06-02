@@ -1,5 +1,5 @@
 import { cPixApi } from "@/shared/api/c-pix";
-import { IKeyResponse } from "@/shared/interfaces/key-interface";
+import { CreateKey, IKeyResponse } from "@/shared/interfaces/key-interface";
 import { getJWT } from "@/shared/storage/service/user";
 
 export const getKeys = async (): Promise<IKeyResponse> => {
@@ -17,6 +17,21 @@ export const getUserKeys = async (): Promise<IKeyResponse> => {
   try {
     const token = await getJWT("user-jwt");
     const { data } = await cPixApi.get<IKeyResponse>("profile/keys", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/json",
+      },
+    });
+    return data;
+  } catch (error) {
+    throw new Error("Error fetching user keys: " + error);
+  }
+};
+
+export const addKey = async (keyData: CreateKey): Promise<IKeyResponse> => {
+  try {
+    const token = await getJWT("user-jwt");
+    const { data } = await cPixApi.post<IKeyResponse>("key/add", keyData, {
       headers: {
         Authorization: `Bearer ${token}`,
         Accept: "application/json",

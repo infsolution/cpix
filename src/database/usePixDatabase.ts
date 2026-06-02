@@ -20,7 +20,7 @@ export function usePixDatabase() {
 
   function listKeys(own: number) {
     const data = database.getAllAsync<KeyResponse>(
-      `SELECT *, null AS selected, key AS keyPix FROM keys WHERE own = ${own}`,
+      `SELECT keys.*, null AS selected, key AS keyPix, banks.name AS bank FROM keys LEFT JOIN banks ON keys.bank = banks.code WHERE own = ${own}`,
     );
     return data;
   }
