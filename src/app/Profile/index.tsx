@@ -7,9 +7,11 @@ import { colors } from "@/theme/colors";
 import { PixList } from "@/components/PixList";
 import { KeysToShare } from "../Type/types";
 import { useState } from "react";
+import { useAuthContext } from "@/context/auth.context";
 
 export function Profile() {
   const [keysToShare, setKeysToShare] = useState<KeysToShare[]>([]);
+  const { user } = useAuthContext();
   return (
     <AppBar keys={keysToShare} currentRoute={"profile"}>
       <TabGoBack />
@@ -21,7 +23,7 @@ export function Profile() {
           />
         </View>
         <View style={styles.formControl}>
-          <Text style={styles.title}>Cicero</Text>
+          <Text style={styles.title}>{user?.name || ""}</Text>
           <Entypo
             name="chevron-thin-right"
             size={20}
@@ -30,13 +32,20 @@ export function Profile() {
           />
         </View>
         <View style={styles.formControl}>
-          <Text style={styles.subTitle}>cicero@example.com</Text>
+          <Text style={styles.subTitle}>{user?.email || ""}</Text>
         </View>
         <View style={styles.formControl}>
-          <Text style={styles.subTitle}>@cicero</Text>
+          <Text style={styles.subTitle}>{user?.user_name || ""}</Text>
         </View>
         <View style={styles.formControl}>
-          <Text style={styles.label}>Sua conta está pública</Text>
+          <Text style={styles.label}>
+            {user?.is_public
+              ? "Sua conta está pública"
+              : "Sua conta não está pública"}
+          </Text>
+        </View>
+        <View style={styles.formControl}>
+          <Text>Suas chaves podem ser compartilhadas com suas conexões</Text>
         </View>
       </View>
       <PixList
