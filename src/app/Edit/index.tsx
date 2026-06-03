@@ -12,6 +12,7 @@ import { styles } from "./styles";
 import dayjs from "dayjs";
 import { getKey } from "@/shared/services/c-pix/keys.service";
 import { copyText } from "@/utils/structure";
+import { QrCodeView } from "@/components/QrCodeView";
 
 export function Edit({ route }: StackRouterProps<"edit">) {
   const pixDatabase = usePixDatabase();
@@ -102,6 +103,7 @@ export function Edit({ route }: StackRouterProps<"edit">) {
             <TouchableOpacity activeOpacity={0.8} onPress={copyToClipboard}>
               <Text style={styles.readyOnlyTextkey}>{key}</Text>
             </TouchableOpacity>
+            <QrCodeView />
           </View>
         )}
         {editable && (
