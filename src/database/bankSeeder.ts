@@ -14,12 +14,15 @@ export const seedDatabaseFromCSV = async () => {
 
     if (asset?.localUri) {
       const content = await new File(asset.localUri).text();
+      const totalLines = content
+        .split(/\r?\n/)
+        .filter((line) => line.trim() !== "").length;
       const result = db.getFirstSync<DbCount>(
         "SELECT COUNT(*) as count FROM banks;",
       );
 
-      if (result?.count && result.count >= content.length) {
-        console.log("Database already seeded.");
+      if (result?.count && result.count >= totalLines) {
+        // console.log("Database already seeded.");
         return;
       }
       await db.execAsync("DELETE FROM banks;");

@@ -149,12 +149,27 @@ export const PixList = ({ own, keysToShare, setKeysToShare }: ListProps) => {
   }
 
   function remove() {
-    deleteKey();
+    if (own === 1) {
+      removeUserKeys();
+    } else {
+      deleteKey();
+    }
   }
 
   async function deleteKey() {
     try {
       await pixDatabase.deleteKey(listItemsId);
+      hideActions();
+      Alert.alert("Excluidos", "Chaves Excluídas com sucesso.");
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Erro", "Erro ao tentar excluir as chaves");
+    }
+  }
+
+  async function removeUserKeys() {
+    try {
+      await keyService.deleteKeys(listItemsId);
       hideActions();
       Alert.alert("Excluidos", "Chaves Excluídas com sucesso.");
     } catch (error) {

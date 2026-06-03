@@ -91,3 +91,21 @@ export const createOrUpdateKey = async (
     return await addKey(keyData);
   }
 };
+
+export const deleteKeys = async (ids: string[]): Promise<void> => {
+  try {
+    const token = await getJWT("user-jwt");
+    const keys = {
+      keys: ids,
+    };
+    await cPixApi.delete("key/keys", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/json",
+      },
+      data: keys,
+    });
+  } catch (error) {
+    throw new Error("Error deleting keys: " + error);
+  }
+};
