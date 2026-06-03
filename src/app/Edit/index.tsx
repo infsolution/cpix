@@ -29,7 +29,6 @@ export function Edit({ route }: StackRouterProps<"edit">) {
       if (route.params.own === 1) {
         const serverResponse = await getRemoteKey(route.params.id);
         if (serverResponse) {
-          setIsFetching(false);
           setName(serverResponse.name);
           setBank(serverResponse.bank);
           setKey(serverResponse.key);
@@ -38,7 +37,6 @@ export function Edit({ route }: StackRouterProps<"edit">) {
       } else {
         const response = await pixDatabase.getKey(route.params.id);
         if (response) {
-          setIsFetching(false);
           setName(response.name);
           setBank(response.bank);
           setKey(response.key);
@@ -56,13 +54,14 @@ export function Edit({ route }: StackRouterProps<"edit">) {
     } catch (error) {
       Alert.alert("Error", "Error fetching keys");
       console.error("Error fetching keys:", error);
+    } finally {
+      setIsFetching(false);
     }
   }
 
   async function getRemoteKey(id: string) {
     try {
       const { data } = await getKey(id);
-      console.log("Fetched key from server:", data);
       return data;
     } catch (error) {
       Alert.alert("Error", "Error fetching in key in server");
@@ -103,7 +102,7 @@ export function Edit({ route }: StackRouterProps<"edit">) {
             <TouchableOpacity activeOpacity={0.8} onPress={copyToClipboard}>
               <Text style={styles.readyOnlyTextkey}>{key}</Text>
             </TouchableOpacity>
-            <QrCodeView />
+            <QrCodeView keyPix={key} />
           </View>
         )}
         {editable && (
