@@ -38,7 +38,8 @@ export const PixList = ({ own, keysToShare, setKeysToShare }: ListProps) => {
   const [showActions, setShowActions] = useState(false);
   const [listType, setListType] = useState("own");
   const [loadingList, setLoadingList] = useState(false);
-
+  const [styleDeleteButton, setStyleDeleteButton] = useState(colors.red.delete);
+  const [disableDeleteButton, setDisableDeleteButton] = useState(false);
   const copyItem = async (id: string) => {
     const item = listItems.find((key) => key.id === id);
     if (item && item.keyPix) {
@@ -86,9 +87,13 @@ export const PixList = ({ own, keysToShare, setKeysToShare }: ListProps) => {
     setLoadingList(true);
     try {
       if (own === 0) {
+        setStyleDeleteButton(colors.red.delete);
+        setDisableDeleteButton(false);
         if (listType === "own") {
           await getLocalKeys();
         } else {
+          setStyleDeleteButton(colors.switch.btnOff);
+          setDisableDeleteButton(true);
           await getSharedKeys();
         }
       } else {
@@ -220,9 +225,10 @@ export const PixList = ({ own, keysToShare, setKeysToShare }: ListProps) => {
                     ],
                   )
                 }
+                disabled={disableDeleteButton}
               >
-                <Feather name="trash-2" size={20} color={colors.red.delete} />
-                <Text style={{ color: colors.red.delete }}>Excluir chaves</Text>
+                <Feather name="trash-2" size={20} color={styleDeleteButton} />
+                <Text style={{ color: styleDeleteButton }}>Excluir chaves</Text>
               </TouchableOpacity>
             </View>
           )}
@@ -259,6 +265,8 @@ export const PixList = ({ own, keysToShare, setKeysToShare }: ListProps) => {
                   selected={item.selected}
                   onCopyItem={() => copyItem(item.id)}
                   onMarkItem={() => onMarkItem(item.id, item.selected)}
+                  own={own}
+                  listType={listType}
                 />
               )}
               ItemSeparatorComponent={() => <View style={styles.separators} />}

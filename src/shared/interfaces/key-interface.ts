@@ -12,3 +12,31 @@ export interface CreateKey {
   is_public: boolean;
   own: boolean;
 }
+
+export interface UpdateKey {
+  id: string;
+  key: string;
+  bank_id: string;
+  is_public: boolean;
+}
+
+export interface IKey {
+  id: string;
+  name: string;
+  key: string;
+  bank: string;
+  is_public: boolean;
+  own: boolean;
+}
+
+export interface IEditKeyResponse {
+  message: string;
+  code: string;
+  data: IKey;
+}
+
+export interface IEditKeyResponse {
+  message: string;
+  code: string;
+  data: IKey;
+}

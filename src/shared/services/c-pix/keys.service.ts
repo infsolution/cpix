@@ -1,5 +1,10 @@
 import { cPixApi } from "@/shared/api/c-pix";
-import { CreateKey, IKeyResponse } from "@/shared/interfaces/key-interface";
+import {
+  CreateKey,
+  IEditKeyResponse,
+  IKeyResponse,
+  UpdateKey,
+} from "@/shared/interfaces/key-interface";
 import { getJWT } from "@/shared/storage/service/user";
 
 export const getKeys = async (): Promise<IKeyResponse> => {
@@ -28,6 +33,21 @@ export const getUserKeys = async (): Promise<IKeyResponse> => {
   }
 };
 
+export const getKey = async (id: string): Promise<IEditKeyResponse> => {
+  try {
+    const token = await getJWT("user-jwt");
+    const { data } = await cPixApi.get<IEditKeyResponse>(`key/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/json",
+      },
+    });
+    return data;
+  } catch (error) {
+    throw new Error("Error fetching user keys: " + error);
+  }
+};
+
 export const addKey = async (keyData: CreateKey): Promise<IKeyResponse> => {
   try {
     const token = await getJWT("user-jwt");
@@ -40,5 +60,34 @@ export const addKey = async (keyData: CreateKey): Promise<IKeyResponse> => {
     return data;
   } catch (error) {
     throw new Error("Error fetching user keys: " + error);
+  }
+};
+export const updateKey = async (keyData: UpdateKey): Promise<IKeyResponse> => {
+  try {
+    console.log("Update", keyData);
+    const token = await getJWT("user-jwt");
+    const { data } = await cPixApi.patch<IKeyResponse>(
+      `key/${keyData.id}`,
+      keyData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+      },
+    );
+    return data;
+  } catch (error) {
+    throw new Error("Error fetching user keys: " + error);
+  }
+};
+
+export const createOrUpdateKey = async (
+  keyData: CreateKey | UpdateKey,
+): Promise<IKeyResponse> => {
+  if ("id" in keyData) {
+    return await updateKey(keyData);
+  } else {
+    return await addKey(keyData);
   }
 };

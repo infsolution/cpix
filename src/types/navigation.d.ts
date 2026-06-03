@@ -4,7 +4,7 @@ export type RoootStackParamList = {
   signIn: undefined;
   profile: undefined;
   add: { own: number };
-  edit: { id: string };
+  edit: { id: string; own: number };
 };
 
 declare global {

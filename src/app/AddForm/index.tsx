@@ -13,7 +13,12 @@ import { useEffect } from "react";
 import { Checkbox } from "expo-checkbox";
 import { ErrorMessage } from "@/components/ErrorMessage";
 import { FormSelect } from "@/components/FormSelect";
-import { addKey } from "@/shared/services/c-pix/keys.service";
+import {
+  addKey,
+  createOrUpdateKey,
+  getKey,
+} from "@/shared/services/c-pix/keys.service";
+import { IEditKeyResponse } from "@/shared/interfaces/key-interface";
 
 type Params = {
   id?: string | undefined;
@@ -50,14 +55,15 @@ export const AddForm = ({ id, own }: Params) => {
       if (user) {
         if (own === 1) {
           const createKey = {
+            id: data?.id,
             key: data.key,
             bank_id: data.bank,
             is_public: data.is_public,
             own: true,
           };
 
-          const { code } = await addKey(createKey);
-          if (code != "201") {
+          const { code } = await createOrUpdateKey(createKey);
+          if (code != "201" && code != "200") {
             Alert.alert("Error", "Erro ao tentar adicionar sua chave");
           }
         } else {
@@ -77,23 +83,37 @@ export const AddForm = ({ id, own }: Params) => {
   async function fetchKey() {
     try {
       if (id) {
-        const response = await pixDatabase.getKey(id);
-        if (!response) {
-          Alert.alert("Atenção", "Não encontramos essa chave.", [
-            {
-              text: "Voltar para Home",
-              onPress: () => navigation.navigate(routeToBack),
-            },
-          ]);
+        if (own === 1) {
+          const serverResponse = await getRemoteKey(id);
+          if (serverResponse) {
+            setValue("name", serverResponse.name);
+            setValue("bank", serverResponse.bank);
+            setValue("key", serverResponse.key);
+            setValue("is_public", serverResponse.is_public);
+          }
         } else {
-          setValue("name", response.name);
-          setValue("bank", response.bank);
-          setValue("key", response.key);
-          setValue("is_public", response.is_public);
+          const response = await pixDatabase.getKey(id);
+          if (response) {
+            setValue("name", response.name);
+            setValue("bank", response.bank);
+            setValue("key", response.key);
+            setValue("is_public", response.is_public);
+          }
         }
       }
     } catch (error) {
       Alert.alert("Error", "Error fetching keys");
+      console.error("Error fetching keys:", error);
+    }
+  }
+
+  async function getRemoteKey(id: string) {
+    try {
+      const { data } = await getKey(id);
+      console.log("Fetched key from server:", data);
+      return data;
+    } catch (error) {
+      Alert.alert("Error", "Error fetching in key in server");
       console.error("Error fetching keys:", error);
     }
   }

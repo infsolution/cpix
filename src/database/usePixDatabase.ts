@@ -27,7 +27,7 @@ export function usePixDatabase() {
 
   function getKey(id: string) {
     const response = database.getFirstAsync<TypeKey>(
-      `SELECT * FROM keys WHERE id = '${id}'`,
+      `SELECT keys.*, banks.name AS bank FROM keys LEFT JOIN banks ON keys.bank = banks.code WHERE keys.id = '${id}'`,
       {
         $id: id,
       },
