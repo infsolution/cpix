@@ -11,6 +11,7 @@ import { AddForm } from "../AddForm";
 import { styles } from "./styles";
 import dayjs from "dayjs";
 import { getKey } from "@/shared/services/c-pix/keys.service";
+import { copyText } from "@/utils/structure";
 
 export function Edit({ route }: StackRouterProps<"edit">) {
   const pixDatabase = usePixDatabase();
@@ -68,6 +69,15 @@ export function Edit({ route }: StackRouterProps<"edit">) {
     }
   }
 
+  async function copyToClipboard() {
+    try {
+      await copyText(key);
+    } catch (error) {
+      Alert.alert("Error", "Error copying key to clipboard");
+      console.error("Error copying key to clipboard:", error);
+    }
+  }
+
   useEffect(() => {
     fetchKey();
   }, [route.params.id]);
@@ -82,24 +92,14 @@ export function Edit({ route }: StackRouterProps<"edit">) {
         <TabGoBack />
         {!editable && (
           <View style={styles.readyOnlyContainer}>
-            <Text>Chave salva(#add info)º</Text>
             <View style={styles.readOnlyTitleConteiner}>
               <Text style={styles.readyOnlyTitle}>{name}</Text>
               <TouchableOpacity onPress={() => setEditable(true)}>
                 <Feather name="edit-2" size={20} color="black" />
               </TouchableOpacity>
             </View>
-            {/* <Text style={{ fontSize: 10 }}>
-              Chave cadstrada em {dayjs(createdAt).format("DD/MM/YYYY")}
-            </Text> */}
-
             <Text style={styles.readyOnlyText}>{bank}</Text>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => {
-                Alert.alert("Chave copiada!", "Cole no app do seu banco");
-              }}
-            >
+            <TouchableOpacity activeOpacity={0.8} onPress={copyToClipboard}>
               <Text style={styles.readyOnlyTextkey}>{key}</Text>
             </TouchableOpacity>
           </View>
