@@ -1,11 +1,22 @@
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+  Alert,
+} from "react-native";
 import { styles } from "./styles";
 import CurrencyInput from "react-native-currency-input";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Loading } from "@/components/Loading";
 import { colors } from "@/theme/colors";
 import { generatePixPayload } from "@/utils/pix";
 import QRCode from "react-native-qrcode-svg";
+import { Button } from "@/components/Button";
+import { copyText } from "@/utils/structure";
+import { File, Paths } from "expo-file-system";
+import * as Sharing from "expo-sharing";
 
 type KeyProps = {
   keyPix: string;
@@ -23,12 +34,37 @@ type CityError = {
   status: boolean;
   message: string;
 };
+interface QRCodeRef {
+  toDataURL: (callback: (data: string) => void) => void;
+}
 export const QrCodeView = ({ keyPix, userName }: KeyProps) => {
   const [value, setValue] = useState<number | null>(0);
   const [city, setCity] = useState<string>("");
   const [citeError, setCityError] = useState<CityError | null>(null);
   const [loading, setLoading] = useState(false);
   const [payload, setPayload] = useState<string>("");
+  const qrRef = useRef<QRCodeRef | null>(null);
+
+  async function copyToClipboard(key: string) {
+    try {
+      await copyText(key);
+    } catch (error) {
+      Alert.alert("Error", "Error copying key to clipboard");
+      console.log("Error copying key to clipboard:", error);
+    }
+  }
+
+  const shareQrCode = async () => {
+    qrRef.current?.toDataURL(async (base64: string) => {
+      const file = new File(Paths.cache, "pix-qrcode.png");
+
+      file.write(base64, {
+        encoding: "base64",
+      });
+
+      await Sharing.shareAsync(file.uri);
+    });
+  };
   const qrcodeGenerate = () => {
     try {
       setLoading(true);
@@ -98,13 +134,34 @@ export const QrCodeView = ({ keyPix, userName }: KeyProps) => {
       </TouchableOpacity>
       {payload && (
         <View style={styles.qrcode}>
-          <QRCode value={payload} size={250} />
+          <QRCode
+            value={payload}
+            size={300}
+            getRef={(c) => (qrRef.current = c) as QRCodeRef}
+          />
         </View>
       )}
       {payload && (
         <View style={styles.copy}>
-          <Text>Copiar</Text>
           <Text>{payload}</Text>
+          <View style={styles.btnActions}>
+            <Button
+              title="Copiar chave"
+              customStyle={{
+                backgroundColor: colors.callAction.neutral,
+                width: "48%",
+              }}
+              onPress={() => copyToClipboard(payload)}
+            />
+            <Button
+              title="Compartilhar"
+              customStyle={{
+                backgroundColor: colors.callAction.secondary,
+                width: "48%",
+              }}
+              onPress={shareQrCode}
+            />
+          </View>
         </View>
       )}
     </View>

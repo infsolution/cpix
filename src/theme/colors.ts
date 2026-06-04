@@ -46,4 +46,14 @@ export const colors = {
   },
   visibilityPassword: "#32BCAD",
   border: "#AED9DA",
+  callAction: {
+    main: "#1BA284",
+    secondary: "#4CC9A6",
+    light: "#D6FFEF",
+    tertiary: "#3B82F6",
+    neutral: "#959aa3",
+    neutralMedium: "#6B7280",
+    neutralDark: "#374151",
+    danger: "#EF4444",
+  },
 };

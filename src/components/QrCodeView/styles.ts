@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native";
 import { colors } from "@/theme/colors";
 export const styles = StyleSheet.create({
   container: {
+    flex: 1,
     paddingTop: 8,
   },
   title: {
@@ -52,5 +53,10 @@ export const styles = StyleSheet.create({
   copy: {
     marginTop: 8,
     marginBottom: 4,
+  },
+  btnActions: {
+    flexDirection: "row",
+    gap: 4,
+    marginTop: 8,
   },
 });

@@ -1,5 +1,12 @@
 import { DismissKeiboardview } from "@/components/DismissKeyboardView";
-import { Text, View, Image, TouchableOpacity, Alert } from "react-native";
+import {
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  Alert,
+  ScrollView,
+} from "react-native";
 import { usePixDatabase } from "@/database/usePixDatabase";
 import { useNavigation } from "@react-navigation/native";
 import { StackRouterProps } from "@/routes/StackRoutes";
@@ -9,7 +16,6 @@ import { Loading } from "@/components/Loading";
 import { useState, useEffect } from "react";
 import { AddForm } from "../AddForm";
 import { styles } from "./styles";
-import dayjs from "dayjs";
 import { getKey } from "@/shared/services/c-pix/keys.service";
 import { copyText } from "@/utils/structure";
 import { QrCodeView } from "@/components/QrCodeView";
@@ -88,30 +94,33 @@ export function Edit({ route }: StackRouterProps<"edit">) {
 
   return (
     <DismissKeiboardview>
-      <View style={styles.container}>
-        <TabGoBack />
-        {!editable && (
-          <View style={styles.readyOnlyContainer}>
-            <View style={styles.readOnlyTitleConteiner}>
-              <Text style={styles.readyOnlyTitle}>{name}</Text>
-              <TouchableOpacity onPress={() => setEditable(true)}>
-                <Feather name="edit-2" size={20} color="black" />
+      <ScrollView>
+        <View style={styles.container}>
+          <TabGoBack />
+          {!editable && (
+            <View style={styles.readyOnlyContainer}>
+              <View style={styles.readOnlyTitleConteiner}>
+                <Text style={styles.readyOnlyTitle}>{name}</Text>
+                <TouchableOpacity onPress={() => setEditable(true)}>
+                  <Feather name="edit-2" size={20} color="black" />
+                </TouchableOpacity>
+              </View>
+              <Text style={styles.readyOnlyText}>{bank}</Text>
+              <TouchableOpacity activeOpacity={0.8} onPress={copyToClipboard}>
+                <Text style={styles.readyOnlyTextkey}>{key}</Text>
               </TouchableOpacity>
+
+              <QrCodeView keyPix={key} userName={name} />
             </View>
-            <Text style={styles.readyOnlyText}>{bank}</Text>
-            <TouchableOpacity activeOpacity={0.8} onPress={copyToClipboard}>
-              <Text style={styles.readyOnlyTextkey}>{key}</Text>
-            </TouchableOpacity>
-            <QrCodeView keyPix={key} userName={name} />
-          </View>
-        )}
-        {editable && (
-          <>
-            <Text style={styles.title}>Editar chave PIX</Text>
-            <AddForm id={route.params.id} own={route.params.own} />
-          </>
-        )}
-      </View>
+          )}
+          {editable && (
+            <>
+              <Text style={styles.title}>Editar chave PIX</Text>
+              <AddForm id={route.params.id} own={route.params.own} />
+            </>
+          )}
+        </View>
+      </ScrollView>
     </DismissKeiboardview>
   );
 }
