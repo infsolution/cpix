@@ -85,6 +85,7 @@ export const updateKey = async (keyData: UpdateKey): Promise<IKeyResponse> => {
 export const createOrUpdateKey = async (
   keyData: CreateKey | UpdateKey,
 ): Promise<IKeyResponse> => {
+  console.info("Function", keyData);
   if ("id" in keyData) {
     return await updateKey(keyData);
   } else {

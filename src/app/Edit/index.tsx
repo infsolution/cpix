@@ -29,14 +29,13 @@ export function Edit({ route }: StackRouterProps<"edit">) {
   const [key, setKey] = useState("");
   //   const [createdAt, setCreatedAt] = useState("");
   const navigation = useNavigation();
-
   async function fetchKey() {
     try {
       if (route.params.own === 1) {
         const serverResponse = await getRemoteKey(route.params.id);
         if (serverResponse) {
           setName(serverResponse.name);
-          setBank(serverResponse.bank);
+          setBank(serverResponse.nameBank);
           setKey(serverResponse.key);
           // setIsPublic(serverResponse.is_public);
         }
@@ -44,7 +43,7 @@ export function Edit({ route }: StackRouterProps<"edit">) {
         const response = await pixDatabase.getKey(route.params.id);
         if (response) {
           setName(response.name);
-          setBank(response.bank);
+          setBank(response.nameBank);
           setKey(response.key);
           //   setCreatedAt(response.created_at);
         }

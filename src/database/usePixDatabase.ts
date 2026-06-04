@@ -20,14 +20,14 @@ export function usePixDatabase() {
 
   function listKeys(own: number) {
     const data = database.getAllAsync<KeyResponse>(
-      `SELECT keys.*, null AS selected, key AS keyPix, banks.name AS bank FROM keys LEFT JOIN banks ON keys.bank = banks.code WHERE own = ${own}`,
+      `SELECT keys.*, null AS selected, key AS keyPix, banks.code AS bank, banks.name AS nameBank FROM keys LEFT JOIN banks ON keys.bank = banks.code WHERE own = ${own}`,
     );
     return data;
   }
 
   function getKey(id: string) {
     const response = database.getFirstAsync<TypeKey>(
-      `SELECT keys.*, banks.name AS bank FROM keys LEFT JOIN banks ON keys.bank = banks.code WHERE keys.id = '${id}'`,
+      `SELECT keys.*, banks.code AS bank, banks.name AS nameBank FROM keys LEFT JOIN banks ON keys.bank = banks.code WHERE keys.id = '${id}'`,
       {
         $id: id,
       },

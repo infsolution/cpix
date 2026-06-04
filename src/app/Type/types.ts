@@ -2,6 +2,7 @@ export type ItemPix = {
   id: string;
   name: string;
   bank: string;
+  nameBank: string;
   keyPix: string;
   selected: boolean | null;
   image?: string;
@@ -22,6 +23,7 @@ export type KeyResponse = {
   name: string;
   keyPix: string;
   bank: string;
+  nameBank: string;
   is_public: boolean;
   selected: boolean | null;
 };
@@ -41,6 +43,7 @@ export type TypeKey = {
   name: string;
   key: string;
   bank: string;
+  nameBank: string;
   is_public: boolean;
   created_at: string;
 };

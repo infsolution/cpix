@@ -18,7 +18,6 @@ import {
   createOrUpdateKey,
   getKey,
 } from "@/shared/services/c-pix/keys.service";
-import { IEditKeyResponse } from "@/shared/interfaces/key-interface";
 
 type Params = {
   id?: string | undefined;
@@ -54,14 +53,23 @@ export const AddForm = ({ id, own }: Params) => {
     try {
       if (user) {
         if (own === 1) {
-          const createKey = {
-            id: data?.id,
-            key: data.key,
-            bank_id: data.bank,
-            is_public: data.is_public,
-            own: true,
-          };
-
+          let createKey;
+          if (id) {
+            createKey = {
+              id: data?.id,
+              key: data.key,
+              bank_id: data.bank,
+              is_public: data.is_public,
+              own: true,
+            };
+          } else {
+            createKey = {
+              key: data.key,
+              bank_id: data.bank,
+              is_public: data.is_public,
+              own: true,
+            };
+          }
           const { code } = await createOrUpdateKey(createKey);
           if (code != "201" && code != "200") {
             Alert.alert("Error", "Erro ao tentar adicionar sua chave");
@@ -75,7 +83,7 @@ export const AddForm = ({ id, own }: Params) => {
         ]);
       }
     } catch (error) {
-      console.log(error);
+      console.error("Erro ao tentar adicionar sua chave", error);
       Alert.alert("Error", "Erro ao tentar adicionar sua chave");
     }
   }

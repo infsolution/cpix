@@ -25,6 +25,7 @@ export interface IKey {
   name: string;
   key: string;
   bank: string;
+  nameBank: string;
   is_public: boolean;
   own: boolean;
 }

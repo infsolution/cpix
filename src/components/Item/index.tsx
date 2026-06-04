@@ -17,6 +17,7 @@ export function Item({
   id,
   name,
   bank,
+  nameBank,
   selected,
   keyPix,
   onCopyItem,
@@ -43,7 +44,7 @@ export function Item({
         disabled={listType == "own" ? false : true}
       >
         <Text style={styles.title}>{name}</Text>
-        <Text style={styles.text}>{bank}</Text>
+        <Text style={styles.text}>{nameBank}</Text>
       </TouchableOpacity>
       <TouchableOpacity activeOpacity={0.8} onPress={() => onCopyItem(id)}>
         <Feather name="copy" size={24} color={colors.list.captular} />

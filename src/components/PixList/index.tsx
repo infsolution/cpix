@@ -278,6 +278,7 @@ export const PixList = ({ own, keysToShare, setKeysToShare }: ListProps) => {
                   id={item.id}
                   name={item.name}
                   bank={item.bank}
+                  nameBank={item.nameBank}
                   keyPix={item.keyPix}
                   selected={item.selected}
                   onCopyItem={() => copyItem(item.id)}
