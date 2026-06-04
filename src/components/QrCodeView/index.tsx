@@ -66,7 +66,7 @@ export const QrCodeView = ({ keyPix, userName }: KeyProps) => {
 
       <View style={styles.formQR}>
         <View style={styles.formInput}>
-          <Text style={styles.label}>Valor cobrado</Text>
+          <Text style={styles.label}>Valor (opcional)</Text>
           <CurrencyInput
             value={value}
             onChangeValue={setValue}

@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren } from "react";
+import { FC, PropsWithChildren, useEffect } from "react";
 import {
   Text,
   View,
@@ -188,8 +188,10 @@ export const PixList = ({ own, keysToShare, setKeysToShare }: ListProps) => {
   useFocusEffect(
     useCallback(() => {
       getKeys();
+      hideActions();
     }, [listType]),
   );
+
   return (
     <View style={styles.container}>
       <View style={styles.formContainer}>
