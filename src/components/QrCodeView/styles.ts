@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.border,
     borderRadius: 8,
+    padding: 12,
   },
   formQR: {
     flexDirection: "row",
@@ -37,5 +38,19 @@ export const styles = StyleSheet.create({
   buttonText: {
     color: colors.white,
     fontSize: 16,
+  },
+  textError: {
+    color: colors.red.delete,
+    paddingHorizontal: 4,
+  },
+  qrcode: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 8,
+    marginTop: 8,
+  },
+  copy: {
+    marginTop: 8,
+    marginBottom: 4,
   },
 });

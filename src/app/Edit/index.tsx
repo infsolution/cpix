@@ -102,7 +102,7 @@ export function Edit({ route }: StackRouterProps<"edit">) {
             <TouchableOpacity activeOpacity={0.8} onPress={copyToClipboard}>
               <Text style={styles.readyOnlyTextkey}>{key}</Text>
             </TouchableOpacity>
-            <QrCodeView keyPix={key} />
+            <QrCodeView keyPix={key} userName={name} />
           </View>
         )}
         {editable && (
