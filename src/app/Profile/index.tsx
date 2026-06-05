@@ -15,10 +15,12 @@ export function Profile() {
   return (
     <AppBar keys={keysToShare} currentRoute={"profile"}>
       <TabGoBack />
-      <View style={styles.formContainer}>
+      <View style={styles.profileContainer}>
         <View style={styles.formControl}>
           <Image
-            source={require("@/assets/profile.png")}
+            source={{
+              uri: "https://avatars.githubusercontent.com/u/13574950?v=4",
+            }}
             style={styles.profileImage}
           />
         </View>
@@ -26,7 +28,7 @@ export function Profile() {
           <Text style={styles.title}>{user?.name || ""}</Text>
           <Entypo
             name="chevron-thin-right"
-            size={20}
+            size={16}
             color={colors.text.titles}
             onPress={() => console.log("Editar perfil")}
           />

@@ -78,6 +78,15 @@ export function usePixDatabase() {
     }
   }
 
+  //Search
+  function searchKeys(term: string) {
+    const data = database.getAllAsync<KeyResponse>(
+      `SELECT keys.*, null AS selected, key AS keyPix, banks.code AS bank, banks.name AS nameBank FROM keys 
+      LEFT JOIN banks ON keys.bank = banks.code WHERE keys.name LIKE '%${term}%' OR keyPix LIKE '%${term}%' OR nameBank LIKE '%${term}%'`,
+    );
+    return data;
+  }
+
   return {
     listKeys,
     create,
@@ -85,5 +94,6 @@ export function usePixDatabase() {
     updateKey,
     deleteKey,
     createOrUpdate,
+    searchKeys,
   };
 }

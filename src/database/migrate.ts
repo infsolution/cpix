@@ -12,6 +12,7 @@ export async function migrate(db: SQLiteDatabase) {
             email TEXT NOT NULL UNIQUE,
             universal_uuid TEXT NOT NULL UNIQUE,
             is_public BOOLEAN NOT NULL DEFAULT 0, 
+            image TEXT,
             created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
         );

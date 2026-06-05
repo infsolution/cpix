@@ -18,7 +18,6 @@ import { useNavigation } from "@react-navigation/native";
 import Feather from "@expo/vector-icons/Feather";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { colors } from "@/theme/colors";
-import { Header } from "@/components/Header";
 import { usePixDatabase } from "@/database/usePixDatabase";
 import { useFocusEffect } from "@react-navigation/native";
 import { EmptyList } from "@/components/EmptyList";

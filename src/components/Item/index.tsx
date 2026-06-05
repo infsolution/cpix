@@ -30,7 +30,7 @@ export function Item({
     <View style={styles.container} key={id}>
       {selected && (
         <Checkbox
-          color={colors.list.captular}
+          color={colors.list.capitular}
           style={styles.checkbox}
           value={selected}
           onValueChange={() => onMarkItem(id, selected)}
@@ -47,7 +47,7 @@ export function Item({
         <Text style={styles.text}>{nameBank}</Text>
       </TouchableOpacity>
       <TouchableOpacity activeOpacity={0.8} onPress={() => onCopyItem(id)}>
-        <Feather name="copy" size={24} color={colors.list.captular} />
+        <Feather name="copy" size={24} color={colors.list.capitular} />
       </TouchableOpacity>
     </View>
   );

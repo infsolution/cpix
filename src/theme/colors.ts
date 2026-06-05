@@ -28,12 +28,12 @@ export const colors = {
     circle: "#E9F4F0",
     titleItem: "#000000",
     textItem: "#272727",
-    captular: "#248462",
+    capitular: "#248462",
   },
   header: {
     max: "#0aa785",
     min: "#27695a",
-    inputBacground: "#40B098",
+    inputBackground: "#40B098",
   },
   btn: {
     goBack: "#EBEBEB",
