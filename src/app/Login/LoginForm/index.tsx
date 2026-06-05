@@ -9,6 +9,7 @@ import { schema } from "./schema";
 import { FormLoginParams } from "@/app/Type/interfaces";
 import { useUserDatabase } from "@/database/useUserDatabase";
 import { useAuthContext } from "@/context/auth.context";
+import { useErrorHandler } from "@/shared/hooks/useErrorHandler";
 
 export const LoginForm = () => {
   const navigation = useNavigation();
@@ -25,6 +26,7 @@ export const LoginForm = () => {
     resolver: yupResolver(schema),
   });
   const { user, setUser, handleLogin } = useAuthContext();
+  const { handleError } = useErrorHandler();
   const onSubmit = async (data: FormLoginParams) => {
     try {
       const loggedUser = await handleLogin(data);
@@ -46,7 +48,7 @@ export const LoginForm = () => {
         setUser(loggedUser);
       }
     } catch (error) {
-      console.log("Error login user", error);
+      handleError(error, "Falha ao fazer login");
     }
   };
 
