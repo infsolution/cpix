@@ -1,5 +1,5 @@
 import { NavigationRoutes } from "@/routes";
-import { useEffect, Suspense } from "react";
+import React, { useEffect, Suspense } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import {
   useFonts,
@@ -13,6 +13,8 @@ import { migrate } from "@/database/migrate";
 import { AuthContextProvider } from "@/context/auth.context";
 import { SnackbarContextProvider } from "@/context/snackbar.context";
 import { Snackbar } from "@/components/Snackbar";
+import { BottomSheetProvider } from "@/context/bottomsheet.context";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function App() {
   const [fontLoaded, error] = useFonts({
@@ -31,14 +33,18 @@ export default function App() {
   }
   return (
     <Suspense fallback={<Loading />}>
-      <SnackbarContextProvider>
-        <AuthContextProvider>
-          <SQLiteProvider databaseName="cpix.db" onInit={migrate} useSuspense>
-            <NavigationRoutes />
-            <Snackbar />
-          </SQLiteProvider>
-        </AuthContextProvider>
-      </SnackbarContextProvider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <SnackbarContextProvider>
+          <AuthContextProvider>
+            <SQLiteProvider databaseName="cpix.db" onInit={migrate} useSuspense>
+              <BottomSheetProvider>
+                <NavigationRoutes />
+                <Snackbar />
+              </BottomSheetProvider>
+            </SQLiteProvider>
+          </AuthContextProvider>
+        </SnackbarContextProvider>
+      </GestureHandlerRootView>
     </Suspense>
   );
 }
