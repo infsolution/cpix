@@ -11,12 +11,18 @@ export const styles = StyleSheet.create({
   inputSession: {
     flexDirection: "row",
     gap: 12,
+    alignItems: "center",
   },
   input: {
-    width: "70%",
+    width: "60%",
     color: "#fff",
     backgroundColor: colors.header.inputBackground,
     borderRadius: 26,
-    paddingHorizontal: 18,
+    paddingHorizontal: 12,
+  },
+  profileImage: {
+    width: 54,
+    height: 54,
+    borderRadius: 50,
   },
 });

@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  ScrollView,
-  Alert,
-} from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
 import { styles } from "./styles";
 import CurrencyInput from "react-native-currency-input";
 import { useRef, useState } from "react";
@@ -14,7 +7,7 @@ import { colors } from "@/theme/colors";
 import { generatePixPayload } from "@/utils/pix";
 import QRCode from "react-native-qrcode-svg";
 import { Button } from "@/components/Button";
-import { copyText } from "@/utils/structure";
+import { copyText, shareText } from "@/utils/structure";
 import { File, Paths } from "expo-file-system";
 import * as Sharing from "expo-sharing";
 
@@ -48,6 +41,7 @@ export const QrCodeView = ({ keyPix, userName }: KeyProps) => {
   async function copyToClipboard(key: string) {
     try {
       await copyText(key);
+      await shareText(key);
     } catch (error) {
       Alert.alert("Error", "Error copying key to clipboard");
       console.log("Error copying key to clipboard:", error);

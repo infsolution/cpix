@@ -8,22 +8,16 @@ import { PixList } from "@/components/PixList";
 import { KeysToShare } from "../Type/types";
 import { useState } from "react";
 import { useAuthContext } from "@/context/auth.context";
+import { Header } from "@/components/Header";
 
 export function Profile() {
   const [keysToShare, setKeysToShare] = useState<KeysToShare[]>([]);
   const { user } = useAuthContext();
   return (
     <AppBar keys={keysToShare} currentRoute={"profile"}>
-      <TabGoBack />
+      <Header />
       <View style={styles.profileContainer}>
-        <View style={styles.formControl}>
-          <Image
-            source={{
-              uri: "https://avatars.githubusercontent.com/u/13574950?v=4",
-            }}
-            style={styles.profileImage}
-          />
-        </View>
+        <View style={styles.formControl}></View>
         <View style={styles.formControl}>
           <Text style={styles.title}>{user?.name || ""}</Text>
           <Entypo

@@ -93,9 +93,9 @@ export function Edit({ route }: StackRouterProps<"edit">) {
 
   return (
     <DismissKeiboardview>
+      <TabGoBack />
       <ScrollView>
         <View style={styles.container}>
-          <TabGoBack />
           {!editable && (
             <View style={styles.readyOnlyContainer}>
               <View style={styles.readOnlyTitleConteiner}>

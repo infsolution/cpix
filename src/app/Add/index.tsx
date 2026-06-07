@@ -8,8 +8,8 @@ import { StackRouterProps } from "@/routes/StackRoutes";
 export function Add({ route }: StackRouterProps<"add">) {
   return (
     <DismissKeiboardview>
+      <TabGoBack />
       <View style={styles.container}>
-        <TabGoBack />
         <Text style={styles.title}>Adicionar chave PIX</Text>
         <AddForm own={route.params.own} />
       </View>
