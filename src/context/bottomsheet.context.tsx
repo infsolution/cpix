@@ -11,6 +11,7 @@ import React, {
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import { TouchableWithoutFeedback, View } from "react-native";
 import { styles } from "./styles";
+import { colors } from "@/theme/colors";
 interface BottomSheetContextType {
   openBottomSheet: (content: React.ReactNode, index: number) => void;
   closeBottomSheet: () => void;
@@ -26,6 +27,7 @@ export const BottomSheetProvider: FC<PropsWithChildren> = ({ children }) => {
   const snapPoints = ["70%", "90%"];
   const openBottomSheet = useCallback(
     (content: React.ReactNode, index: number) => {
+      console.log("Opem bottom");
       setIndex(index);
       setContent(content);
       setIsOpen(true);
@@ -37,10 +39,17 @@ export const BottomSheetProvider: FC<PropsWithChildren> = ({ children }) => {
   );
 
   const closeBottomSheet = useCallback(() => {
+    console.log("Close bottom");
     setIsOpen(false);
     setContent(null);
     setIndex(-1);
     bottomSheetRef.current?.close();
+  }, []);
+
+  const handleSheetChange = useCallback((index: number) => {
+    if (index === -1) {
+      setIsOpen(false);
+    }
   }, []);
   return (
     <BottomSheetContext.Provider value={{ openBottomSheet, closeBottomSheet }}>
@@ -50,6 +59,14 @@ export const BottomSheetProvider: FC<PropsWithChildren> = ({ children }) => {
         snapPoints={snapPoints}
         style={{ zIndez: 2 }}
         index={index}
+        enablePanDownToClose
+        onChange={handleSheetChange}
+        backgroundStyle={{
+          backgroundColor: colors.white,
+          borderTopLeftRadius: 32,
+          borderTopRightRadius: 32,
+          elevation: 9,
+        }}
       >
         {isOpen && (
           <TouchableWithoutFeedback onPress={closeBottomSheet}>

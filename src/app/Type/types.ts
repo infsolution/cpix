@@ -72,3 +72,18 @@ export type Bank = {
 export type DbCount = {
   count: number;
 };
+
+export interface ItemSearch {
+  id: string;
+  keyPix: string;
+  name: string;
+  userName?: string;
+  image?: string;
+  nameBank?: string;
+}
+
+export interface SearchResponse {
+  message: string;
+  code: string;
+  data: ItemSearch[];
+}

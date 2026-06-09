@@ -2,6 +2,7 @@ export const colors = {
   background: "#FFFFFF",
   green: {
     btn: "#1BA284",
+    background: "#e6faf2",
   },
   red: {
     delete: "#E95A55",

@@ -1,13 +1,21 @@
 import { TextInput, TextInputProps } from "react-native";
 import { styles } from "./styles";
 
+type InputProps = TextInputProps & {
+  setTerm: (term: string) => void;
+  term: string;
+};
 
-export function Input({ ...rest }: TextInputProps) {
-    return (
-        <TextInput
-            placeholderTextColor="#A5B1B4"
-            style={styles.container}
-            {...rest}
-        />
-    )
+export function Input({ term, setTerm, ...rest }: InputProps) {
+  const handleSearch = (term: string) => {
+    setTerm(term);
+  };
+  return (
+    <TextInput
+      style={styles.container}
+      value={term}
+      onChangeText={handleSearch}
+      {...rest}
+    />
+  );
 }

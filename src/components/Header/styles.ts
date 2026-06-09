@@ -10,8 +10,10 @@ export const styles = StyleSheet.create({
   },
   inputSession: {
     flexDirection: "row",
-    gap: 12,
     alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
+    paddingHorizontal: 24,
   },
   input: {
     width: "60%",

@@ -1,4 +1,10 @@
-import { KeyCreate, KeyResponse, KeyUpdate, TypeKey } from "@/app/Type/types";
+import {
+  ItemSearch,
+  KeyCreate,
+  KeyResponse,
+  KeyUpdate,
+  TypeKey,
+} from "@/app/Type/types";
 import { useSQLiteContext } from "expo-sqlite";
 
 export function usePixDatabase() {
@@ -80,8 +86,8 @@ export function usePixDatabase() {
 
   //Search
   function searchKeys(term: string) {
-    const data = database.getAllAsync<KeyResponse>(
-      `SELECT keys.*, null AS selected, key AS keyPix, banks.code AS bank, banks.name AS nameBank FROM keys 
+    const data = database.getAllAsync<ItemSearch>(
+      `SELECT keys.id, keys.name, keys.key AS keyPix, banks.name AS nameBank FROM keys 
       LEFT JOIN banks ON keys.bank = banks.code WHERE keys.name LIKE '%${term}%' OR keyPix LIKE '%${term}%' OR nameBank LIKE '%${term}%'`,
     );
     return data;
