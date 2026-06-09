@@ -10,3 +10,17 @@ export interface IUser {
   token: string;
   image?: string;
 }
+
+export interface SUser {
+  id: number;
+  name: string;
+  keyPix?: string;
+  user_name: string;
+  image: string;
+}
+
+export interface SUserResponse {
+  message: string;
+  code: string;
+  data: SUser[];
+}

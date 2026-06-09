@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     paddingVertical: 8,
     width: "100%",
     height: 60,
-    borderColor: "#AED9DA",
+    borderColor: colors.border,
     borderRadius: 8,
     borderWidth: 1,
     justifyContent: "space-between",
@@ -16,12 +16,13 @@ export const styles = StyleSheet.create({
   },
   name: {
     color: colors.text.titles,
+    fontWeight: "bold",
   },
   bankName: {
-    color: colors.text.titles,
+    color: colors.text.subTitle,
   },
   text: {
-    //
+    // color: colors.text.subTitle,
   },
   icons: {
     width: "30%",

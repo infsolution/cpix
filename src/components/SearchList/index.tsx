@@ -7,21 +7,35 @@ import { SearchListItem } from "../SearchListItem";
 import { EmptyList } from "../EmptyList";
 import { ItemSearch } from "@/app/Type/types";
 import { usePixDatabase } from "@/database/usePixDatabase";
+import { getUsers } from "@/shared/services/c-pix/users.service";
+import { SUser } from "@/shared/interfaces/user-interface";
+import { useErrorHandler } from "@/shared/hooks/useErrorHandler";
+
 export const SearchList = () => {
   const [term, setTerm] = useState("");
-  const [listItems, setListItems] = useState<ItemSearch[]>([]);
+  const [listItems, setListItems] = useState<ItemSearch[] | SUser[]>([]);
   const usePix = usePixDatabase();
+  const { handleError } = useErrorHandler();
   const search = async () => {
     if (term.length > 3) {
-      if (term.startsWith("@", 0)) {
-        console.log(term);
-      } else {
-        const localData = await usePix.searchKeys(term);
-        if (localData.length > 0) {
-          setListItems(localData);
+      try {
+        if (term.startsWith("@", 0)) {
+          const { data } = await getUsers({ term });
+          if (data.length > 0) {
+            setListItems(data);
+          } else {
+            setListItems([]);
+          }
         } else {
-          setListItems([]);
+          const localData = await usePix.searchKeys(term);
+          if (localData.length > 0) {
+            setListItems(localData);
+          } else {
+            setListItems([]);
+          }
         }
+      } catch (error) {
+        handleError(error, "Erro ao buscar usuários");
       }
     } else {
       setListItems([]);

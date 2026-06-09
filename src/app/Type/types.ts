@@ -74,10 +74,10 @@ export type DbCount = {
 };
 
 export interface ItemSearch {
-  id: string;
-  keyPix: string;
+  id: string | number;
+  keyPix?: string;
   name: string;
-  userName?: string;
+  user_name?: string;
   image?: string;
   nameBank?: string;
 }

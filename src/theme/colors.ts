@@ -10,7 +10,8 @@ export const colors = {
   white: "#FFFFFF",
   black: "#000000",
   text: {
-    titles: "#1F1F1F",
+    titles: "#232422",
+    subTitle: "#616861",
     tab: "#919191",
     placeholder: "#333333",
     label: "#080808",
