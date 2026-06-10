@@ -5,6 +5,7 @@ export type RoootStackParamList = {
   profile: undefined;
   add: { own: number };
   edit: { id: string; own: number };
+  friends: undefined;
 };
 
 declare global {

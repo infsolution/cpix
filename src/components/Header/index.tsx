@@ -8,10 +8,13 @@ import { useAuthContext } from "@/context/auth.context";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useBottomSheetContext } from "@/context/bottomsheet.context";
 import { SearchList } from "../SearchList";
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import { useNavigation } from "@react-navigation/native";
 
 export function Header() {
   const { user, handleLogout } = useAuthContext();
   const { openBottomSheet } = useBottomSheetContext();
+  const navigation = useNavigation();
   const logout = () => {
     handleLogout();
   };
@@ -39,6 +42,12 @@ export function Header() {
             }}
           >
             <MaterialIcons name="search" size={26} color={colors.white} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => navigation.navigate("friends")}
+          >
+            <FontAwesome5 name="user-friends" size={26} color={colors.white} />
           </TouchableOpacity>
           <TouchableOpacity activeOpacity={0.8} onPress={logout}>
             <MaterialIcons name="logout" size={26} color={colors.white} />

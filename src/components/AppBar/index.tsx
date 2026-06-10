@@ -1,4 +1,4 @@
-import { View, TouchableOpacity, ToastAndroid } from "react-native";
+import { View, TouchableOpacity, ToastAndroid, Text } from "react-native";
 import { styles } from "./styles";
 import { ReactNode, useState } from "react";
 import { Feather } from "@expo/vector-icons";
@@ -40,6 +40,36 @@ export function AppBar({ children, currentRoute, keys = [] }: Props) {
   return (
     <View style={styles.container}>
       {children}
+      {(currentRoute === "home" || currentRoute === "profile") && (
+        <TouchableOpacity
+          activeOpacity={0.8}
+          style={{
+            bottom: -38,
+            width: 50,
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 1,
+          }}
+          onPress={share}
+        >
+          <View
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              height: 50,
+              width: 50,
+              borderRadius: 50,
+              backgroundColor: colors.callAction.tertiary,
+            }}
+          >
+            <Feather
+              name="share-2"
+              size={32}
+              color={colors.tab.defaultIconText}
+            />
+          </View>
+        </TouchableOpacity>
+      )}
       <View style={styles.appBar}>
         <TouchableOpacity
           activeOpacity={0.8}
@@ -48,21 +78,16 @@ export function AppBar({ children, currentRoute, keys = [] }: Props) {
         >
           <Feather
             name="home"
-            size={32}
+            size={26}
             color={
               currentRoute === "home"
                 ? colors.tab.defaultIconText
                 : colors.tab.defaultIcon
             }
           />
+          {currentRoute !== "home" && <Text style={styles.textIcon}>Home</Text>}
         </TouchableOpacity>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          style={{ paddingTop: 10 }}
-          onPress={share}
-        >
-          <Feather name="share-2" size={32} color={colors.tab.defaultIcon} />
-        </TouchableOpacity>
+
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => navigation.navigate("profile")}
@@ -70,13 +95,16 @@ export function AppBar({ children, currentRoute, keys = [] }: Props) {
         >
           <Ionicons
             name="person-circle-outline"
-            size={32}
+            size={28}
             color={
               currentRoute === "profile"
                 ? colors.tab.defaultIconText
                 : colors.tab.defaultIcon
             }
           />
+          {currentRoute !== "profile" && (
+            <Text style={styles.textIcon}>Perfil</Text>
+          )}
         </TouchableOpacity>
       </View>
     </View>
