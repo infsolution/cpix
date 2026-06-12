@@ -18,7 +18,7 @@ export function AppBar({ children, currentRoute, keys = [] }: Props) {
   function share() {
     if (keys.length === 0) {
       ToastAndroid.show(
-        "Selecione uma ou mais chaves para compartilhr",
+        "Selecione uma ou mais chaves para compartilhar",
         ToastAndroid.SHORT,
       );
       return;

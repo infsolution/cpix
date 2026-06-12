@@ -87,3 +87,18 @@ export interface SearchResponse {
   code: string;
   data: ItemSearch[];
 }
+
+export type ListType = "connection" | "sent" | "receiver";
+
+export interface ConnectionType {
+  id: string;
+  name: string;
+  user_name: string;
+  image?: string;
+}
+
+export interface ConnectionResponse {
+  message: string;
+  code: string;
+  data: ConnectionType[];
+}

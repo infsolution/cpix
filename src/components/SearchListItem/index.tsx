@@ -6,7 +6,7 @@ import { useState } from "react";
 import { ItemSearch } from "@/app/Type/types";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
-import { getConnection } from "@/shared/services/c-pix/users.service";
+import { getSendInvitation } from "@/shared/services/c-pix/users.service";
 import { useErrorHandler } from "@/shared/hooks/useErrorHandler";
 import { useSnackbarContext } from "@/context/snackbar.context";
 type ItemProp = {
@@ -17,7 +17,7 @@ export const SearchListItem = ({ itemPix }: ItemProp) => {
   const { notify } = useSnackbarContext();
   const handleConnect = async (id: string | number) => {
     try {
-      const { code } = await getConnection(id);
+      const { code } = await getSendInvitation(id);
       if (code == "201") {
         notify({
           message: "Solicitação enviada com sucesso",

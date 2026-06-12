@@ -24,7 +24,7 @@ export function Header() {
       style={styles.container}
     >
       <View style={styles.inputSession}>
-        {!user?.image && <UserCircle name="Cicero Leonardo" />}
+        {!user?.image && <UserCircle name={user?.name} />}
         {user?.image && (
           <Image
             source={{

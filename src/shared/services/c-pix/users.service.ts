@@ -1,3 +1,4 @@
+import { ConnectionResponse } from "@/app/Type/types";
 import { cPixApi } from "@/shared/api/c-pix";
 import { SUserResponse } from "@/shared/interfaces/user-interface";
 import { getJWT } from "@/shared/storage/service/user";
@@ -22,7 +23,19 @@ export const getUsers = async ({
   return data;
 };
 
-export const getConnection = async (
+export const getConnection = async (): Promise<ConnectionResponse> => {
+  const token = await getJWT("user-jwt");
+
+  const { data } = await cPixApi.get<ConnectionResponse>("profile/connection", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: "application/json",
+    },
+  });
+  return data;
+};
+
+export const getSendInvitation = async (
   id: string | number,
 ): Promise<SUserResponse> => {
   const token = await getJWT("user-jwt");
