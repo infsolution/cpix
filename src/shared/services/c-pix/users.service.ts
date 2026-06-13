@@ -35,7 +35,35 @@ export const getConnection = async (): Promise<ConnectionResponse> => {
   return data;
 };
 
-export const getSendInvitation = async (
+export const getSentInvitation = async (): Promise<ConnectionResponse> => {
+  const token = await getJWT("user-jwt");
+  const { data } = await cPixApi.get<ConnectionResponse>(
+    "profile/sent_invitations",
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/json",
+      },
+    },
+  );
+  return data;
+};
+
+export const getReceiverInvitation = async (): Promise<ConnectionResponse> => {
+  const token = await getJWT("user-jwt");
+  const { data } = await cPixApi.get<ConnectionResponse>(
+    "profile/receiver_invitations",
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/json",
+      },
+    },
+  );
+  return data;
+};
+
+export const sendInvitation = async (
   id: string | number,
 ): Promise<SUserResponse> => {
   const token = await getJWT("user-jwt");
@@ -45,6 +73,40 @@ export const getSendInvitation = async (
   const { data } = await cPixApi.post<SUserResponse>(
     "profile/send_invitation",
     body,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/json",
+      },
+    },
+  );
+  return data;
+};
+
+export const deleteConnection = async (
+  connectionId: string,
+): Promise<number> => {
+  const token = await getJWT("user-jwt");
+  const response = await cPixApi.delete<ConnectionResponse>(
+    `profile/delete_invitation/${connectionId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/json",
+      },
+    },
+  );
+
+  return response.status;
+};
+
+export const acceptConnection = async (
+  connectionId: string,
+): Promise<ConnectionResponse> => {
+  const token = await getJWT("user-jwt");
+  const { data } = await cPixApi.patch<ConnectionResponse>(
+    `profile/accept_invitation/${connectionId}`,
+    null,
     {
       headers: {
         Authorization: `Bearer ${token}`,

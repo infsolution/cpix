@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    paddingHorizontal: 22,
+    paddingHorizontal: 12,
     paddingVertical: 8,
     width: "100%",
     height: 60,
@@ -35,13 +35,17 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  textIcon: {
+  textIconDelete: {
     fontSize: 10,
     color: colors.callAction.danger,
   },
+  textIconAccept: {
+    fontSize: 10,
+    color: colors.callAction.tertiary,
+  },
   profileImage: {
-    width: 54,
-    height: 54,
+    width: 44,
+    height: 44,
     borderRadius: 50,
   },
 });

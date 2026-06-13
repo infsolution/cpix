@@ -95,6 +95,7 @@ export interface ConnectionType {
   name: string;
   user_name: string;
   image?: string;
+  connection_id: string;
 }
 
 export interface ConnectionResponse {
