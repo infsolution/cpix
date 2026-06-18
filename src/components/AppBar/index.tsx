@@ -40,7 +40,9 @@ export function AppBar({ children, currentRoute, keys = [] }: Props) {
   return (
     <View style={styles.container}>
       {children}
-      {(currentRoute === "home" || currentRoute === "profile") && (
+      {(currentRoute === "home" ||
+        currentRoute === "profile" ||
+        currentRoute === "friend") && (
         <TouchableOpacity
           activeOpacity={0.8}
           style={{

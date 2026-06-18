@@ -23,6 +23,18 @@ export const getUsers = async ({
   return data;
 };
 
+export const getConnectionUser = async (id: string): Promise<SUserResponse> => {
+  const token = await getJWT("user-jwt");
+
+  const { data } = await cPixApi.get<SUserResponse>(`profile/friend/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: "application/json",
+    },
+  });
+  return data;
+};
+
 export const getConnection = async (): Promise<ConnectionResponse> => {
   const token = await getJWT("user-jwt");
 

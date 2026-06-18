@@ -6,6 +6,7 @@ export type RoootStackParamList = {
   add: { own: number };
   edit: { id: string; own: number };
   friends: undefined;
+  friend: { id: string };
 };
 
 declare global {

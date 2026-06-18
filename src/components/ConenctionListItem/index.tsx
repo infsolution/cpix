@@ -1,9 +1,10 @@
 import { Image, Text, TouchableOpacity, View, Alert } from "react-native";
-import { styles } from "./styles";
-import { colors } from "@/theme/colors";
 import { ConnectionType, ItemSearch, ListType } from "@/app/Type/types";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import { useNavigation } from "@react-navigation/native";
 import { UserCircle } from "../UserCircle";
+import { colors } from "@/theme/colors";
+import { styles } from "./styles";
 
 type ItemProp = {
   itemPix: ConnectionType;
@@ -17,6 +18,7 @@ export const ConnectionListItem = ({
   handleAcceptConnection,
   listType,
 }: ItemProp) => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       {!itemPix?.image && <UserCircle name={itemPix.name} />}
@@ -28,10 +30,14 @@ export const ConnectionListItem = ({
           style={styles.profileImage}
         />
       )}
-      <View style={styles.text}>
+      <TouchableOpacity
+        style={styles.text}
+        activeOpacity={0.8}
+        onPress={() => navigation.navigate("friend", { id: itemPix.id })}
+      >
         <Text style={styles.name}>{itemPix?.name}</Text>
         <Text style={styles.bankName}>{itemPix.user_name}</Text>
-      </View>
+      </TouchableOpacity>
       <View style={styles.icons}>
         {listType === "receiver" && (
           <TouchableOpacity

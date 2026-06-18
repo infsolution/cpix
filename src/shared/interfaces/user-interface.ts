@@ -24,3 +24,12 @@ export interface SUserResponse {
   code: string;
   data: SUser[];
 }
+
+export interface UserFriend {
+  id: string;
+  name: string;
+  userName: string;
+  image?: string;
+  connectionsNumber: string;
+  keyNumber: string;
+}
