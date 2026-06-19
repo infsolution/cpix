@@ -3,6 +3,7 @@ import {
   CreateKey,
   IEditKeyResponse,
   IKeyResponse,
+  KeysFriendResponse,
   UpdateKey,
 } from "@/shared/interfaces/key-interface";
 import { getJWT } from "@/shared/storage/service/user";
@@ -109,4 +110,15 @@ export const deleteKeys = async (ids: string[]): Promise<void> => {
   } catch (error) {
     throw new Error("Error deleting keys: " + error);
   }
+};
+
+export const getFriendKeys = async (id: string) => {
+  const token = await getJWT("user-jwt");
+  const { data } = await cPixApi.get<KeysFriendResponse>(`key/friend/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: "application/json",
+    },
+  });
+  return data;
 };

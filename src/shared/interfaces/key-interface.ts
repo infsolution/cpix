@@ -41,3 +41,19 @@ export interface IEditKeyResponse {
   code: string;
   data: IKey;
 }
+
+export interface KeysFriend {
+  id: string;
+  name: string;
+  keyPix: string;
+  image?: string;
+  bank: string;
+  nameBank: string;
+  selected: boolean;
+}
+
+export interface KeysFriendResponse {
+  message: string;
+  code: string;
+  data: KeysFriend[];
+}

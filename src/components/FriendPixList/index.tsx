@@ -1,49 +1,33 @@
-import { FC, PropsWithChildren, useEffect } from "react";
-import {
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  FlatList,
-  Alert,
-} from "react-native";
-import { StackRouterProps } from "@/routes/StackRoutes";
+import { Text, View, TouchableOpacity, FlatList, Alert } from "react-native";
 import { styles } from "./styles";
-import { AppBar } from "@/components/AppBar";
-import { TabBar } from "@/components/TabBar";
-import { ItemPix, KeysToShare } from "@/app/Type/types";
-import { Item } from "@/components/Item";
+import { KeysToShare } from "@/app/Type/types";
 import { useState, useCallback } from "react";
-import { useNavigation } from "@react-navigation/native";
-import Feather from "@expo/vector-icons/Feather";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { colors } from "@/theme/colors";
-import { usePixDatabase } from "@/database/usePixDatabase";
 import { useFocusEffect } from "@react-navigation/native";
-import { EmptyList } from "@/components/EmptyList";
 import { copyText } from "@/utils/structure";
 import * as keyService from "@/shared/services/c-pix/keys.service";
 import { Loading } from "../Loading";
 import { FriendListItem } from "../FriendListItem";
+import { KeysFriend } from "@/shared/interfaces/key-interface";
+import { FriendEmptyKeyList } from "../FriendEmptyKeyList";
 type ListProps = {
-  own: number;
+  id: string;
+  friendName: string;
   keysToShare: KeysToShare[];
   setKeysToShare: (keys: KeysToShare[]) => void;
 };
 export const FriendPixList = ({
-  own,
+  id,
+  friendName,
   keysToShare,
   setKeysToShare,
 }: ListProps) => {
-  const pixDatabase = usePixDatabase();
-  const navigation = useNavigation();
   const [listItemsId, setListItemsId] = useState<string[]>([]);
-  const [listItems, setListItems] = useState<ItemPix[]>([]);
+  const [listItems, setListItems] = useState<KeysFriend[]>([]);
   const [showActions, setShowActions] = useState(false);
   const [listType, setListType] = useState("own");
   const [loadingList, setLoadingList] = useState(false);
-  const [styleDeleteButton, setStyleDeleteButton] = useState(colors.red.delete);
-  const [disableDeleteButton, setDisableDeleteButton] = useState(false);
   const copyItem = async (id: string) => {
     const item = listItems.find((key) => key.id === id);
     if (item && item.keyPix) {
@@ -87,98 +71,28 @@ export const FriendPixList = ({
     }
   };
 
-  async function getKeys() {
+  const fetchFriendKeys = async () => {
     setLoadingList(true);
     try {
-      if (own === 0) {
-        setStyleDeleteButton(colors.red.delete);
-        setDisableDeleteButton(false);
-        if (listType === "own") {
-          await getLocalKeys();
-        } else {
-          setStyleDeleteButton(colors.switch.btnOff);
-          setDisableDeleteButton(true);
-          await getSharedKeys();
-        }
+      const { message, code, data } = await keyService.getFriendKeys(id);
+      if (data.length > 0) {
+        setListItems(data);
       } else {
-        await getOwnKeys();
+        setListItems([]);
       }
     } catch (error) {
       setLoadingList(false);
     } finally {
       setLoadingList(false);
     }
-  }
+  };
 
-  async function getLocalKeys() {
+  async function getKeys() {
     try {
-      const response = await pixDatabase.listKeys(own);
-      if (response.length > 0) {
-        setListItems(response);
-      } else {
-        setListItems([]);
-      }
-    } catch (error) {
-      Alert.alert("Error", "Error fetching keys");
-      console.error("Error fetching keys:", error);
-    }
-  }
-
-  async function getSharedKeys() {
-    try {
-      const { message, code, data } = await keyService.getKeys();
-      if (data.length > 0) {
-        setListItems(data);
-      } else {
-        setListItems([]);
-      }
-    } catch (error) {
-      Alert.alert("Error", "Error fetching shared keys");
-      console.error("Error fetching shared keys:", error);
-    }
-  }
-
-  async function getOwnKeys() {
-    try {
-      const { message, code, data } = await keyService.getUserKeys();
-      if (data.length > 0) {
-        setListItems(data);
-      } else {
-        setListItems([]);
-      }
+      fetchFriendKeys();
     } catch (error) {
       Alert.alert("Error", "Error fetching own keys");
       console.error("Error fetching own keys:", error);
-    }
-  }
-
-  function remove() {
-    if (own === 1) {
-      removeUserKeys();
-    } else {
-      deleteKey();
-    }
-  }
-
-  async function deleteKey() {
-    try {
-      await pixDatabase.deleteKey(listItemsId);
-      hideActions();
-      Alert.alert("Excluidos", "Chaves Excluídas com sucesso.");
-    } catch (error) {
-      console.log(error);
-      Alert.alert("Erro", "Erro ao tentar excluir as chaves");
-    }
-  }
-
-  async function removeUserKeys() {
-    try {
-      await keyService.deleteKeys(listItemsId);
-      hideActions();
-      Alert.alert("Excluidos", "Chaves Excluídas com sucesso.");
-    } catch (error) {
-      console.log(error);
-      Alert.alert("Erro", "Erro ao tentar excluir as chaves");
     }
   }
 
@@ -224,11 +138,6 @@ export const FriendPixList = ({
             </View>
           )}
         </View>
-        {own === 0 && (
-          <View style={styles.formControl}>
-            <TabBar setListType={setListType} listType={listType} />
-          </View>
-        )}
 
         <View style={styles.listItem}>
           {loadingList && (
@@ -261,7 +170,9 @@ export const FriendPixList = ({
               )}
               ItemSeparatorComponent={() => <View style={styles.separators} />}
               showsVerticalScrollIndicator={false}
-              ListEmptyComponent={<EmptyList />}
+              ListEmptyComponent={
+                <FriendEmptyKeyList friendName={friendName} />
+              }
             />
           )}
         </View>

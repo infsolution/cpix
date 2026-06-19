@@ -1,6 +1,9 @@
 import { ConnectionResponse } from "@/app/Type/types";
 import { cPixApi } from "@/shared/api/c-pix";
-import { SUserResponse } from "@/shared/interfaces/user-interface";
+import {
+  FriendUserResponse,
+  SUserResponse,
+} from "@/shared/interfaces/user-interface";
 import { getJWT } from "@/shared/storage/service/user";
 
 type SearchType = {
@@ -119,6 +122,20 @@ export const acceptConnection = async (
   const { data } = await cPixApi.patch<ConnectionResponse>(
     `profile/accept_invitation/${connectionId}`,
     null,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/json",
+      },
+    },
+  );
+  return data;
+};
+
+export const getFriend = async (id: string): Promise<FriendUserResponse> => {
+  const token = await getJWT("user-jwt");
+  const { data } = await cPixApi.get<FriendUserResponse>(
+    `profile/friend/${id}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,

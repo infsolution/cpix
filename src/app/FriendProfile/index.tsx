@@ -8,6 +8,7 @@ import { View, Text, Image } from "react-native";
 import { UserFriend } from "@/shared/interfaces/user-interface";
 import { UserCircle } from "@/components/UserCircle";
 import { styles } from "./styles";
+import { getFriend } from "@/shared/services/c-pix/users.service";
 export const FriendProfile = ({ route }: StackRouterProps<"friend">) => {
   const [keysToShare, setKeysToShare] = useState<KeysToShare[]>([]);
   const [userFriend, setUserFriend] = useState<UserFriend>({
@@ -15,13 +16,19 @@ export const FriendProfile = ({ route }: StackRouterProps<"friend">) => {
     name: "User Friend",
     userName: "@user_friend",
     image: "",
-    connectionsNumber: "10",
+    connectionNumber: "10",
     keyNumber: "4",
   });
   const fetchUserData = async () => {
     const id = route.params.id;
+    try {
+      const { data } = await getFriend(id);
+      setUserFriend(data);
+    } catch (error) {}
   };
-  useEffect(() => {}, []);
+  useEffect(() => {
+    fetchUserData();
+  }, []);
   return (
     <AppBar keys={keysToShare} currentRoute={"friend"}>
       <Header />
@@ -45,22 +52,31 @@ export const FriendProfile = ({ route }: StackRouterProps<"friend">) => {
           </View>
           <View style={styles.dataContainer}>
             <Text style={styles.subTitle}>
-              {userFriend.connectionsNumber} Conexões
+              {userFriend.connectionNumber}{" "}
+              {Number(userFriend.connectionNumber) > 1 ? "Conexões" : "Conexão"}
             </Text>
-            <Text style={styles.subTitle}>{userFriend.keyNumber} Chaves</Text>
+            <Text style={styles.subTitle}>
+              {userFriend.keyNumber}{" "}
+              {Number(userFriend.keyNumber) > 1
+                ? "Chaves"
+                : Number(userFriend.keyNumber) < 1
+                  ? "Chaves"
+                  : "Chave"}
+            </Text>
           </View>
         </View>
       </View>
       <View style={styles.legend}>
         <Text style={styles.title}>Chaves de {userFriend.name}</Text>
         <Text style={styles.subTitle}>
-          Você pode copiar e compartilhar chaves de {userFriend.name}
+          Você pode copiar e compartilhar essas chaves
         </Text>
       </View>
       <FriendPixList
-        own={1}
+        id={route.params.id}
         keysToShare={keysToShare}
         setKeysToShare={setKeysToShare}
+        friendName={userFriend.name}
       />
     </AppBar>
   );

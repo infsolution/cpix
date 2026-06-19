@@ -20,15 +20,17 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     fontWeight: "bold",
+    color: colors.text.titles,
   },
   subTitle: {
     fontSize: 12,
+    color: colors.text.subTitle,
   },
   dataContainer: {
     width: "100%",
   },
   info: {
-    //
+    marginTop: 12,
   },
   label: {
     marginBottom: 8,
@@ -42,6 +44,7 @@ export const styles = StyleSheet.create({
     borderRadius: 50,
   },
   legend: {
+    width: "100%",
     paddingHorizontal: 24,
   },
 });

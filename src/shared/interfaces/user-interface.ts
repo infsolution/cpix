@@ -30,6 +30,12 @@ export interface UserFriend {
   name: string;
   userName: string;
   image?: string;
-  connectionsNumber: string;
+  connectionNumber: string;
   keyNumber: string;
+}
+
+export interface FriendUserResponse {
+  message: string;
+  code: string;
+  data: UserFriend;
 }

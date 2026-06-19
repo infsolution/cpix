@@ -34,6 +34,7 @@ export const ConnectionListItem = ({
         style={styles.text}
         activeOpacity={0.8}
         onPress={() => navigation.navigate("friend", { id: itemPix.id })}
+        disabled={listType !== "connection"}
       >
         <Text style={styles.name}>{itemPix?.name}</Text>
         <Text style={styles.bankName}>{itemPix.user_name}</Text>
