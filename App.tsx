@@ -15,7 +15,7 @@ import { SnackbarContextProvider } from "@/context/snackbar.context";
 import { Snackbar } from "@/components/Snackbar";
 import { BottomSheetProvider } from "@/context/bottomsheet.context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-
+import { StatusBar } from "expo-status-bar";
 export default function App() {
   const [fontLoaded, error] = useFonts({
     Inter_400Regular,
@@ -33,6 +33,7 @@ export default function App() {
   }
   return (
     <Suspense fallback={<Loading />}>
+      <StatusBar style="dark" />
       <GestureHandlerRootView style={{ flex: 1 }}>
         <SnackbarContextProvider>
           <AuthContextProvider>

@@ -10,7 +10,6 @@ import {
 import { usePixDatabase } from "@/database/usePixDatabase";
 import { useNavigation } from "@react-navigation/native";
 import { StackRouterProps } from "@/routes/StackRoutes";
-import { TabGoBack } from "@/components/TabGoBack";
 import Feather from "@expo/vector-icons/Feather";
 import { Loading } from "@/components/Loading";
 import { useState, useEffect } from "react";
@@ -19,6 +18,7 @@ import { styles } from "./styles";
 import { getKey } from "@/shared/services/c-pix/keys.service";
 import { copyText } from "@/utils/structure";
 import { QrCodeView } from "@/components/QrCodeView";
+import { Header } from "@/components/Header";
 
 export function Edit({ route }: StackRouterProps<"edit">) {
   const pixDatabase = usePixDatabase();
@@ -93,7 +93,7 @@ export function Edit({ route }: StackRouterProps<"edit">) {
 
   return (
     <DismissKeiboardview>
-      <TabGoBack />
+      <Header />
       <ScrollView>
         <View style={styles.container}>
           {!editable && (
