@@ -41,12 +41,21 @@ export const QrCodeView = ({ keyPix, userName }: KeyProps) => {
   async function copyToClipboard(key: string) {
     try {
       await copyText(key);
-      await shareText(key);
     } catch (error) {
       Alert.alert("Error", "Error copying key to clipboard");
       console.log("Error copying key to clipboard:", error);
     }
   }
+
+  const shareKey = async (key: string) => {
+    try {
+      const message = key + "\n\nChave compartilhada com CPIX";
+      await shareText(message);
+    } catch (error) {
+      Alert.alert("Error", "Error sharing key");
+      console.log("Error sharing key:", error);
+    }
+  };
 
   const shareQrCode = async () => {
     qrRef.current?.toDataURL(async (base64: string) => {
@@ -82,7 +91,6 @@ export const QrCodeView = ({ keyPix, userName }: KeyProps) => {
         data["txid"] = `${txid[0].toLocaleUpperCase()}123`;
       }
       const text = generatePixPayload(data);
-      console.log(text);
       setPayload(text);
     } catch (error) {
       console.log(`Error to generate QR Code from `);
@@ -137,10 +145,19 @@ export const QrCodeView = ({ keyPix, userName }: KeyProps) => {
       )}
       {payload && (
         <View style={styles.copy}>
-          <Text>{payload}</Text>
+          {/* <Text>{payload}</Text> */}
+          <Button
+            title="Compartilhar QR Code"
+            customStyle={{
+              backgroundColor: colors.callAction.secondary,
+              width: "100%",
+            }}
+            onPress={shareQrCode}
+          />
+          <Text style={styles.textShare}>Código copia e cola</Text>
           <View style={styles.btnActions}>
             <Button
-              title="Copiar chave"
+              title="Copiar"
               customStyle={{
                 backgroundColor: colors.callAction.neutral,
                 width: "48%",
@@ -150,10 +167,10 @@ export const QrCodeView = ({ keyPix, userName }: KeyProps) => {
             <Button
               title="Compartilhar"
               customStyle={{
-                backgroundColor: colors.callAction.secondary,
+                backgroundColor: colors.callAction.tertiary,
                 width: "48%",
               }}
-              onPress={shareQrCode}
+              onPress={() => shareKey(payload)}
             />
           </View>
         </View>

@@ -1,6 +1,8 @@
 import { ConnectionResponse } from "@/app/Type/types";
 import { cPixApi } from "@/shared/api/c-pix";
 import {
+  FormEditProfileParams,
+  FormEditProfileResponse,
   FriendUserResponse,
   SUserResponse,
 } from "@/shared/interfaces/user-interface";
@@ -143,5 +145,25 @@ export const getFriend = async (id: string): Promise<FriendUserResponse> => {
       },
     },
   );
+  return data;
+};
+
+export const updateUser = async (
+  userData: FormEditProfileParams,
+): Promise<FormEditProfileResponse> => {
+  const token = await getJWT("user-jwt");
+  const user = {
+    name: userData.name,
+    user_name: userData.userName,
+    email: userData.email,
+    is_public: userData.termChecked,
+  };
+  const { data } = await cPixApi.patch(`profile`, user, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: "application/json",
+    },
+  });
+  console.log(data);
   return data;
 };

@@ -59,4 +59,8 @@ export const styles = StyleSheet.create({
     gap: 4,
     marginTop: 8,
   },
+  textShare: {
+    marginTop: 8,
+    fontSize: 16,
+  },
 });

@@ -3,6 +3,7 @@ export type RoootStackParamList = {
   login: undefined;
   signIn: undefined;
   profile: undefined;
+  profileEdit: undefined;
   add: { own: number };
   edit: { id: string; own: number };
   friends: undefined;

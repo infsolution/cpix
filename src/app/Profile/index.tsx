@@ -1,7 +1,7 @@
 import { Text, View, Image } from "react-native";
 import { styles } from "./styles";
 import { AppBar } from "@/components/AppBar";
-import { TabGoBack } from "@/components/TabGoBack";
+import { useNavigation } from "@react-navigation/native";
 import Entypo from "@expo/vector-icons/Entypo";
 import { colors } from "@/theme/colors";
 import { PixList } from "@/components/PixList";
@@ -13,6 +13,7 @@ import { Header } from "@/components/Header";
 export function Profile() {
   const [keysToShare, setKeysToShare] = useState<KeysToShare[]>([]);
   const { user } = useAuthContext();
+  const navigation = useNavigation();
   return (
     <AppBar keys={keysToShare} currentRoute={"profile"}>
       <Header />
@@ -24,7 +25,7 @@ export function Profile() {
             name="chevron-thin-right"
             size={16}
             color={colors.text.titles}
-            onPress={() => console.log("Editar perfil")}
+            onPress={() => navigation.navigate("profileEdit")}
           />
         </View>
         <View style={styles.formControl}>

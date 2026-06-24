@@ -39,3 +39,17 @@ export interface FriendUserResponse {
   code: string;
   data: UserFriend;
 }
+
+export interface FormEditProfileParams {
+  id: string;
+  name: string;
+  userName: string;
+  email: string;
+  termChecked: boolean;
+}
+
+export interface FormEditProfileResponse {
+  message: string;
+  code: string;
+  data: IUser;
+}
