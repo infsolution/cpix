@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "c-pix",
-    "slug": "c-pix",
+    "name": "xavex",
+    "slug": "xavex",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -14,11 +14,11 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "br.com.clsdev.cpix",
+      "bundleIdentifier": "br.com.clsdev.xavex",
       "icon": "./assets/adaptive-icon.png"
     },
     "android": {
-      "package": "br.com.clsdev.cpix",
+      "package": "br.com.clsdev.xavex",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#32BCAD"
