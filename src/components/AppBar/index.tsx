@@ -7,6 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import { colors } from "@/theme/colors";
 import { KeysToShare } from "@/app/Type/types";
 import { shareText } from "@/utils/structure";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   children: ReactNode;
@@ -14,26 +15,25 @@ type Props = {
   currentRoute: string;
 };
 export function AppBar({ children, currentRoute, keys = [] }: Props) {
+  const { t } = useTranslation();
   const navigation = useNavigation();
   function share() {
     if (keys.length === 0) {
-      ToastAndroid.show(
-        "Selecione uma ou mais chaves para compartilhar",
-        ToastAndroid.SHORT,
-      );
+      ToastAndroid.show(t("message.selectKeys"), ToastAndroid.SHORT);
       return;
     }
-    let toShare = "Olá Estou compartilhando com você as chaves PIX de:";
+    let toShare = t("message.sharingKeys");
     if (keys.length === 1) {
-      toShare = "Olá Estou compartilhando com você a chave PIX de:";
+      toShare = t("message.singleSharingKey");
     }
     if (keys.length > 0) {
       toShare += keys.map((keyPix) => {
-        return "\n" + keyPix.name + "\nChave: " + keyPix.keyPix;
+        return (
+          "\n" + keyPix.name + "\n" + t("words.key") + ": " + keyPix.keyPix
+        );
       });
     }
-    toShare +=
-      "\n\nJá baixou o CPix? Ainda não? Então baixe agora: https://link-do-cpix-na-playstore";
+    toShare += "\n\n" + t("message.downloadLink") + ": " + t("linkFromPlay");
     //TODO: Desmarcar as chaves na lista
     shareText(toShare);
   }

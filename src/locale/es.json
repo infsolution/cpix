@@ -1,0 +1,20 @@
+{
+  "appName": "Xavex",
+  "appDescription": "Deixa o PIX ainda mais prático",
+  "welcome": "Bem vindo!",
+  "logout": "Sair",
+  "forms": {
+    "name": "Nome",
+    "email": "Email",
+    "password": "Senha",
+    "passwordConfirmation": "Confirmar Senha",
+    "userName": "Nome de Usuário",
+    "confirmTerm": "Concordo com os termos e condições",
+    "toSignUp": "Cadastrar",
+    "login": "Entrar",
+    "forgotPassword": "Esqueci minha senha",
+    "itsNew": "É novo por aqui?",
+    "haveAnAccount": "Já tem conta?",
+    "signUp": "Cadastre-se"
+  }
+}

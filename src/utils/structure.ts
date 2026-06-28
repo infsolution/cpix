@@ -15,7 +15,6 @@ export const copyText = async (text: string) => {
         "A chave : " + text + " não pode ser copiada, tente novamente.",
         ToastAndroid.SHORT,
       );
-      console.log("item não copiado: " + text);
     }
   }
 };
@@ -24,13 +23,11 @@ export const shareText = async (text: string) => {
   if (text) {
     try {
       await Share.share({ message: text });
-      console.log("item compartilhado: " + text);
     } catch (error) {
       ToastAndroid.show(
-        "Descuple, não conseguimos compartilha a chave.",
+        "Desculpe, não conseguimos compartilha a chave.",
         ToastAndroid.SHORT,
       );
-      console.log("item não compartilhado: " + text);
     }
   }
 };

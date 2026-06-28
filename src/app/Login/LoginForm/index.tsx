@@ -1,4 +1,4 @@
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Text, View, TouchableOpacity } from "react-native";
 import { styles } from "./styles";
 import { FormInput } from "@/components/FormInput";
@@ -10,7 +10,7 @@ import { FormLoginParams } from "@/app/Type/interfaces";
 import { useUserDatabase } from "@/database/useUserDatabase";
 import { useAuthContext } from "@/context/auth.context";
 import { useErrorHandler } from "@/shared/hooks/useErrorHandler";
-
+import { useTranslation } from "react-i18next";
 export const LoginForm = () => {
   const navigation = useNavigation();
   const userDatabase = useUserDatabase();
@@ -27,6 +27,7 @@ export const LoginForm = () => {
   });
   const { user, setUser, handleLogin } = useAuthContext();
   const { handleError } = useErrorHandler();
+  const { t, i18n } = useTranslation();
   const onSubmit = async (data: FormLoginParams) => {
     try {
       const loggedUser = await handleLogin(data);
@@ -34,7 +35,6 @@ export const LoginForm = () => {
         const localUser = await userDatabase.getUserByUuid(
           loggedUser.universal_uuid,
         );
-        console.log("Local user:", localUser);
         if (!localUser) {
           const newUser = {
             name: loggedUser.name,
@@ -57,19 +57,19 @@ export const LoginForm = () => {
       <FormInput
         control={control}
         name="email"
-        label="Email"
-        placeholder="Email"
+        label={t("forms.email")}
+        placeholder={t("forms.email")}
       />
       <FormInput
         control={control}
         name="password"
-        label="Senha"
-        placeholder="Senha"
+        label={t("forms.password")}
+        placeholder={t("forms.password")}
         secureTextEntry
       />
 
       <FormButton mode="fill" onPress={handleSubmit(onSubmit)}>
-        Entrar
+        {t("forms.login")}
       </FormButton>
 
       <TouchableOpacity
@@ -77,15 +77,15 @@ export const LoginForm = () => {
         activeOpacity={0.8}
         onPress={() => console.log("forgot password")}
       >
-        <Text style={styles.forgot}>Esqueci minha senha</Text>
+        <Text style={styles.forgot}>{t("forms.forgotPassword")}</Text>
       </TouchableOpacity>
       <Text>
-        É novo por aqui?{" "}
+        {t("forms.itsNew")}{" "}
         <Text
           style={styles.linkSignin}
           onPress={() => navigation.navigate("signIn")}
         >
-          Cadastre-se
+          {t("forms.signUp")}
         </Text>
       </Text>
     </View>

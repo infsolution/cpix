@@ -1,6 +1,7 @@
 import { ConnectionResponse } from "@/app/Type/types";
 import { cPixApi } from "@/shared/api/c-pix";
 import {
+  CheckUserNameResponse,
   FormEditProfileParams,
   FormEditProfileResponse,
   FriendUserResponse,
@@ -164,6 +165,16 @@ export const updateUser = async (
       Accept: "application/json",
     },
   });
-  console.log(data);
+  return data;
+};
+
+export const checkUserName = async (
+  userName: string,
+): Promise<CheckUserNameResponse> => {
+  const { data } = await cPixApi.get(`auth/check_user_name/${userName}`, {
+    headers: {
+      Accept: "application/json",
+    },
+  });
   return data;
 };

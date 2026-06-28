@@ -5,7 +5,7 @@ import { colors } from "@/theme/colors";
 import { ListType } from "@/app/Type/types";
 import { Button } from "@/components/Button";
 import { useEffect, useState } from "react";
-
+import { useTranslation } from "react-i18next";
 type Props = {
   listType: ListType;
 };
@@ -18,7 +18,7 @@ export function ConnectionEmptyList({ listType }: Props) {
   const [text, setText] = useState<TextMessage>(
     "Você não tem nenhuma conexão!",
   );
-
+  const { t } = useTranslation();
   useEffect(() => {
     switch (listType) {
       case "connection":
@@ -45,7 +45,7 @@ export function ConnectionEmptyList({ listType }: Props) {
       <Text style={styles.titleMain}>OPA!</Text>
       <View style={styles.info}>
         <Text style={styles.title}>{text}</Text>
-        <Text style={styles.text}>Se seus amigos não estão no CPIX</Text>
+        <Text style={styles.text}>{t("message.notFriend")}</Text>
         <Text style={styles.text}>convide-os, é de graça</Text>
       </View>
 

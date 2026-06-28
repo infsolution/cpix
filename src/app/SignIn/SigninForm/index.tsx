@@ -12,13 +12,19 @@ import * as Crypto from "expo-crypto";
 import Checkbox from "expo-checkbox";
 import { styles } from "../styles";
 import { schema } from "./schema";
+import { useTranslation } from "react-i18next";
+import { FormInputSearch } from "@/components/FormInputSearch";
+import { checkUserName } from "@/shared/services/c-pix/users.service";
 
 export const SigninForm = () => {
+  const { t, i18n } = useTranslation();
   const navigation = useNavigation();
   const {
     control,
     handleSubmit,
     formState: { isSubmitting },
+    setError,
+    clearErrors,
   } = useForm<FormSigninParams>({
     defaultValues: {
       name: "",
@@ -57,38 +63,61 @@ export const SigninForm = () => {
     }
   };
 
+  async function searchUser(term: string) {
+    if (term.length < 3) {
+      clearErrors("userName");
+      return;
+    }
+
+    try {
+      const { message, confirm } = await checkUserName(term);
+      console.log(message, confirm);
+      if (!confirm) {
+        setError("userName", {
+          type: "manual",
+          message: t("error.userNameAlreadyExists"),
+        });
+      } else {
+        clearErrors("userName");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <View style={styles.formContainer}>
       <FormInput
         control={control}
         name="name"
-        label="Nome"
-        placeholder="Nome"
+        label={t("forms.name")}
+        placeholder={t("forms.name")}
       />
-      <FormInput
+      <FormInputSearch
         control={control}
         name="userName"
-        label="Nome de Usuário"
-        placeholder="@username"
+        label={t("forms.userName")}
+        placeholder={t("forms.userNamePlaceholder")}
+        onSearch={searchUser}
       />
       <FormInput
         control={control}
         name="email"
-        label="Email"
-        placeholder="Email"
+        label={t("forms.email")}
+        placeholder={t("forms.email")}
       />
       <FormInput
         control={control}
         name="password"
-        label="Senha"
-        placeholder="Senha"
+        label={t("forms.password")}
+        placeholder={t("forms.password")}
         secureTextEntry
       />
       <FormInput
         control={control}
         name="confirmPassword"
-        label="Confirmar Senha"
-        placeholder="Confirmar Senha"
+        label={t("forms.confirmPassword")}
+        placeholder={t("forms.confirmPassword")}
         secureTextEntry
       />
 
@@ -104,7 +133,7 @@ export const SigninForm = () => {
                 onValueChange={onChange}
                 value={value}
               />
-              <Text>Concordo com os termos e condições</Text>
+              <Text>{t("forms.confirmTerm")}</Text>
             </View>
             {error && <ErrorMessage>{error.message}</ErrorMessage>}
           </View>
@@ -112,15 +141,15 @@ export const SigninForm = () => {
       />
 
       <FormButton onPress={handleSubmit(onSubmit)} inProgress={isSubmitting}>
-        Cadastrar
+        {t("forms.toSignUp")}
       </FormButton>
       <Text>
-        Já tem conta?{" "}
+        {t("forms.haveAnAccount")}{" "}
         <Text
           style={styles.linkLogin}
           onPress={() => navigation.navigate("login")}
         >
-          Fazer Login
+          {t("forms.login")}
         </Text>
       </Text>
     </View>

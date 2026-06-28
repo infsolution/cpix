@@ -1,5 +1,11 @@
 import Entypo from "@expo/vector-icons/Entypo";
-import { Control, Controller, FieldValues, Path } from "react-hook-form";
+import {
+  Control,
+  Controller,
+  FieldValues,
+  Path,
+  useWatch,
+} from "react-hook-form";
 import {
   TextInputProps,
   View,
@@ -8,7 +14,7 @@ import {
   TextInput,
 } from "react-native";
 import { styles } from "./styles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { colors } from "@/theme/colors";
 import { ErrorMessage } from "../ErrorMessage";
 
@@ -16,16 +22,34 @@ interface FormInputParams<T extends FieldValues> extends TextInputProps {
   control: Control<T>;
   name: Path<T>;
   label: string;
+  onSearch?: (value: string) => Promise<void> | void;
+  debounceTime?: number;
 }
 
-export const FormInput = <T extends FieldValues>({
+export const FormInputSearch = <T extends FieldValues>({
   control,
   name,
   label,
   secureTextEntry,
+  onSearch,
+  debounceTime = 500,
   ...rest
 }: FormInputParams<T>) => {
   const [showPassword, setShowPassword] = useState(secureTextEntry);
+  const value = useWatch({
+    control,
+    name,
+  });
+
+  useEffect(() => {
+    if (!onSearch) return;
+
+    const timeout = setTimeout(() => {
+      onSearch(value ?? "");
+    }, debounceTime);
+
+    return () => clearTimeout(timeout);
+  }, [value, onSearch, debounceTime]);
   return (
     <Controller
       control={control}
