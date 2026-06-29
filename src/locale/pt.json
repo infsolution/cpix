@@ -20,7 +20,13 @@
     "signUp": "Cadastre-se"
   },
   "error": {
-    "userNameAlreadyExists": "Nome de usuário já está em uso"
+    "userNameAlreadyExists": "Nome de usuário já está em uso",
+    "keysNotFound": "Nenhuma chave encontrada",
+    "errorGetKeys": "Erro ao buscar as chaves",
+    "deleteKeys": "Erro ao tentar excluir as chaves"
+  },
+  "success": {
+    "deleteKeys": "Chaves Excluídas com sucesso."
   },
   "message": {
     "notFriend": "Se seus amigos não estão no XaveX",

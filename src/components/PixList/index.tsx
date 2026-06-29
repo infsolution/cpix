@@ -24,12 +24,18 @@ import { EmptyList } from "@/components/EmptyList";
 import { copyText } from "@/utils/structure";
 import * as keyService from "@/shared/services/c-pix/keys.service";
 import { Loading } from "../Loading";
+import { useErrorHandler } from "@/shared/hooks/useErrorHandler";
+import { useTranslation } from "react-i18next";
+import { useSnackbarContext } from "@/context/snackbar.context";
 type ListProps = {
   own: number;
   keysToShare: KeysToShare[];
   setKeysToShare: (keys: KeysToShare[]) => void;
 };
 export const PixList = ({ own, keysToShare, setKeysToShare }: ListProps) => {
+  const { t } = useTranslation();
+  const { notify } = useSnackbarContext();
+  const { handleError } = useErrorHandler();
   const pixDatabase = usePixDatabase();
   const navigation = useNavigation();
   const [listItemsId, setListItemsId] = useState<string[]>([]);
@@ -114,8 +120,7 @@ export const PixList = ({ own, keysToShare, setKeysToShare }: ListProps) => {
         setListItems([]);
       }
     } catch (error) {
-      Alert.alert("Error", "Error fetching keys");
-      console.error("Error fetching keys:", error);
+      handleError(error, t("error.errorGetKeys"));
     }
   }
 
@@ -128,22 +133,20 @@ export const PixList = ({ own, keysToShare, setKeysToShare }: ListProps) => {
         setListItems([]);
       }
     } catch (error) {
-      Alert.alert("Error", "Error fetching shared keys");
-      console.error("Error fetching shared keys:", error);
+      handleError(error, t("error.errorGetKeys"));
     }
   }
 
   async function getOwnKeys() {
     try {
-      const { message, code, data } = await keyService.getUserKeys();
+      const { data } = await keyService.getUserKeys();
       if (data.length > 0) {
         setListItems(data);
       } else {
         setListItems([]);
       }
     } catch (error) {
-      Alert.alert("Error", "Error fetching own keys");
-      console.error("Error fetching own keys:", error);
+      handleError(error, t("error.errorGetKeys"));
     }
   }
 
@@ -159,10 +162,12 @@ export const PixList = ({ own, keysToShare, setKeysToShare }: ListProps) => {
     try {
       await pixDatabase.deleteKey(listItemsId);
       hideActions();
-      Alert.alert("Excluidos", "Chaves Excluídas com sucesso.");
+      notify({
+        message: t("success.deleteKeys"),
+        messageType: "SUCCESS",
+      });
     } catch (error) {
-      console.log(error);
-      Alert.alert("Erro", "Erro ao tentar excluir as chaves");
+      handleError(error, t("error.deleteKeys"));
     }
   }
 
@@ -170,10 +175,12 @@ export const PixList = ({ own, keysToShare, setKeysToShare }: ListProps) => {
     try {
       await keyService.deleteKeys(listItemsId);
       hideActions();
-      Alert.alert("Excluidos", "Chaves Excluídas com sucesso.");
+      notify({
+        message: t("success.deleteKeys"),
+        messageType: "SUCCESS",
+      });
     } catch (error) {
-      console.log(error);
-      Alert.alert("Erro", "Erro ao tentar excluir as chaves");
+      handleError(error, t("error.deleteKeys"));
     }
   }
 

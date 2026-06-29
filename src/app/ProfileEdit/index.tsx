@@ -18,6 +18,7 @@ import { useSnackbarContext } from "@/context/snackbar.context";
 import { AppError } from "@/shared/helpers/AppError";
 import { FormEditProfileParams } from "@/shared/interfaces/user-interface";
 import { useUserDatabase } from "@/database/useUserDatabase";
+import { mainUrl } from "@/shared/api/c-pix";
 export function ProfileEdit() {
   const { handleError } = useErrorHandler();
   const { notify } = useSnackbarContext();
@@ -72,6 +73,21 @@ export function ProfileEdit() {
       <Header />
       <View style={styles.formContainer}>
         <Text>Editar Usuário</Text>
+
+        {!user?.image && (
+          <Image
+            source={require("@/assets/profile.png")}
+            style={styles.profileImage}
+          />
+        )}
+        {user?.image && (
+          <Image
+            source={{
+              uri: mainUrl + user?.image,
+            }}
+            style={styles.profileImage}
+          />
+        )}
         <FormInput
           control={control}
           name="name"

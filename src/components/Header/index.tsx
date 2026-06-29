@@ -10,6 +10,7 @@ import { useBottomSheetContext } from "@/context/bottomsheet.context";
 import { SearchList } from "../SearchList";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { useNavigation } from "@react-navigation/native";
+import { mainUrl } from "@/shared/api/c-pix";
 
 export function Header() {
   const { user, handleLogout } = useAuthContext();
@@ -28,7 +29,7 @@ export function Header() {
         {user?.image && (
           <Image
             source={{
-              uri: user.image,
+              uri: mainUrl + user.image,
             }}
             style={styles.profileImage}
           />

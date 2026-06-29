@@ -27,7 +27,7 @@ export const LoginForm = () => {
   });
   const { user, setUser, handleLogin } = useAuthContext();
   const { handleError } = useErrorHandler();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const onSubmit = async (data: FormLoginParams) => {
     try {
       const loggedUser = await handleLogin(data);
