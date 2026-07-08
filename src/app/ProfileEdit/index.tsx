@@ -19,6 +19,8 @@ import { AppError } from "@/shared/helpers/AppError";
 import { FormEditProfileParams } from "@/shared/interfaces/user-interface";
 import { useUserDatabase } from "@/database/useUserDatabase";
 import { mainUrl } from "@/shared/api/c-pix";
+import { DismissKeiboardview } from "@/components/DismissKeyboardView";
+import { ProfileImage } from "@/components/ProfileImage";
 export function ProfileEdit() {
   const { handleError } = useErrorHandler();
   const { notify } = useSnackbarContext();
@@ -69,25 +71,11 @@ export function ProfileEdit() {
     getUserValues();
   }, [user]);
   return (
-    <AppBar keys={[]} currentRoute={"profileEdit"}>
+    <DismissKeiboardview>
       <Header />
       <View style={styles.formContainer}>
         <Text>Editar Usuário</Text>
-
-        {!user?.image && (
-          <Image
-            source={require("@/assets/profile.png")}
-            style={styles.profileImage}
-          />
-        )}
-        {user?.image && (
-          <Image
-            source={{
-              uri: mainUrl + user?.image,
-            }}
-            style={styles.profileImage}
-          />
-        )}
+        <ProfileImage path={user?.image} />
         <FormInput
           control={control}
           name="name"
@@ -133,6 +121,6 @@ export function ProfileEdit() {
           Salvar
         </FormButton>
       </View>
-    </AppBar>
+    </DismissKeiboardview>
   );
 }

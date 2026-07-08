@@ -17,6 +17,7 @@ import { BottomSheetProvider } from "@/context/bottomsheet.context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import "./src/i18n";
+import { AppModal } from "@/components/AppModal";
 export default function App() {
   const [fontLoaded, error] = useFonts({
     Inter_400Regular,
@@ -42,6 +43,7 @@ export default function App() {
               <BottomSheetProvider>
                 <NavigationRoutes />
                 <Snackbar />
+                <AppModal />
               </BottomSheetProvider>
             </SQLiteProvider>
           </AuthContextProvider>
