@@ -54,8 +54,14 @@ export interface FormEditProfileResponse {
   data: IUser;
 }
 
-export interface CheckUserNameResponse {
+export interface GetConfirmationResponse {
   message: string;
   code: string;
   confirm: boolean;
+}
+
+export interface UploadProfileResponse {
+  message: string;
+  code: string;
+  image: string;
 }

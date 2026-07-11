@@ -2,11 +2,6 @@ import { colors } from "@/theme/colors";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
-  profileContainer: {
-    width: "100%",
-    paddingTop: 20,
-    paddingHorizontal: 24,
-  },
   profileImage: {
     width: 64,
     height: 64,
@@ -14,7 +9,7 @@ export const styles = StyleSheet.create({
   },
   camera: {
     position: "absolute",
-    top: 68,
-    left: 182,
+    top: 36,
+    left: 38,
   },
 });

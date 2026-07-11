@@ -10,6 +10,7 @@ import * as authService from "@/shared/services/c-pix/auth.service";
 import { IUser } from "@/shared/interfaces/user-interface";
 import {
   getStorageUser,
+  removeItem,
   setJWT,
   setStorageUser,
 } from "@/shared/storage/service/user";
@@ -48,7 +49,6 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
     if (data.token) {
       setJWT("user-jwt", data.token);
       setStorageUser("user-data", data);
-      console.log("login", data, code, message);
       return data;
     }
     return null;
@@ -65,6 +65,8 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const handleLogout = () => {
     clearStorage();
     setUser(null);
+    removeItem("user-jwt");
+    removeItem("user-data");
     console.log("logout");
   };
 

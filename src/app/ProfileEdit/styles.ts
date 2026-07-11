@@ -7,8 +7,19 @@ export const styles = StyleSheet.create({
     paddingTop: 20,
     paddingHorizontal: 24,
   },
+  titleContainer: {
+    flexDirection: "row",
+    paddingHorizontal: 24,
+    paddingVertical: 8,
+    justifyContent: "space-between",
+  },
+  changePassword: {
+    backgroundColor: colors.callAction.secondary,
+    borderRadius: 50,
+    paddingHorizontal: 12,
+  },
   title: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "bold",
     color: colors.text.titles,
   },
@@ -32,7 +43,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     alignItems: "center",
-    paddingTop: 10,
+    paddingTop: 4,
     paddingHorizontal: 24,
   },
   termContainer: {

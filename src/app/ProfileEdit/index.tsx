@@ -1,4 +1,4 @@
-import { Text, View, Image } from "react-native";
+import { Text, View, Image, TouchableOpacity } from "react-native";
 import { styles } from "./styles";
 import { AppBar } from "@/components/AppBar";
 import { colors } from "@/theme/colors";
@@ -18,14 +18,17 @@ import { useSnackbarContext } from "@/context/snackbar.context";
 import { AppError } from "@/shared/helpers/AppError";
 import { FormEditProfileParams } from "@/shared/interfaces/user-interface";
 import { useUserDatabase } from "@/database/useUserDatabase";
-import { mainUrl } from "@/shared/api/c-pix";
 import { DismissKeiboardview } from "@/components/DismissKeyboardView";
 import { ProfileImage } from "@/components/ProfileImage";
+import { useTranslation } from "react-i18next";
+import { useChangePasswordModal } from "@/shared/hooks/useChangePasswordModal";
 export function ProfileEdit() {
   const { handleError } = useErrorHandler();
   const { notify } = useSnackbarContext();
   const { user, setUser } = useAuthContext();
   const userDatabase = useUserDatabase();
+  const { t } = useTranslation();
+
   const {
     control,
     handleSubmit,
@@ -41,7 +44,7 @@ export function ProfileEdit() {
     },
     resolver: yupResolver(schema),
   });
-
+  const [avatarUri, setAvatarUri] = useState<string | null>(null);
   const onSubmit = async (userData: FormEditProfileParams) => {
     try {
       const { message, code, data } = await updateUser(userData);
@@ -67,15 +70,39 @@ export function ProfileEdit() {
     setValue("userName", user?.user_name ?? "");
     setValue("termChecked", user?.is_public ?? false);
   };
+
+  const { showForm } = useChangePasswordModal();
+
+  const handleChangePassword = async () => {
+    showForm();
+  };
+
   useEffect(() => {
     getUserValues();
   }, [user]);
   return (
     <DismissKeiboardview>
       <Header />
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>{t("forms.editProfile")}</Text>
+        <TouchableOpacity
+          style={styles.changePassword}
+          activeOpacity={0.8}
+          onPress={handleChangePassword}
+        >
+          <Text style={{ color: colors.white }}>
+            {t("forms.changePassword")}
+          </Text>
+        </TouchableOpacity>
+      </View>
       <View style={styles.formContainer}>
-        <Text>Editar Usuário</Text>
-        <ProfileImage path={user?.image} />
+        <Text>{t("forms.changeImage")}</Text>
+        <ProfileImage
+          path={user?.image ?? ""}
+          avatarUri={avatarUri}
+          setAvatarUri={setAvatarUri}
+        />
+
         <FormInput
           control={control}
           name="name"

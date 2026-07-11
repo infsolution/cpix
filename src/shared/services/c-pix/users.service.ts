@@ -1,11 +1,13 @@
+import { FormResetPasswordParams } from "@/app/Type/interfaces";
 import { ConnectionResponse } from "@/app/Type/types";
 import { cPixApi } from "@/shared/api/c-pix";
 import {
-  CheckUserNameResponse,
   FormEditProfileParams,
   FormEditProfileResponse,
   FriendUserResponse,
+  GetConfirmationResponse,
   SUserResponse,
+  UploadProfileResponse,
 } from "@/shared/interfaces/user-interface";
 import { getJWT } from "@/shared/storage/service/user";
 
@@ -170,9 +172,67 @@ export const updateUser = async (
 
 export const checkUserName = async (
   userName: string,
-): Promise<CheckUserNameResponse> => {
+): Promise<GetConfirmationResponse> => {
   const { data } = await cPixApi.get(`auth/check_user_name/${userName}`, {
     headers: {
+      Accept: "application/json",
+    },
+  });
+  return data;
+};
+
+export const uploadAvatar = async (
+  avatarUri: string,
+): Promise<UploadProfileResponse> => {
+  const token = await getJWT("user-jwt");
+  const formData = new FormData();
+  formData.append("profile", {
+    uri: avatarUri,
+    type: "image/jpeg",
+    name: "avatar.jpeg",
+  } as unknown as Blob);
+
+  const { data } = await cPixApi.post("profile/upload_image", formData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: "application/json",
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return data;
+};
+
+export const checkPassword = async (
+  password: string,
+): Promise<GetConfirmationResponse> => {
+  const token = await getJWT("user-jwt");
+
+  const { data } = await cPixApi.post(
+    `profile/confirm_password`,
+    { password },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/json",
+      },
+    },
+  );
+  return data;
+};
+
+export const updatePassword = async (
+  oldPassword: string,
+  formPassword: FormResetPasswordParams,
+): Promise<GetConfirmationResponse> => {
+  const token = await getJWT("user-jwt");
+  const body = {
+    old_password: oldPassword,
+    password: formPassword.password,
+    password_confirmation: formPassword.confirmPassword,
+  };
+  const { data } = await cPixApi.patch(`profile/update_password`, body, {
+    headers: {
+      Authorization: `Bearer ${token}`,
       Accept: "application/json",
     },
   });

@@ -64,10 +64,22 @@ export function useUserDatabase() {
     });
   }
 
+  async function updateAvatar(avatarUri: string, uuid: string) {
+    const statement = await database.prepareAsync(`
+            UPDATE users SET image=$image, 
+            updated_at = CURRENT_TIMESTAMP 
+            WHERE universal_uuid = $universal_uuid`);
+    statement.executeAsync({
+      $image: avatarUri,
+      $universal_uuid: uuid,
+    });
+  }
+
   return {
     create,
     login,
     getUserByUuid,
     updateUser,
+    updateAvatar,
   };
 }

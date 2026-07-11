@@ -26,7 +26,7 @@ export const SelectionModal: FC<SelectionModalProps> = ({
           <TouchableOpacity
             onPress={option.onPres}
             style={styles.option}
-            key={index}
+            key={`select-image-${index}`}
             activeOpacity={0.8}
           >
             {option.icon && (

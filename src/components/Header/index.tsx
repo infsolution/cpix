@@ -11,25 +11,33 @@ import { SearchList } from "../SearchList";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { useNavigation } from "@react-navigation/native";
 import { mainUrl } from "@/shared/api/c-pix";
+import { useEffect, useState } from "react";
 
 export function Header() {
   const { user, handleLogout } = useAuthContext();
   const { openBottomSheet } = useBottomSheetContext();
+  const [image, setImage] = useState("");
   const navigation = useNavigation();
   const logout = () => {
     handleLogout();
   };
+
+  useEffect(() => {
+    if (user?.image) {
+      setImage(mainUrl + user.image);
+    }
+  }, [user?.image]);
   return (
     <LinearGradient
       colors={[colors.header.max, colors.header.min]}
       style={styles.container}
     >
       <View style={styles.inputSession}>
-        {!user?.image && <UserCircle name={user?.name} />}
-        {user?.image && (
+        {!image && <UserCircle name={user?.name} />}
+        {image && (
           <Image
             source={{
-              uri: mainUrl + user.image,
+              uri: image,
             }}
             style={styles.profileImage}
           />

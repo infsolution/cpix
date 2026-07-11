@@ -42,6 +42,7 @@ export const LoginForm = () => {
             email: loggedUser.email,
             universal_uuid: loggedUser.universal_uuid,
             termChecked: loggedUser.is_public,
+            image: loggedUser.image,
           };
           await userDatabase.create(newUser);
         }

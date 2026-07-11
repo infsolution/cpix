@@ -12,3 +12,8 @@ export interface FormLoginParams {
   email: string;
   password: string;
 }
+
+export interface FormResetPasswordParams {
+  password: string;
+  confirmPassword: string;
+}

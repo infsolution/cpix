@@ -1,0 +1,65 @@
+import { colors } from "@/theme/colors";
+import { StyleSheet } from "react-native";
+
+export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    paddingTop: 90,
+    padding: 24,
+  },
+  title: {
+    fontSize: 38,
+    fontWeight: 700,
+  },
+  subTitle: {
+    fontSize: 14,
+  },
+  formContainer: {
+    backgroundColor: colors.white,
+    width: "80%",
+    alignItems: "center",
+    paddingHorizontal: 24,
+    paddingVertical: 24,
+    borderRadius: 12,
+  },
+  formControl: {
+    width: "100%",
+  },
+  label: {
+    marginBottom: 8,
+    color: "#080808",
+    marginLeft: 2,
+  },
+  forgot: {
+    color: "#140EFF",
+  },
+  forgotContainer: {
+    width: "100%",
+    justifyContent: "flex-start",
+    marginTop: 8,
+    marginBottom: 24,
+  },
+  passwordInput: {
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#fff",
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: "#AED9DA",
+    height: 48,
+    paddingHorizontal: 10,
+    marginBottom: 20,
+  },
+  iconStyle: {
+    padding: 5,
+  },
+  inputStyle: {
+    flex: 1,
+  },
+  linkSignin: {
+    color: "#140EFF",
+    fontWeight: 500,
+  },
+});

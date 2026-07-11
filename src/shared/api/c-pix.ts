@@ -2,7 +2,7 @@ import axios from "axios";
 import { Platform } from "react-native";
 import { AppError } from "../helpers/AppError";
 
-export const mainUrl = "https://clsdev.com.br/storage/";
+export const mainUrl = "https://clsdev.com.br";
 
 const baseURL = Platform.select({
   ios: "https://clsdev.com.br/api/v1/",
@@ -19,6 +19,7 @@ cPixApi.interceptors.response.use(
     if (error.response && error.response.data) {
       return Promise.reject(new AppError(error.response.data.message));
     } else {
+      console.log("Error: ", error.message);
       return Promise.reject(new AppError("Falha na requisição"));
     }
   },

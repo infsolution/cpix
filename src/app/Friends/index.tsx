@@ -15,7 +15,6 @@ import {
   getSentInvitation,
 } from "@/shared/services/c-pix/users.service";
 import { Loading } from "@/components/Loading";
-import { EmptyList } from "@/components/EmptyList";
 import { ConnectionListItem } from "@/components/ConenctionListItem";
 import { useSnackbarContext } from "@/context/snackbar.context";
 import { ConnectionEmptyList } from "@/components/ConnectionEmptyList";

@@ -15,6 +15,8 @@ import { schema } from "./schema";
 import { useTranslation } from "react-i18next";
 import { FormInputSearch } from "@/components/FormInputSearch";
 import { checkUserName } from "@/shared/services/c-pix/users.service";
+import { AppError } from "@/shared/helpers/AppError";
+import { useErrorHandler } from "@/shared/hooks/useErrorHandler";
 
 export const SigninForm = () => {
   const { t, i18n } = useTranslation();
@@ -38,7 +40,7 @@ export const SigninForm = () => {
   });
   const userDatabase = useUserDatabase();
   const { handleSignin, setUser } = useAuthContext();
-
+  const { handleError } = useErrorHandler();
   const onSubmit = async (data: FormSigninParams) => {
     try {
       const uuid = Crypto.randomUUID();
@@ -56,10 +58,10 @@ export const SigninForm = () => {
         await userDatabase.create(localUser);
         setUser(newUser);
       } else {
-        throw new Error("Error to saving new user");
+        throw new AppError(t("error.createUser"));
       }
     } catch (error) {
-      console.log("Error creating user", error);
+      handleError(error, t("error.upload"));
     }
   };
 
@@ -71,7 +73,6 @@ export const SigninForm = () => {
 
     try {
       const { message, confirm } = await checkUserName(term);
-      console.log(message, confirm);
       if (!confirm) {
         setError("userName", {
           type: "manual",
@@ -81,7 +82,7 @@ export const SigninForm = () => {
         clearErrors("userName");
       }
     } catch (error) {
-      console.error(error);
+      handleError(error, t("error.searchUserName"));
     }
   }
 
