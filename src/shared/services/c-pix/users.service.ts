@@ -172,8 +172,13 @@ export const updateUser = async (
 
 export const checkUserName = async (
   userName: string,
+  id?: number,
 ): Promise<GetConfirmationResponse> => {
-  const { data } = await cPixApi.get(`auth/check_user_name/${userName}`, {
+  let queryString = `?user_name=${userName}`;
+  if (id) {
+    queryString + `&id=${id}`;
+  }
+  const { data } = await cPixApi.get(`auth/check_user_name${queryString}`, {
     headers: {
       Accept: "application/json",
     },

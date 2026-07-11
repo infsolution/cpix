@@ -19,7 +19,7 @@ import { AppError } from "@/shared/helpers/AppError";
 import { useErrorHandler } from "@/shared/hooks/useErrorHandler";
 
 export const SigninForm = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const navigation = useNavigation();
   const {
     control,

@@ -11,7 +11,10 @@ import { FormInput } from "@/components/FormInput";
 import Checkbox from "expo-checkbox";
 import { ErrorMessage } from "@/components/ErrorMessage";
 import { FormButton } from "@/components/FormButton";
-import { updateUser } from "@/shared/services/c-pix/users.service";
+import {
+  checkUserName,
+  updateUser,
+} from "@/shared/services/c-pix/users.service";
 import { useErrorHandler } from "@/shared/hooks/useErrorHandler";
 import { useSnackbarContext } from "@/context/snackbar.context";
 import { AppError } from "@/shared/helpers/AppError";
@@ -21,6 +24,8 @@ import { DismissKeiboardview } from "@/components/DismissKeyboardView";
 import { ProfileImage } from "@/components/ProfileImage";
 import { useTranslation } from "react-i18next";
 import { useChangePasswordModal } from "@/shared/hooks/useChangePasswordModal";
+import { FormInputSearch } from "@/components/FormInputSearch";
+import { searchUser } from "@/utils/user";
 export function ProfileEdit() {
   const { handleError } = useErrorHandler();
   const { notify } = useSnackbarContext();
@@ -33,6 +38,8 @@ export function ProfileEdit() {
     handleSubmit,
     formState: { isSubmitting },
     setValue,
+    clearErrors,
+    setError,
   } = useForm<FormEditProfileParams>({
     defaultValues: {
       id: "",
@@ -79,6 +86,27 @@ export function ProfileEdit() {
   useEffect(() => {
     getUserValues();
   }, [user]);
+
+  async function searchUser(term: string) {
+    if (term.length < 3) {
+      clearErrors("userName");
+      return;
+    }
+
+    try {
+      const { message, confirm } = await checkUserName(term, user?.id);
+      if (!confirm) {
+        setError("userName", {
+          type: "manual",
+          message: t("error.userNameAlreadyExists"),
+        });
+      } else {
+        clearErrors("userName");
+      }
+    } catch (error) {
+      handleError(error, t("error.searchUserName"));
+    }
+  }
   return (
     <DismissKeiboardview>
       <Header />
@@ -109,12 +137,12 @@ export function ProfileEdit() {
           placeholder="Nome"
           value={user?.name}
         />
-        <FormInput
+        <FormInputSearch
           control={control}
           name="userName"
-          label="Nome de Usuário"
-          placeholder="@username"
-          value={user?.user_name}
+          label={t("forms.userName")}
+          placeholder={t("forms.userNamePlaceholder")}
+          onSearch={searchUser}
         />
         <FormInput
           control={control}
