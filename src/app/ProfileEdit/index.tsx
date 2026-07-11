@@ -54,8 +54,6 @@ export function ProfileEdit() {
   const onSubmit = async (userData: FormEditProfileParams) => {
     try {
       const { message, code, data } = await updateUser(userData);
-      console.log("DATA=> ", data);
-      console.log("USER DATA=> ", userData);
       if (code != "200") {
         throw new AppError(message);
       }
@@ -94,7 +92,8 @@ export function ProfileEdit() {
     }
 
     try {
-      const { message, confirm } = await checkUserName(term, user?.id);
+      const queryString = `?user_name=${term}&id=${user?.id}`;
+      const { message, confirm } = await checkUserName(queryString);
       if (!confirm) {
         setError("userName", {
           type: "manual",
