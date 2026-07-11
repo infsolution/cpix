@@ -1,6 +1,5 @@
 import { Text, View, Image, TouchableOpacity } from "react-native";
 import { styles } from "./styles";
-import { AppBar } from "@/components/AppBar";
 import { colors } from "@/theme/colors";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "@/context/auth.context";

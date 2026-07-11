@@ -1,15 +1,6 @@
-import { FC, PropsWithChildren, useEffect } from "react";
-import {
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  FlatList,
-  Alert,
-} from "react-native";
-import { StackRouterProps } from "@/routes/StackRoutes";
+import { Text, View, TouchableOpacity, FlatList, Alert } from "react-native";
+
 import { styles } from "./styles";
-import { AppBar } from "@/components/AppBar";
 import { TabBar } from "@/components/TabBar";
 import { ItemPix, KeysToShare } from "@/app/Type/types";
 import { Item } from "@/components/Item";
@@ -27,6 +18,8 @@ import { Loading } from "../Loading";
 import { useErrorHandler } from "@/shared/hooks/useErrorHandler";
 import { useTranslation } from "react-i18next";
 import { useSnackbarContext } from "@/context/snackbar.context";
+import { useAuthContext } from "@/context/auth.context";
+
 type ListProps = {
   own: number;
   keysToShare: KeysToShare[];
@@ -51,6 +44,8 @@ export const PixList = ({ own, keysToShare, setKeysToShare }: ListProps) => {
       copyText(item.keyPix);
     }
   };
+
+  const { user } = useAuthContext();
   /**
    * Select or deselect item in list
    * @param id
@@ -113,11 +108,13 @@ export const PixList = ({ own, keysToShare, setKeysToShare }: ListProps) => {
 
   async function getLocalKeys() {
     try {
-      const response = await pixDatabase.listKeys(own);
-      if (response.length > 0) {
-        setListItems(response);
-      } else {
-        setListItems([]);
+      if (user) {
+        const response = await pixDatabase.listKeys(own, user?.universal_uuid);
+        if (response.length > 0) {
+          setListItems(response);
+        } else {
+          setListItems([]);
+        }
       }
     } catch (error) {
       handleError(error, t("error.errorGetKeys"));

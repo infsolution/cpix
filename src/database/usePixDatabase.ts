@@ -24,9 +24,12 @@ export function usePixDatabase() {
     });
   }
 
-  function listKeys(own: number) {
-    const data = database.getAllAsync<KeyResponse>(
-      `SELECT keys.*, null AS selected, key AS keyPix, banks.code AS bank, banks.name AS nameBank FROM keys LEFT JOIN banks ON keys.bank = banks.code WHERE own = ${own}`,
+  async function listKeys(own: number, uuid: string) {
+    const data = await database.getAllAsync<KeyResponse>(
+      `SELECT keys.*, null AS selected, key AS keyPix, banks.code AS bank, 
+      banks.name AS nameBank FROM keys LEFT JOIN banks 
+      ON keys.bank = banks.code LEFT JOIN users AS u ON u.universal_uuid = keys.universal_uuid
+      WHERE own = ${own} AND u.universal_uuid = '${uuid}'`,
     );
     return data;
   }
