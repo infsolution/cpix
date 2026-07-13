@@ -76,7 +76,7 @@ export const LoginForm = () => {
       <TouchableOpacity
         style={styles.forgotContainer}
         activeOpacity={0.8}
-        onPress={() => console.log("forgot password")}
+        onPress={() => navigation.navigate("recovery")}
       >
         <Text style={styles.forgot}>{t("forms.forgotPassword")}</Text>
       </TouchableOpacity>

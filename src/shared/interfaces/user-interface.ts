@@ -65,3 +65,11 @@ export interface UploadProfileResponse {
   code: string;
   image: string;
 }
+
+export interface RecoveryPasswordResponse {
+  message: string;
+  code: string;
+  data: {
+    email: string;
+  };
+}

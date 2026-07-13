@@ -23,7 +23,9 @@
     "changePassword": "Mudar Senha",
     "oldPassword": "Senha Antiga",
     "mandatoryPassword": "A senha é obrigatória",
-    "invalidPassword": "Senha inválida"
+    "invalidPassword": "Senha inválida",
+    "recoverySubTitle": "Informe o email cadastrado na sua conta",
+    "recoveryTitle": "Recuperação de Senha"
   },
   "error": {
     "createUser": "Erro ao tentar cadastrar o usuário, tente novamente em alguns minutos.",
@@ -40,12 +42,15 @@
     "galleryPermission": "Erro ao solicitar permissão de galeria",
     "upload": "Erro ao fazer upload da imagem",
     "updatingPassword": "Erro ao atualizar a senha",
-    "checkingPassword": "Erro a confirmar a senha"
+    "checkingPassword": "Erro a confirmar a senha",
+    "recovery": "Erro ao gerar a recuperação de senha",
+    "recoveringPassword": "Erro ao enviar email de recuperação"
   },
   "success": {
     "deleteKeys": "Chaves Excluídas com sucesso.",
     "upload": "Upload realizado com sucesso.",
-    "passwordUpdated": "Senha atualizada com sucesso"
+    "passwordUpdated": "Senha atualizada com sucesso",
+    "recoverySended": "Email de recuperação enviado para "
   },
   "message": {
     "notFriend": "Se seus amigos não estão no XaveX",

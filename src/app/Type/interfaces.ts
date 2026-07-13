@@ -17,3 +17,7 @@ export interface FormResetPasswordParams {
   password: string;
   confirmPassword: string;
 }
+
+export interface FormRecoveryParams {
+  email: string;
+}

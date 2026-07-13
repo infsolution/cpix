@@ -1,6 +1,7 @@
 export type RoootStackParamList = {
   home: undefined;
   login: undefined;
+  recovery: undefined;
   signIn: undefined;
   profile: undefined;
   profileEdit: undefined;

@@ -6,6 +6,7 @@ import {
   FormEditProfileResponse,
   FriendUserResponse,
   GetConfirmationResponse,
+  RecoveryPasswordResponse,
   SUserResponse,
   UploadProfileResponse,
 } from "@/shared/interfaces/user-interface";
@@ -236,5 +237,20 @@ export const updatePassword = async (
       Accept: "application/json",
     },
   });
+  return data;
+};
+
+export const recoveryPassword = async (
+  email: string,
+): Promise<RecoveryPasswordResponse> => {
+  const { data } = await cPixApi.post(
+    `auth/recovery_password`,
+    { email },
+    {
+      headers: {
+        Accept: "application/json",
+      },
+    },
+  );
   return data;
 };
