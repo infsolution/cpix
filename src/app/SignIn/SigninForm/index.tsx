@@ -72,7 +72,8 @@ export const SigninForm = () => {
     }
 
     try {
-      const { message, confirm } = await checkUserName(term);
+      const queryString = `?user_name=${term}`;
+      const { message, confirm } = await checkUserName(queryString);
       if (!confirm) {
         setError("userName", {
           type: "manual",

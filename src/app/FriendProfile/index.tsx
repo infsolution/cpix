@@ -9,6 +9,7 @@ import { UserFriend } from "@/shared/interfaces/user-interface";
 import { UserCircle } from "@/components/UserCircle";
 import { styles } from "./styles";
 import { getFriend } from "@/shared/services/c-pix/users.service";
+import { mainUrl } from "@/shared/api/c-pix";
 export const FriendProfile = ({ route }: StackRouterProps<"friend">) => {
   const [keysToShare, setKeysToShare] = useState<KeysToShare[]>([]);
   const [userFriend, setUserFriend] = useState<UserFriend>({
@@ -27,6 +28,7 @@ export const FriendProfile = ({ route }: StackRouterProps<"friend">) => {
     } catch (error) {}
   };
   useEffect(() => {
+    console.log(userFriend);
     fetchUserData();
   }, []);
   return (
@@ -39,7 +41,7 @@ export const FriendProfile = ({ route }: StackRouterProps<"friend">) => {
           {userFriend?.image && (
             <Image
               source={{
-                uri: userFriend.image,
+                uri: mainUrl + userFriend.image,
               }}
               style={styles.profileImage}
             />

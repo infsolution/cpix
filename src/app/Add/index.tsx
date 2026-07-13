@@ -1,6 +1,5 @@
 import { Text, View } from "react-native";
 import { styles } from "./styles";
-import { TabGoBack } from "@/components/TabGoBack";
 import { AddForm } from "../AddForm";
 import { DismissKeiboardview } from "@/components/DismissKeyboardView";
 import { StackRouterProps } from "@/routes/StackRoutes";

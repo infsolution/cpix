@@ -25,7 +25,6 @@ import { ProfileImage } from "@/components/ProfileImage";
 import { useTranslation } from "react-i18next";
 import { useChangePasswordModal } from "@/shared/hooks/useChangePasswordModal";
 import { FormInputSearch } from "@/components/FormInputSearch";
-import { searchUser } from "@/utils/user";
 export function ProfileEdit() {
   const { handleError } = useErrorHandler();
   const { notify } = useSnackbarContext();
