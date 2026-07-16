@@ -1,8 +1,9 @@
 {
   "expo": {
-    "name": "xavex",
-    "slug": "xavex",
+    "name": "XaveX",
+    "slug": "XaveX",
     "version": "1.0.0",
+    "scheme":"xavex",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -10,7 +11,7 @@
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#D3F9E8"
     },
     "ios": {
       "supportsTablet": true,
@@ -45,7 +46,27 @@
           "photosPermission": "Este app precisa acessar sua galeria de fotos para que você possa selecionar e enviar sua foto de perfil.",
           "cameraPermission": "Este app precisa acessar sua câmera para que você possa tirar fotos para o seu perfil."
         }
-      ]
+      ],
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-9803509684526637~3161439827",
+          "iosAppId": "ca-app-pub-9803509684526637~3161439827",
+          "userTrackingUsageDescription": "Este aplicativo usa seus dados para mostrar anúncios mais relevantes."
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#ffffff",
+          "defaultChannel": "default",
+          "enableBackgroundRemoteNotifications": false
+        }
+      ],
+      
+      "expo-tracking-transparency",
+      "expo-build-properties"
     ]
   }
 }

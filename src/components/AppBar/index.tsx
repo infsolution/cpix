@@ -46,7 +46,7 @@ export function AppBar({ children, currentRoute, keys = [] }: Props) {
         <TouchableOpacity
           activeOpacity={0.8}
           style={{
-            bottom: -38,
+            bottom: -52,
             width: 50,
             alignItems: "center",
             justifyContent: "center",

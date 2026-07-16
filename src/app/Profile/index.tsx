@@ -9,6 +9,7 @@ import { KeysToShare } from "../Type/types";
 import { useState } from "react";
 import { useAuthContext } from "@/context/auth.context";
 import { Header } from "@/components/Header";
+import { Banner } from "@/ads/Banner";
 
 export function Profile() {
   const [keysToShare, setKeysToShare] = useState<KeysToShare[]>([]);
@@ -50,6 +51,7 @@ export function Profile() {
         keysToShare={keysToShare}
         setKeysToShare={setKeysToShare}
       />
+      <Banner />
     </AppBar>
   );
 }

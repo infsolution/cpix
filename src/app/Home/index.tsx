@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Header } from "@/components/Header";
 import { PixList } from "@/components/PixList";
 import { KeysToShare } from "@/app/Type/types";
+import { Banner } from "@/ads/Banner";
 
 export function Home({ route }: StackRouterProps<"home">) {
   const [keysToShare, setKeysToShare] = useState<KeysToShare[]>([]);
@@ -15,6 +16,7 @@ export function Home({ route }: StackRouterProps<"home">) {
         keysToShare={keysToShare}
         setKeysToShare={setKeysToShare}
       />
+      <Banner />
     </AppBar>
   );
 }

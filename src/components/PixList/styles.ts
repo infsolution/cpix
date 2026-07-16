@@ -6,11 +6,9 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     paddingTop: 8,
-    paddingBottom: 72,
     padding: 24,
   },
   formContainer: {
-    flex: 1,
     width: "100%",
   },
   formControl: {

@@ -18,20 +18,20 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import "./src/i18n";
 import { AppModal } from "@/components/AppModal";
+SplashScreen.preventAutoHideAsync();
 export default function App() {
-  const [fontLoaded, error] = useFonts({
+  const [loaded, error] = useFonts({
     Inter_400Regular,
     Inter_500Medium,
     Inter_700Bold,
   });
   useEffect(() => {
-    if (fontLoaded || error) {
+    if (loaded || error) {
       SplashScreen.hideAsync();
     }
-  }, [fontLoaded, error]);
-
-  if (!fontLoaded && !error) {
-    return <Loading />;
+  }, [loaded, error]);
+  if (!loaded && !error) {
+    return null;
   }
   return (
     <Suspense fallback={<Loading />}>

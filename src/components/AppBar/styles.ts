@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
-    height: 112,
+    height: 106,
     backgroundColor: colors.tab.background,
     padding: 12,
     paddingTop: 4,
