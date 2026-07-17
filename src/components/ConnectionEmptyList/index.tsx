@@ -6,6 +6,8 @@ import { ListType } from "@/app/Type/types";
 import { Button } from "@/components/Button";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { shareText } from "@/utils/structure";
+import { useAuthContext } from "@/context/auth.context";
 type Props = {
   listType: ListType;
 };
@@ -19,6 +21,11 @@ export function ConnectionEmptyList({ listType }: Props) {
     "Você não tem nenhuma conexão!",
   );
   const { t } = useTranslation();
+  const { user } = useAuthContext();
+
+  const inviteFriend = () => {
+    shareText(t("message.inviteFriend") + "\n" + t("linkFromPlay"));
+  };
   useEffect(() => {
     switch (listType) {
       case "connection":
@@ -52,6 +59,7 @@ export function ConnectionEmptyList({ listType }: Props) {
       <Button
         title="CONVIDAR AMIGO"
         customStyle={{ backgroundColor: colors.callAction.main, width: "100%" }}
+        onPress={inviteFriend}
       />
     </View>
   );

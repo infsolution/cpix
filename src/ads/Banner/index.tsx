@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import { Platform, View } from "react-native";
 import {
   BannerAd,
@@ -11,8 +11,10 @@ import { styles } from "./styles";
 const adUnitId = __DEV__
   ? TestIds.ADAPTIVE_BANNER
   : "ca-app-pub-9803509684526637/8278035139";
-
-export function Banner() {
+type BannerStyleProp = {
+  custom: object;
+};
+export function Banner({ custom }: BannerStyleProp) {
   const bannerRef = useRef<BannerAd>(null);
 
   // (iOS) WKWebView can terminate if app is in a "suspended state", resulting in an empty banner when app returns to foreground.
@@ -22,7 +24,7 @@ export function Banner() {
   });
 
   return (
-    <View style={styles.bottomBanner}>
+    <View style={[styles.bottomBanner, custom]}>
       <BannerAd ref={bannerRef} unitId={adUnitId} size={BannerAdSize.BANNER} />
     </View>
   );

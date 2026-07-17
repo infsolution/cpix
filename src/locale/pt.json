@@ -1,7 +1,7 @@
 {
   "appName": "XaveX",
   "appDescription": "Deixa o PIX ainda mais prático",
-  "linkFromPlay": "",
+  "linkFromPlay": "playstore://loja",
   "welcome": "Bem vindo!",
   "logout": "Sair",
   "forms": {
@@ -59,7 +59,8 @@
     "singleSharingKey": "Olá! Estou compartilhando com você a chave PIX de:",
     "sharingKeys": "Olá! Estou compartilhando com você as chaves PIX de:",
     "deniedPermission": "Permissão negada",
-    "openConfig": "Abrir configurações"
+    "openConfig": "Abrir configurações",
+    "inviteFriend": "Olá! Estou usando o XaveX, um app para compartilharmos nossas chaves e facilitar o uso do PIX. Baixe também e compartilhe suas chaves PIX comigo!"
   },
   "words": {
     "key": "Chave"

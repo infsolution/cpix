@@ -18,6 +18,7 @@ import { Loading } from "@/components/Loading";
 import { ConnectionListItem } from "@/components/ConenctionListItem";
 import { useSnackbarContext } from "@/context/snackbar.context";
 import { ConnectionEmptyList } from "@/components/ConnectionEmptyList";
+import { Banner } from "@/ads/Banner";
 
 export function Friends({ route }: StackRouterProps<"friends">) {
   const [listType, setListType] = useState<ListType>("connection");
@@ -153,6 +154,7 @@ export function Friends({ route }: StackRouterProps<"friends">) {
           </View>
         )}
       </View>
+      <Banner custom={{ position: "absolute", bottom: "106" }} />
     </AppBar>
   );
 }

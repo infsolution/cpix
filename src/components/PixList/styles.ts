@@ -21,6 +21,7 @@ export const styles = StyleSheet.create({
   },
   listItem: {
     paddingTop: 8,
+    paddingBottom: 126,
   },
   separators: {
     width: "100%",

@@ -19,6 +19,7 @@ import { getKey } from "@/shared/services/c-pix/keys.service";
 import { copyText } from "@/utils/structure";
 import { QrCodeView } from "@/components/QrCodeView";
 import { Header } from "@/components/Header";
+import { Banner } from "@/ads/Banner";
 
 export function Edit({ route }: StackRouterProps<"edit">) {
   const pixDatabase = usePixDatabase();
@@ -114,6 +115,7 @@ export function Edit({ route }: StackRouterProps<"edit">) {
           )}
           {editable && (
             <>
+              <Banner custom={{ position: "absolute", top: "0" }} />
               <Text style={styles.title}>Editar chave PIX</Text>
               <AddForm id={route.params.id} own={route.params.own} />
             </>

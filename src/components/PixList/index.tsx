@@ -292,7 +292,7 @@ export const PixList = ({ own, keysToShare, setKeysToShare }: ListProps) => {
               )}
               ItemSeparatorComponent={() => <View style={styles.separators} />}
               showsVerticalScrollIndicator={false}
-              ListEmptyComponent={<EmptyList />}
+              ListEmptyComponent={<EmptyList own={own} />}
             />
           )}
         </View>

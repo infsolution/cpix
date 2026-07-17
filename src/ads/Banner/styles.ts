@@ -7,8 +7,6 @@ export const styles = StyleSheet.create({
     marginBottom: 60, // Prevents content from being hidden behind the ad
   },
   bottomBanner: {
-    position: "absolute",
-    bottom: 107,
     justifyContent: "center",
     alignItems: "center",
     width: "100%",

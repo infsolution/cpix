@@ -51,7 +51,7 @@ export function Profile() {
         keysToShare={keysToShare}
         setKeysToShare={setKeysToShare}
       />
-      <Banner />
+      <Banner custom={{ position: "absolute", bottom: "106" }} />
     </AppBar>
   );
 }

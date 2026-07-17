@@ -5,6 +5,8 @@ import { Header } from "@/components/Header";
 import { PixList } from "@/components/PixList";
 import { KeysToShare } from "@/app/Type/types";
 import { Banner } from "@/ads/Banner";
+import { View } from "react-native";
+import { styles } from "./styles";
 
 export function Home({ route }: StackRouterProps<"home">) {
   const [keysToShare, setKeysToShare] = useState<KeysToShare[]>([]);
@@ -16,7 +18,7 @@ export function Home({ route }: StackRouterProps<"home">) {
         keysToShare={keysToShare}
         setKeysToShare={setKeysToShare}
       />
-      <Banner />
+      <Banner custom={{ position: "absolute", bottom: "106" }} />
     </AppBar>
   );
 }
