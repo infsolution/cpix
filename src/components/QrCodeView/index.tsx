@@ -10,7 +10,7 @@ import { Button } from "@/components/Button";
 import { copyText, shareText } from "@/utils/structure";
 import { File, Paths } from "expo-file-system";
 import * as Sharing from "expo-sharing";
-import { useNotify } from "@/shared/hooks/useNotify";
+import { useSnackbarContext } from "@/context/snackbar.context";
 
 type KeyProps = {
   keyPix: string;
@@ -38,13 +38,15 @@ export const QrCodeView = ({ keyPix, userName }: KeyProps) => {
   const [loading, setLoading] = useState(false);
   const [payload, setPayload] = useState<string>("");
   const qrRef = useRef<QRCodeRef | null>(null);
-
+  const { notify } = useSnackbarContext();
   async function copyToClipboard(key: string) {
     try {
       await copyText(key);
     } catch (error) {
-      // useNotify({ message: "Error copying key to clipboard", type: "ERROR" });
-      Alert.alert("Error", "Error copying key to clipboard");
+      notify({
+        message: "Error copying key to clipboard",
+        messageType: "ERROR",
+      });
     }
   }
 
@@ -53,7 +55,10 @@ export const QrCodeView = ({ keyPix, userName }: KeyProps) => {
       const message = key + "\n\nChave compartilhada com XaveX";
       await shareText(message);
     } catch (error) {
-      Alert.alert("Error", "Error sharing key");
+      notify({
+        message: "Error sharing key",
+        messageType: "ERROR",
+      });
     }
   };
 
@@ -92,7 +97,10 @@ export const QrCodeView = ({ keyPix, userName }: KeyProps) => {
       const text = generatePixPayload(data);
       setPayload(text);
     } catch (error) {
-      //
+      notify({
+        message: "Error generating QRcode",
+        messageType: "ERROR",
+      });
     } finally {
       setLoading(false);
     }

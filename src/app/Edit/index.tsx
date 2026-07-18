@@ -1,4 +1,3 @@
-import { DismissKeiboardview } from "@/components/DismissKeyboardView";
 import {
   Text,
   View,
@@ -28,7 +27,7 @@ export function Edit({ route }: StackRouterProps<"edit">) {
   const [name, setName] = useState("");
   const [bank, setBank] = useState("");
   const [key, setKey] = useState("");
-  //   const [createdAt, setCreatedAt] = useState("");
+
   const navigation = useNavigation();
   async function fetchKey() {
     try {
@@ -38,7 +37,6 @@ export function Edit({ route }: StackRouterProps<"edit">) {
           setName(serverResponse.name);
           setBank(serverResponse.nameBank);
           setKey(serverResponse.key);
-          // setIsPublic(serverResponse.is_public);
         }
       } else {
         const response = await pixDatabase.getKey(route.params.id);
@@ -46,20 +44,10 @@ export function Edit({ route }: StackRouterProps<"edit">) {
           setName(response.name);
           setBank(response.nameBank);
           setKey(response.key);
-          //   setCreatedAt(response.created_at);
         }
       }
-      //   if (!response) {
-      //     Alert.alert("Atenção", "Não encontramos essa chave.", [
-      //       {
-      //         text: "Voltar para Home",
-      //         onPress: () => navigation.navigate("home"),
-      //       },
-      //     ]);
-      //   }
     } catch (error) {
       Alert.alert("Error", "Error fetching keys");
-      console.error("Error fetching keys:", error);
     } finally {
       setIsFetching(false);
     }
@@ -71,7 +59,6 @@ export function Edit({ route }: StackRouterProps<"edit">) {
       return data;
     } catch (error) {
       Alert.alert("Error", "Error fetching in key in server");
-      console.error("Error fetching keys:", error);
     }
   }
 
@@ -80,7 +67,6 @@ export function Edit({ route }: StackRouterProps<"edit">) {
       await copyText(key);
     } catch (error) {
       Alert.alert("Error", "Error copying key to clipboard");
-      console.error("Error copying key to clipboard:", error);
     }
   }
 
@@ -93,12 +79,13 @@ export function Edit({ route }: StackRouterProps<"edit">) {
   }
 
   return (
-    <DismissKeiboardview>
+    <>
       <Header />
       <ScrollView>
         <View style={styles.container}>
           {!editable && (
             <View style={styles.readyOnlyContainer}>
+              <Banner custom={{ position: "absolute", top: "0", left: 24 }} />
               <View style={styles.readOnlyTitleConteiner}>
                 <Text style={styles.readyOnlyTitle}>{name}</Text>
                 <TouchableOpacity onPress={() => setEditable(true)}>
@@ -122,6 +109,6 @@ export function Edit({ route }: StackRouterProps<"edit">) {
           )}
         </View>
       </ScrollView>
-    </DismissKeiboardview>
+    </>
   );
 }

@@ -18,6 +18,8 @@ import {
   createOrUpdateKey,
   getKey,
 } from "@/shared/services/c-pix/keys.service";
+import { DismissKeiboardview } from "@/components/DismissKeyboardView";
+import { useSnackbarContext } from "@/context/snackbar.context";
 
 type Params = {
   id?: string | undefined;
@@ -44,6 +46,7 @@ export const AddForm = ({ id, own }: Params) => {
     },
     resolver: yupResolver(schema),
   });
+  const { notify } = useSnackbarContext();
 
   async function onSubmit(data: KeyCreate) {
     const message = id
@@ -78,13 +81,14 @@ export const AddForm = ({ id, own }: Params) => {
           data.universal_uuid = user.universal_uuid;
           await pixDatabase.createOrUpdate(data);
         }
-        Alert.alert("Sucesso", message, [
-          { text: " OK", onPress: () => navigation.navigate(routeToBack) },
-        ]);
+
+        notify({ message: message, messageType: "SUCCESS" });
       }
     } catch (error) {
-      console.error("Erro ao tentar adicionar sua chave", error);
-      Alert.alert("Error", "Erro ao tentar adicionar sua chave");
+      notify({
+        message: "Erro ao tentar adicionar sua chave",
+        messageType: "ERROR",
+      });
     }
   }
 

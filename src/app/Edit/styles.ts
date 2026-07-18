@@ -7,6 +7,8 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     backgroundColor: colors.white,
+    paddingBottom: 48,
+    minHeight: "100%",
   },
   title: {
     marginTop: 52,
@@ -39,13 +41,13 @@ export const styles = StyleSheet.create({
   readyOnlyContainer: {
     width: "100%",
     paddingHorizontal: 24,
-    marginTop: 24,
   },
   readOnlyTitleConteiner: {
     width: "100%",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    marginTop: 48,
   },
   readyOnlyTitle: {
     fontSize: 28,
