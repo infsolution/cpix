@@ -11,7 +11,9 @@ import { useUserDatabase } from "@/database/useUserDatabase";
 import { useAuthContext } from "@/context/auth.context";
 import { useErrorHandler } from "@/shared/hooks/useErrorHandler";
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
 export const LoginForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation();
   const userDatabase = useUserDatabase();
   const {
@@ -30,6 +32,7 @@ export const LoginForm = () => {
   const { t } = useTranslation();
   const onSubmit = async (data: FormLoginParams) => {
     try {
+      setIsLoading(true);
       const loggedUser = await handleLogin(data);
       if (loggedUser?.universal_uuid) {
         const localUser = await userDatabase.getUserByUuid(
@@ -50,6 +53,8 @@ export const LoginForm = () => {
       }
     } catch (error) {
       handleError(error, "Falha ao fazer login");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -69,7 +74,11 @@ export const LoginForm = () => {
         secureTextEntry
       />
 
-      <FormButton mode="fill" onPress={handleSubmit(onSubmit)}>
+      <FormButton
+        mode="fill"
+        onPress={handleSubmit(onSubmit)}
+        inProgress={isLoading}
+      >
         {t("forms.login")}
       </FormButton>
 
