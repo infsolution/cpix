@@ -118,11 +118,9 @@ export const AddForm = ({ id, own }: Params) => {
   async function getRemoteKey(id: string) {
     try {
       const { data } = await getKey(id);
-      console.log("Fetched key from server:", data);
       return data;
     } catch (error) {
       Alert.alert("Error", "Error fetching in key in server");
-      console.error("Error fetching keys:", error);
     }
   }
 

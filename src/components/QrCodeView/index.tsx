@@ -10,6 +10,7 @@ import { Button } from "@/components/Button";
 import { copyText, shareText } from "@/utils/structure";
 import { File, Paths } from "expo-file-system";
 import * as Sharing from "expo-sharing";
+import { useNotify } from "@/shared/hooks/useNotify";
 
 type KeyProps = {
   keyPix: string;
@@ -42,18 +43,17 @@ export const QrCodeView = ({ keyPix, userName }: KeyProps) => {
     try {
       await copyText(key);
     } catch (error) {
+      // useNotify({ message: "Error copying key to clipboard", type: "ERROR" });
       Alert.alert("Error", "Error copying key to clipboard");
-      console.log("Error copying key to clipboard:", error);
     }
   }
 
   const shareKey = async (key: string) => {
     try {
-      const message = key + "\n\nChave compartilhada com CPIX";
+      const message = key + "\n\nChave compartilhada com XaveX";
       await shareText(message);
     } catch (error) {
       Alert.alert("Error", "Error sharing key");
-      console.log("Error sharing key:", error);
     }
   };
 
@@ -79,7 +79,6 @@ export const QrCodeView = ({ keyPix, userName }: KeyProps) => {
         return;
       }
       setCityError(null);
-      console.log(`Gerar QR para a chave ${keyPix} e o valor ${value}`);
       const data: PayloadData = {
         pixKey: keyPix,
         merchantName: userName,
@@ -93,7 +92,7 @@ export const QrCodeView = ({ keyPix, userName }: KeyProps) => {
       const text = generatePixPayload(data);
       setPayload(text);
     } catch (error) {
-      console.log(`Error to generate QR Code from `);
+      //
     } finally {
       setLoading(false);
     }

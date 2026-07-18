@@ -40,7 +40,6 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
       setJWT("user-jwt", data.token);
       setStorageUser("user-data", data);
     }
-    console.log("login", data, code, message);
     return data;
   };
 
@@ -67,7 +66,6 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
     setUser(null);
     removeItem("user-jwt");
     removeItem("user-data");
-    console.log("logout");
   };
 
   return (

@@ -19,7 +19,6 @@ cPixApi.interceptors.response.use(
     if (error.response && error.response.data) {
       return Promise.reject(new AppError(error.response.data.message));
     } else {
-      console.log("Error: ", error.message);
       return Promise.reject(new AppError("Falha na requisição"));
     }
   },

@@ -22,7 +22,6 @@ export const seedDatabaseFromCSV = async () => {
       );
 
       if (result?.count && result.count >= totalLines) {
-        // console.log("Database already seeded.");
         return;
       }
       await db.execAsync("DELETE FROM banks;");
@@ -46,8 +45,6 @@ export const seedDatabaseFromCSV = async () => {
               statement.finalizeSync();
             }
           });
-
-          console.log(`Successfully seeded ${rows.length} rows!`);
         },
         error: (error: Error) => {
           console.error("Error parsing CSV file:", error);

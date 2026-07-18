@@ -28,7 +28,6 @@ export const FriendProfile = ({ route }: StackRouterProps<"friend">) => {
     } catch (error) {}
   };
   useEffect(() => {
-    console.log(userFriend);
     fetchUserData();
   }, []);
   return (

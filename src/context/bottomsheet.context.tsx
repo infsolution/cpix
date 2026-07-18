@@ -27,7 +27,6 @@ export const BottomSheetProvider: FC<PropsWithChildren> = ({ children }) => {
   const snapPoints = ["70%", "90%"];
   const openBottomSheet = useCallback(
     (content: React.ReactNode, index: number) => {
-      console.log("Opem bottom");
       setIndex(index);
       setContent(content);
       setIsOpen(true);
@@ -39,7 +38,6 @@ export const BottomSheetProvider: FC<PropsWithChildren> = ({ children }) => {
   );
 
   const closeBottomSheet = useCallback(() => {
-    console.log("Close bottom");
     setIsOpen(false);
     setContent(null);
     setIndex(-1);

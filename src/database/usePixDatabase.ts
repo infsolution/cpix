@@ -31,6 +31,7 @@ export function usePixDatabase() {
       ON keys.bank = banks.code LEFT JOIN users AS u ON u.universal_uuid = keys.universal_uuid
       WHERE own = ${own} AND u.universal_uuid = '${uuid}'`,
     );
+    console.log(own, data);
     return data;
   }
 
