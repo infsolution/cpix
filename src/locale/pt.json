@@ -60,7 +60,8 @@
     "sharingKeys": "Olá! Estou compartilhando com você as chaves PIX de:",
     "deniedPermission": "Permissão negada",
     "openConfig": "Abrir configurações",
-    "inviteFriend": "Olá! Estou usando o XaveX, um app para compartilharmos nossas chaves e facilitar o uso do PIX. Baixe também e compartilhe suas chaves PIX comigo!"
+    "inviteFriend": "Olá! Estou usando o XaveX, um app para compartilharmos nossas chaves e facilitar o uso do PIX. Baixe também e compartilhe suas chaves PIX comigo!",
+    "searchConnection": "Você também pode tocar na 🔍 e pesquisar por conexões"
   },
   "words": {
     "key": "Chave"

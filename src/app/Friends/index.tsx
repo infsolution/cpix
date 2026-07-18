@@ -84,7 +84,6 @@ export function Friends({ route }: StackRouterProps<"friends">) {
     try {
       if (connection_id) {
         const status = await deleteConnection(connection_id);
-        console.log("Code Deleted ", status);
         if (status === 204) {
           setDeletionsCount(deletionsCount + 1);
           notify({

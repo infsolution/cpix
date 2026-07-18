@@ -54,6 +54,9 @@ export function ConnectionEmptyList({ listType }: Props) {
         <Text style={styles.title}>{text}</Text>
         <Text style={styles.text}>{t("message.notFriend")}</Text>
         <Text style={styles.text}>convide-os, é de graça</Text>
+        {listType === "sent" && (
+          <Text style={styles.text}>{t("message.searchConnection")}</Text>
+        )}
       </View>
 
       <Button

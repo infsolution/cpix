@@ -1,5 +1,5 @@
 import { NavigationRoutes } from "@/routes";
-import React, { useEffect, Suspense } from "react";
+import React, { useEffect, Suspense, useState } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import {
   useFonts,
@@ -7,7 +7,7 @@ import {
   Inter_500Medium,
   Inter_700Bold,
 } from "@expo-google-fonts/inter";
-import { Loading } from "@/components/Loading";
+
 import { SQLiteProvider } from "expo-sqlite";
 import { migrate } from "@/database/migrate";
 import { AuthContextProvider } from "@/context/auth.context";
@@ -18,6 +18,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import "./src/i18n";
 import { AppModal } from "@/components/AppModal";
+import { BaseLoading } from "@/components/BaseLoading";
 SplashScreen.preventAutoHideAsync();
 export default function App() {
   const [loaded, error] = useFonts({
@@ -34,7 +35,7 @@ export default function App() {
     return null;
   }
   return (
-    <Suspense fallback={<Loading />}>
+    <Suspense fallback={<BaseLoading />}>
       <StatusBar style="dark" />
       <GestureHandlerRootView style={{ flex: 1 }}>
         <SnackbarContextProvider>
