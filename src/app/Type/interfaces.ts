@@ -6,11 +6,13 @@ export interface FormSigninParams {
   confirmPassword: string;
   uuid?: string;
   termChecked: boolean;
+  playerId?: string;
 }
 
 export interface FormLoginParams {
   email: string;
   password: string;
+  player_id?: string;
 }
 
 export interface FormResetPasswordParams {

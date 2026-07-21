@@ -15,6 +15,7 @@ import {
   setStorageUser,
 } from "@/shared/storage/service/user";
 import { clearStorage } from "@/shared/storage/service/general";
+import { useOneSignal } from "@/shared/hooks/useOneSignal";
 
 type AuthContextType = {
   user: IUser | null;
@@ -31,10 +32,11 @@ export const AuthContext = createContext<AuthContextType>(
 
 export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [user, setUser] = useState<IUser | null>(null);
-
+  const { playerId } = useOneSignal();
   const handleSignin = async (
     userData: FormSigninParams,
   ): Promise<IUser | null> => {
+    userData.playerId = playerId;
     const { message, code, data } = await authService.register(userData);
     if (data.token) {
       setJWT("user-jwt", data.token);
@@ -44,7 +46,9 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
   };
 
   const handleLogin = async (userData: FormLoginParams) => {
+    userData.player_id = playerId;
     const { message, code, data } = await authService.authenticate(userData);
+    console.log(message);
     if (data.token) {
       setJWT("user-jwt", data.token);
       setStorageUser("user-data", data);

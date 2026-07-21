@@ -9,7 +9,6 @@ export const authenticate = async (
     "auth/login",
     userData,
   );
-  console.info("LOGGED: ", data);
   return data;
 };
 
@@ -23,6 +22,7 @@ export const register = async (
     password: userData.password,
     universal_uuid: userData.uuid,
     is_public: userData.termChecked,
+    player_id: userData.playerId,
   };
   const { data } = await cPixApi.post<IAuthenticateResponse>(
     "auth/register",

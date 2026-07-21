@@ -31,9 +31,10 @@ export const LoginForm = () => {
   const { handleError } = useErrorHandler();
   const { t } = useTranslation();
   const onSubmit = async (data: FormLoginParams) => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
       const loggedUser = await handleLogin(data);
+      console.log(loggedUser);
       if (loggedUser?.universal_uuid) {
         const localUser = await userDatabase.getUserByUuid(
           loggedUser.universal_uuid,
@@ -52,6 +53,7 @@ export const LoginForm = () => {
         setUser(loggedUser);
       }
     } catch (error) {
+      console.log(error);
       handleError(error, "Falha ao fazer login");
     } finally {
       setIsLoading(false);
