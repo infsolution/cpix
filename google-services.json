@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "841613028360",
+    "project_id": "xavex-1dc87",
+    "storage_bucket": "xavex-1dc87.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:841613028360:android:5a63d23c1bea700bf7b5bd",
+        "android_client_info": {
+          "package_name": "br.com.clsdev.xavex"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAftgLSA0uG9T0V4IGUkBivOuj4eBj4gN8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

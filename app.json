@@ -3,7 +3,7 @@
     "name": "XaveX",
     "slug": "XaveX",
     "version": "1.0.0",
-    "scheme":"xavex",
+    "scheme": "xavex",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -28,7 +28,9 @@
       "permissions": [
         "android.permission.READ_EXTERNAL_STORAGE",
         "android.permission.WRITE_EXTERNAL_STORAGE",
-        "android.permission.CAMERA"
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "com.google.android.gms.permission.AD_ID"
       ]
     },
     "web": {
@@ -64,9 +66,14 @@
           "enableBackgroundRemoteNotifications": false
         }
       ],
-      
       "expo-tracking-transparency",
-      "expo-build-properties"
-    ]
+      "expo-build-properties",
+      ["onesignal-expo-plugin",{"mode":"development"}]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "7b87883d-baec-403d-88a3-697eed99e12c"
+      }
+    }
   }
 }

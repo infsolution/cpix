@@ -19,13 +19,16 @@ import { StatusBar } from "expo-status-bar";
 import "./src/i18n";
 import { AppModal } from "@/components/AppModal";
 import { BaseLoading } from "@/components/BaseLoading";
+import { useOneSignal } from "@/shared/hooks/useOneSignal";
 SplashScreen.preventAutoHideAsync();
+const ONESIGNAL_APP_ID = process.env.EXPO_PUBLIC_ONESIGNAL_APP_ID;
 export default function App() {
   const [loaded, error] = useFonts({
     Inter_400Regular,
     Inter_500Medium,
     Inter_700Bold,
   });
+  useOneSignal();
   useEffect(() => {
     if (loaded || error) {
       SplashScreen.hideAsync();
