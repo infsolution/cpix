@@ -103,3 +103,11 @@ export interface ConnectionResponse {
   code: string;
   data: ConnectionType[];
 }
+
+export interface KeysToBackup {
+  name: string;
+  key: string;
+  bank: string;
+  is_public: boolean;
+  own: number;
+}

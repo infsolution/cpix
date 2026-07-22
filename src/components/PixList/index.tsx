@@ -20,6 +20,8 @@ import { useTranslation } from "react-i18next";
 import { useSnackbarContext } from "@/context/snackbar.context";
 import { useAuthContext } from "@/context/auth.context";
 
+import { useKeysBackup } from "@/shared/hooks/useKeysBackup";
+
 type ListProps = {
   own: number;
   keysToShare: KeysToShare[];
@@ -46,6 +48,9 @@ export const PixList = ({ own, keysToShare, setKeysToShare }: ListProps) => {
   };
 
   const { user } = useAuthContext();
+
+  //TODO Remove
+  const { updateOrCreateBackup } = useKeysBackup();
   /**
    * Select or deselect item in list
    * @param id
@@ -116,6 +121,7 @@ export const PixList = ({ own, keysToShare, setKeysToShare }: ListProps) => {
           setListItems([]);
         }
       }
+      // await updateOrCreateBackup();
     } catch (error) {
       handleError(error, t("error.errorGetKeys"));
     }

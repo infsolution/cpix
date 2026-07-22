@@ -2,6 +2,7 @@ import {
   ItemSearch,
   KeyCreate,
   KeyResponse,
+  KeysToBackup,
   KeyUpdate,
   TypeKey,
 } from "@/app/Type/types";
@@ -96,6 +97,13 @@ export function usePixDatabase() {
     return data;
   }
 
+  async function backupToCloud(uuid: string) {
+    const data = await database.getAllAsync<KeysToBackup>(`
+      SELECT name, key, bank, is_public, own FROM keys WHERE universal_uuid = '${uuid}'
+      `);
+    return data;
+  }
+
   return {
     listKeys,
     create,
@@ -104,5 +112,6 @@ export function usePixDatabase() {
     deleteKey,
     createOrUpdate,
     searchKeys,
+    backupToCloud,
   };
 }
