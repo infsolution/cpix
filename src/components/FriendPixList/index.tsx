@@ -92,7 +92,6 @@ export const FriendPixList = ({
       fetchFriendKeys();
     } catch (error) {
       Alert.alert("Error", "Error fetching own keys");
-      console.error("Error fetching own keys:", error);
     }
   }
 
@@ -171,7 +170,7 @@ export const FriendPixList = ({
               ItemSeparatorComponent={() => <View style={styles.separators} />}
               showsVerticalScrollIndicator={false}
               ListEmptyComponent={
-                <FriendEmptyKeyList friendName={friendName} />
+                <FriendEmptyKeyList friendName={friendName} friendId={id} />
               }
             />
           )}

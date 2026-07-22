@@ -43,7 +43,11 @@ export function Profile() {
           </Text>
         </View>
         <View style={styles.formControl}>
-          <Text>Suas chaves podem ser compartilhadas com suas conexões</Text>
+          <Text>
+            Suas chaves {!user?.is_public && "não"} podem ser compartilhadas com
+            suas conexões
+          </Text>
+          {!user?.is_public && "Não"}
         </View>
       </View>
       <PixList
