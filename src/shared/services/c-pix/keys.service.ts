@@ -6,6 +6,7 @@ import {
   KeysFriendResponse,
   UpdateKey,
 } from "@/shared/interfaces/key-interface";
+import { GetConfirmationResponse } from "@/shared/interfaces/user-interface";
 import { getJWT } from "@/shared/storage/service/user";
 
 export const getKeys = async (): Promise<IKeyResponse> => {
@@ -69,7 +70,6 @@ export const updateKey = async (keyData: UpdateKey): Promise<IKeyResponse> => {
 export const createOrUpdateKey = async (
   keyData: CreateKey | UpdateKey,
 ): Promise<IKeyResponse> => {
-  console.info("Function", keyData);
   if ("id" in keyData) {
     return await updateKey(keyData);
   } else {
@@ -99,5 +99,20 @@ export const getFriendKeys = async (id: string) => {
       Accept: "application/json",
     },
   });
+  return data;
+};
+
+export const updateOrCreateBackupKeys = async (values: string) => {
+  const token = await getJWT("user-jwt");
+  const { data } = await cPixApi.post<GetConfirmationResponse>(
+    "key/backup",
+    { data: values },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/json",
+      },
+    },
+  );
   return data;
 };

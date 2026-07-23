@@ -7,7 +7,7 @@ import React, {
   useState,
 } from "react";
 import * as authService from "@/shared/services/c-pix/auth.service";
-import { IUser } from "@/shared/interfaces/user-interface";
+import { IPlan, IUser } from "@/shared/interfaces/user-interface";
 import {
   getStorageUser,
   removeItem,
@@ -52,6 +52,7 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
     if (data.token) {
       setJWT("user-jwt", data.token);
       setStorageUser("user-data", data);
+
       return data;
     }
     return null;
