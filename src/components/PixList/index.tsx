@@ -40,6 +40,7 @@ export const PixList = ({ own, keysToShare, setKeysToShare }: ListProps) => {
   const [loadingList, setLoadingList] = useState(false);
   const [styleDeleteButton, setStyleDeleteButton] = useState(colors.red.delete);
   const [disableDeleteButton, setDisableDeleteButton] = useState(false);
+  const [countKeys, setCountKeys] = useState(0);
   const copyItem = async (id: string) => {
     const item = listItems.find((key) => key.id === id);
     if (item && item.keyPix) {
@@ -145,6 +146,7 @@ export const PixList = ({ own, keysToShare, setKeysToShare }: ListProps) => {
       const { data } = await keyService.getUserKeys();
       if (data.length > 0) {
         setListItems(data);
+        setCountKeys(data.length);
       } else {
         setListItems([]);
       }
@@ -194,6 +196,22 @@ export const PixList = ({ own, keysToShare, setKeysToShare }: ListProps) => {
     getKeys();
   }
 
+  const addKey = () => {
+    const limit = user?.plan?.number_of_allowed_keys;
+    if (limit && countKeys >= limit) {
+      Alert.alert(
+        "Limite do Plano Alcançado",
+        "Para aumentar seu limite assine o plano Pro!",
+        [
+          { text: "Ok", style: "cancel" },
+          { text: "Assinar", onPress: () => console.log("Assinar") },
+        ],
+      );
+      return;
+    }
+    navigation.navigate("add", { own: own });
+  };
+
   useFocusEffect(
     useCallback(() => {
       getKeys();
@@ -207,7 +225,7 @@ export const PixList = ({ own, keysToShare, setKeysToShare }: ListProps) => {
         <View style={styles.headerList}>
           {!showActions && (
             <TouchableOpacity
-              onPress={() => navigation.navigate("add", { own: own })}
+              onPress={addKey}
               style={{ alignItems: "center", flexDirection: "row", gap: 6 }}
             >
               <MaterialIcons
