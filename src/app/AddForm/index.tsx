@@ -75,7 +75,10 @@ export const AddForm = ({ id, own }: Params) => {
           }
           const { code } = await createOrUpdateKey(createKey);
           if (code != "201" && code != "200") {
-            Alert.alert("Error", "Erro ao tentar adicionar sua chave");
+            notify({
+              message: "houve um erro na solicitação",
+              messageType: "ERROR",
+            });
           }
         } else {
           data.universal_uuid = user.universal_uuid;

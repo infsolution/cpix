@@ -77,9 +77,9 @@ export interface RecoveryPasswordResponse {
 
 export interface IPlan {
   name: string;
-  numberOfAllowedKeys: number;
-  haveBackup: boolean;
-  haveCustomNotifications: boolean;
-  haveDashboard: boolean;
-  sendInvoices: boolean;
+  number_of_allowed_keys: number;
+  have_backup: boolean;
+  have_custom_notifications: boolean;
+  have_dashboard: boolean;
+  send_invoices: boolean;
 }
