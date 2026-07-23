@@ -14,6 +14,7 @@
       "backgroundColor": "#D3F9E8"
     },
     "ios": {
+      "UIBackgroundModes": ["processing"],
       "supportsTablet": true,
       "bundleIdentifier": "br.com.clsdev.xavex",
       "icon": "./assets/adaptive-icon.png"
@@ -68,7 +69,13 @@
       ],
       "expo-tracking-transparency",
       "expo-build-properties",
-      ["onesignal-expo-plugin",{"mode":"development"}]
+      [
+        "onesignal-expo-plugin",
+        {
+          "mode": "development"
+        }
+      ],
+      "expo-background-task"
     ],
     "extra": {
       "eas": {

@@ -9,6 +9,7 @@ export interface IUser {
   is_public: boolean;
   token: string;
   image?: string;
+  plan?: IPlan;
 }
 
 export interface SUser {
@@ -72,4 +73,13 @@ export interface RecoveryPasswordResponse {
   data: {
     email: string;
   };
+}
+
+export interface IPlan {
+  name: string;
+  numberOfAllowedKeys: number;
+  haveBackup: boolean;
+  haveCustomNotifications: boolean;
+  haveDashboard: boolean;
+  sendInvoices: boolean;
 }
