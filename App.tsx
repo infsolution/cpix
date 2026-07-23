@@ -1,37 +1,58 @@
 import { NavigationRoutes } from "@/routes";
-import { useEffect, Suspense } from "react";
-import * as SplashScreen from 'expo-splash-screen';
+import React, { useEffect, Suspense, useState } from "react";
+import * as SplashScreen from "expo-splash-screen";
 import {
   useFonts,
-  Inter_400Regular, Inter_500Medium, Inter_700Bold
-} from "@expo-google-fonts/inter"
-import { Loading } from "@/components/Loading";
+  Inter_400Regular,
+  Inter_500Medium,
+  Inter_700Bold,
+} from "@expo-google-fonts/inter";
+
 import { SQLiteProvider } from "expo-sqlite";
 import { migrate } from "@/database/migrate";
 import { AuthContextProvider } from "@/context/auth.context";
-
+import { SnackbarContextProvider } from "@/context/snackbar.context";
+import { Snackbar } from "@/components/Snackbar";
+import { BottomSheetProvider } from "@/context/bottomsheet.context";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { StatusBar } from "expo-status-bar";
+import "./src/i18n";
+import { AppModal } from "@/components/AppModal";
+import { BaseLoading } from "@/components/BaseLoading";
+import { useOneSignal } from "@/shared/hooks/useOneSignal";
+SplashScreen.preventAutoHideAsync();
+const ONESIGNAL_APP_ID = process.env.EXPO_PUBLIC_ONESIGNAL_APP_ID;
 export default function App() {
-  const [fontLoaded, error] = useFonts({
+  const [loaded, error] = useFonts({
     Inter_400Regular,
     Inter_500Medium,
-    Inter_700Bold
+    Inter_700Bold,
   });
+  useOneSignal();
   useEffect(() => {
-    if (fontLoaded || error) {
+    if (loaded || error) {
       SplashScreen.hideAsync();
     }
-  }, [fontLoaded, error]);
-
-  if (!fontLoaded && !error) {
-    return <Loading />;
+  }, [loaded, error]);
+  if (!loaded && !error) {
+    return null;
   }
   return (
-    <Suspense fallback={<Loading />}>
-      <AuthContextProvider>
-        <SQLiteProvider databaseName="cpix.db" onInit={migrate} useSuspense>
-          <NavigationRoutes />
-        </SQLiteProvider>
-      </AuthContextProvider>
+    <Suspense fallback={<BaseLoading />}>
+      <StatusBar style="dark" />
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <SnackbarContextProvider>
+          <AuthContextProvider>
+            <SQLiteProvider databaseName="cpix.db" onInit={migrate} useSuspense>
+              <BottomSheetProvider>
+                <NavigationRoutes />
+                <Snackbar />
+                <AppModal />
+              </BottomSheetProvider>
+            </SQLiteProvider>
+          </AuthContextProvider>
+        </SnackbarContextProvider>
+      </GestureHandlerRootView>
     </Suspense>
   );
 }

@@ -1,0 +1,34 @@
+import { colors } from "@/theme/colors";
+import { StyleSheet } from "react-native";
+
+export const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    paddingHorizontal: 22,
+    paddingVertical: 8,
+    width: "100%",
+    height: 60,
+    borderColor: colors.border,
+    borderRadius: 8,
+    borderWidth: 1,
+    justifyContent: "space-between",
+    marginBottom: 4,
+  },
+  name: {
+    color: colors.text.titles,
+    fontWeight: "bold",
+  },
+  bankName: {
+    color: colors.text.subTitle,
+  },
+  text: {
+    // color: colors.text.subTitle,
+  },
+  icons: {
+    width: "30%",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    gap: 8,
+  },
+});

@@ -1,34 +1,61 @@
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image } from "react-native";
 import { styles } from "./styles";
-import { AppBar } from '@/components/AppBar';
-import { TabGoBack } from '@/components/TabGoBack';
-import Entypo from '@expo/vector-icons/Entypo';
-import { colors } from '@/theme/colors';
-import { PixList } from '@/components/PixList';
+import { AppBar } from "@/components/AppBar";
+import { useNavigation } from "@react-navigation/native";
+import Entypo from "@expo/vector-icons/Entypo";
+import { colors } from "@/theme/colors";
+import { PixList } from "@/components/PixList";
+import { KeysToShare } from "../Type/types";
+import { useState } from "react";
+import { useAuthContext } from "@/context/auth.context";
+import { Header } from "@/components/Header";
+import { Banner } from "@/ads/Banner";
 
 export function Profile() {
-    return (
-        <AppBar keys={[]} currentRoute='profile'>
-            <TabGoBack />
-            <View style={styles.formContainer}>
-                <View style={styles.formControl}>
-                    <Image source={require("@/assets/profile.png")} style={styles.profileImage} />
-                </View>
-                <View style={styles.formControl}>
-                    <Text style={styles.title}>Cicero</Text>
-                    <Entypo name="chevron-thin-right" size={20} color={colors.text.titles} onPress={() => console.log("Editar perfil")} />
-                </View>
-                <View style={styles.formControl}>
-                    <Text style={styles.subTitle}>cicero@example.com</Text>
-                </View>
-                <View style={styles.formControl}>
-                    <Text style={styles.subTitle}>@cicero</Text>
-                </View>
-                <View style={styles.formControl}>
-                    <Text style={styles.label}>Sua conta está pública</Text>
-                </View>
-            </View>
-            <PixList own={1}/>
-        </AppBar>
-    )
+  const [keysToShare, setKeysToShare] = useState<KeysToShare[]>([]);
+  const { user } = useAuthContext();
+  const navigation = useNavigation();
+  return (
+    <AppBar keys={keysToShare} currentRoute={"profile"}>
+      <Header />
+      <View style={styles.profileContainer}>
+        <View style={styles.formControl}></View>
+        <View style={styles.formControl}>
+          <Text style={styles.title}>{user?.name || ""}</Text>
+          <Entypo
+            name="chevron-thin-right"
+            size={16}
+            color={colors.text.titles}
+            onPress={() => navigation.navigate("profileEdit")}
+          />
+        </View>
+        <View style={styles.formControl}>
+          <Text style={styles.subTitle}>{user?.email || ""}</Text>
+        </View>
+        <View style={styles.formControl}>
+          <Text style={styles.subTitle}>{user?.user_name || ""}</Text>
+        </View>
+        <View style={styles.formControl}>
+          <Text style={styles.label}>
+            {user?.is_public
+              ? "Sua conta está pública"
+              : "Sua conta não está pública"}
+          </Text>
+        </View>
+        <View style={styles.formControl}>
+          <Text>
+            Suas chaves {!user?.is_public && "não"} podem ser compartilhadas com
+            suas conexões
+          </Text>
+          {!user?.is_public && "Não"}
+        </View>
+      </View>
+      <PixList
+        own={1}
+        keysToShare={keysToShare}
+        setKeysToShare={setKeysToShare}
+      />
+      <Banner custom={{ position: "absolute", bottom: "106" }} />
+    </AppBar>
+  );
 }

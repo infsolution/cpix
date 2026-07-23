@@ -2,8 +2,11 @@ export type ItemPix = {
   id: string;
   name: string;
   bank: string;
+  nameBank: string;
   keyPix: string;
   selected: boolean | null;
+  image?: string;
+  is_public?: boolean;
 };
 
 export type UserCreate = {
@@ -16,21 +19,23 @@ export type UserCreate = {
 
 export type KeyResponse = {
   id: string;
-  user_id: string;
+  universal_uuid: string;
   name: string;
   keyPix: string;
   bank: string;
+  nameBank: string;
   is_public: boolean;
   selected: boolean | null;
 };
 
 export type KeyCreate = {
   id?: string;
-  user_id: string;
+  universal_uuid: string;
   name: string;
   key: string;
   bank: string;
   is_public: boolean;
+  own?: number;
 };
 
 export type TypeKey = {
@@ -38,6 +43,7 @@ export type TypeKey = {
   name: string;
   key: string;
   bank: string;
+  nameBank: string;
   is_public: boolean;
   created_at: string;
 };
@@ -57,12 +63,51 @@ export type KeysToShare = {
 };
 
 export type Bank = {
+  id?: string | number;
   name: string;
   code: string;
-  ispb: string;
-
+  ispb?: string;
 };
 
 export type DbCount = {
   count: number;
 };
+
+export interface ItemSearch {
+  id: string | number;
+  keyPix?: string;
+  name: string;
+  user_name?: string;
+  image?: string;
+  nameBank?: string;
+}
+
+export interface SearchResponse {
+  message: string;
+  code: string;
+  data: ItemSearch[];
+}
+
+export type ListType = "connection" | "sent" | "receiver";
+
+export interface ConnectionType {
+  id: string;
+  name: string;
+  user_name: string;
+  image?: string;
+  connection_id: string;
+}
+
+export interface ConnectionResponse {
+  message: string;
+  code: string;
+  data: ConnectionType[];
+}
+
+export interface KeysToBackup {
+  name: string;
+  key: string;
+  bank: string;
+  is_public: boolean;
+  own: number;
+}

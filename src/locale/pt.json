@@ -1,0 +1,72 @@
+{
+  "appName": "XaveX",
+  "appDescription": "Deixa o PIX ainda mais prático",
+  "linkFromPlay": "playstore://loja",
+  "welcome": "Bem vindo!",
+  "logout": "Sair",
+  "forms": {
+    "name": "Nome",
+    "email": "Email",
+    "password": "Senha",
+    "confirmPassword": "Confirmar Senha",
+    "userName": "Nome de Usuário",
+    "userNamePlaceholder": "@username",
+    "confirmTerm": "Concordo com os termos e condições",
+    "toSignUp": "Cadastrar",
+    "login": "Entrar",
+    "forgotPassword": "Esqueci minha senha",
+    "itsNew": "É novo por aqui?",
+    "haveAnAccount": "Já tem conta?",
+    "signUp": "Cadastre-se",
+    "changeImage": "Trocar imagem",
+    "editProfile": "Editar Perfil",
+    "changePassword": "Mudar Senha",
+    "oldPassword": "Senha Antiga",
+    "mandatoryPassword": "A senha é obrigatória",
+    "invalidPassword": "Senha inválida",
+    "recoverySubTitle": "Informe o email cadastrado na sua conta",
+    "recoveryTitle": "Recuperação de Senha"
+  },
+  "error": {
+    "createUser": "Erro ao tentar cadastrar o usuário, tente novamente em alguns minutos.",
+    "userNameAlreadyExists": "Nome de usuário já está em uso",
+    "searchUserName": "Erro na consulta de nome de usuário",
+    "keysNotFound": "Nenhuma chave encontrada",
+    "errorGetKeys": "Erro ao buscar as chaves",
+    "deleteKeys": "Erro ao tentar excluir as chaves",
+    "camera": "Erro ao abrir a câmera",
+    "cameraDeniedPermission": "Precisamos da permissão para acessar sua câmera",
+    "cameraPermission": "Erro ao solicitar permissão de câmera",
+    "gallery": "Erro ao abrir a galeria",
+    "galleryDeniedPermission": "Precisamos da permissão para acessar suas fotos",
+    "galleryPermission": "Erro ao solicitar permissão de galeria",
+    "upload": "Erro ao fazer upload da imagem",
+    "updatingPassword": "Erro ao atualizar a senha",
+    "checkingPassword": "Erro a confirmar a senha",
+    "recovery": "Erro ao gerar a recuperação de senha",
+    "recoveringPassword": "Erro ao enviar email de recuperação"
+  },
+  "success": {
+    "deleteKeys": "Chaves Excluídas com sucesso.",
+    "upload": "Upload realizado com sucesso.",
+    "passwordUpdated": "Senha atualizada com sucesso",
+    "recoverySended": "Email de recuperação enviado para "
+  },
+  "message": {
+    "notFriend": "Se seus amigos não estão no XaveX",
+    "downloadLink": "Já baixou o XaveX? Ainda não? Então baixe agora:",
+    "selectKeys": "Selecione uma ou mais chaves para compartilhar",
+    "singleSharingKey": "Olá! Estou compartilhando com você a chave PIX de:",
+    "sharingKeys": "Olá! Estou compartilhando com você as chaves PIX de:",
+    "deniedPermission": "Permissão negada",
+    "openConfig": "Abrir configurações",
+    "inviteFriend": "Olá! Estou usando o XaveX, um app para compartilharmos nossas chaves e facilitar o uso do PIX. Baixe também e compartilhe suas chaves PIX comigo!",
+    "searchConnection": "Você também pode tocar na 🔍 e pesquisar por conexões"
+  },
+  "words": {
+    "key": "Chave"
+  },
+  "verbs": {
+    "cancel": "Cancelar"
+  }
+}

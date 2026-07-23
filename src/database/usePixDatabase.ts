@@ -1,4 +1,11 @@
-import { KeyCreate, KeyResponse, KeyUpdate, TypeKey } from "@/app/Type/types";
+import {
+  ItemSearch,
+  KeyCreate,
+  KeyResponse,
+  KeysToBackup,
+  KeyUpdate,
+  TypeKey,
+} from "@/app/Type/types";
 import { useSQLiteContext } from "expo-sqlite";
 
 export function usePixDatabase() {
@@ -6,11 +13,11 @@ export function usePixDatabase() {
 
   async function create(data: KeyCreate) {
     const statement = await database.prepareAsync(
-      `INSERT INTO keys (user_id, name, key, bank, is_public) VALUES ($user_id, $name, $key, $bank, $is_public)`,
+      `INSERT INTO keys (universal_uuid, name, key, bank, is_public) VALUES ($universal_uuid, $name, $key, $bank, $is_public)`,
     );
 
     await statement.executeAsync({
-      $user_id: data.user_id,
+      $universal_uuid: data.universal_uuid,
       $name: data.name,
       $key: data.key,
       $bank: data.bank,
@@ -18,16 +25,19 @@ export function usePixDatabase() {
     });
   }
 
-  function listKeys() {
-    const data = database.getAllAsync<KeyResponse>(
-      `SELECT *, null AS selected, key AS keyPix FROM keys`,
+  async function listKeys(own: number, uuid: string) {
+    const data = await database.getAllAsync<KeyResponse>(
+      `SELECT keys.*, null AS selected, key AS keyPix, banks.code AS bank, 
+      banks.name AS nameBank FROM keys LEFT JOIN banks 
+      ON keys.bank = banks.code LEFT JOIN users AS u ON u.universal_uuid = keys.universal_uuid
+      WHERE own = ${own} AND u.universal_uuid = '${uuid}'`,
     );
     return data;
   }
 
   function getKey(id: string) {
     const response = database.getFirstAsync<TypeKey>(
-      `SELECT * FROM keys WHERE id = '${id}'`,
+      `SELECT keys.*, banks.code AS bank, banks.name AS nameBank FROM keys LEFT JOIN banks ON keys.bank = banks.code WHERE keys.id = '${id}'`,
       {
         $id: id,
       },
@@ -64,7 +74,7 @@ export function usePixDatabase() {
     );
   }
 
-  async function createOrUodate(date: KeyCreate) {
+  async function createOrUpdate(date: KeyCreate) {
     if (date.id) {
       await updateKey({
         id: date.id,
@@ -78,12 +88,30 @@ export function usePixDatabase() {
     }
   }
 
+  //Search
+  function searchKeys(term: string) {
+    const data = database.getAllAsync<ItemSearch>(
+      `SELECT keys.id, keys.name, keys.key AS keyPix, banks.name AS nameBank FROM keys 
+      LEFT JOIN banks ON keys.bank = banks.code WHERE keys.name LIKE '%${term}%' OR keyPix LIKE '%${term}%' OR nameBank LIKE '%${term}%'`,
+    );
+    return data;
+  }
+
+  async function backupToCloud(uuid: string) {
+    const data = await database.getAllAsync<KeysToBackup>(`
+      SELECT name, key, bank, is_public, own FROM keys WHERE universal_uuid = '${uuid}'
+      `);
+    return data;
+  }
+
   return {
     listKeys,
     create,
     getKey,
     updateKey,
     deleteKey,
-    createOrUodate,
+    createOrUpdate,
+    searchKeys,
+    backupToCloud,
   };
 }

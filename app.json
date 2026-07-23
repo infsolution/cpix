@@ -1,8 +1,9 @@
 {
   "expo": {
-    "name": "c-pix",
-    "slug": "c-pix",
+    "name": "XaveX",
+    "slug": "XaveX",
     "version": "1.0.0",
+    "scheme": "xavex",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -10,20 +11,28 @@
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#D3F9E8"
     },
     "ios": {
+      "UIBackgroundModes": ["processing"],
       "supportsTablet": true,
-      "bundleIdentifier": "br.com.clsdev.cpix",
+      "bundleIdentifier": "br.com.clsdev.xavex",
       "icon": "./assets/adaptive-icon.png"
     },
     "android": {
-      "package": "br.com.clsdev.cpix",
+      "package": "br.com.clsdev.xavex",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#32BCAD"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "com.google.android.gms.permission.AD_ID"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -31,7 +40,47 @@
     "plugins": [
       "expo-font",
       "expo-sqlite",
-      "expo-asset"
-    ]
+      "expo-asset",
+      "expo-sharing",
+      "expo-localization",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Este app precisa acessar sua galeria de fotos para que você possa selecionar e enviar sua foto de perfil.",
+          "cameraPermission": "Este app precisa acessar sua câmera para que você possa tirar fotos para o seu perfil."
+        }
+      ],
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-9803509684526637~3161439827",
+          "iosAppId": "ca-app-pub-9803509684526637~3161439827",
+          "userTrackingUsageDescription": "Este aplicativo usa seus dados para mostrar anúncios mais relevantes."
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#ffffff",
+          "defaultChannel": "default",
+          "enableBackgroundRemoteNotifications": false
+        }
+      ],
+      "expo-tracking-transparency",
+      "expo-build-properties",
+      [
+        "onesignal-expo-plugin",
+        {
+          "mode": "development"
+        }
+      ],
+      "expo-background-task"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "7b87883d-baec-403d-88a3-697eed99e12c"
+      }
+    }
   }
 }
