@@ -48,7 +48,6 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const handleLogin = async (userData: FormLoginParams) => {
     userData.player_id = playerId;
     const { message, code, data } = await authService.authenticate(userData);
-    console.log(message);
     if (data.token) {
       setJWT("user-jwt", data.token);
       setStorageUser("user-data", data);

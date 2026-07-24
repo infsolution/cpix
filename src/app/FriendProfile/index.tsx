@@ -10,6 +10,7 @@ import { UserCircle } from "@/components/UserCircle";
 import { styles } from "./styles";
 import { getFriend } from "@/shared/services/c-pix/users.service";
 import { mainUrl } from "@/shared/api/c-pix";
+import { Banner } from "@/ads/Banner";
 export const FriendProfile = ({ route }: StackRouterProps<"friend">) => {
   const [keysToShare, setKeysToShare] = useState<KeysToShare[]>([]);
   const [userFriend, setUserFriend] = useState<UserFriend>({
@@ -79,6 +80,7 @@ export const FriendProfile = ({ route }: StackRouterProps<"friend">) => {
         setKeysToShare={setKeysToShare}
         friendName={userFriend.name}
       />
+      <Banner custom={{ position: "absolute", bottom: "106" }} />
     </AppBar>
   );
 };

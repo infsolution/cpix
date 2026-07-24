@@ -24,6 +24,7 @@ interface FormInputParams<T extends FieldValues> extends TextInputProps {
   label: string;
   onSearch?: (value: string) => Promise<void> | void;
   debounceTime?: number;
+  info?: string;
 }
 
 export const FormInputSearch = <T extends FieldValues>({
@@ -33,6 +34,7 @@ export const FormInputSearch = <T extends FieldValues>({
   secureTextEntry,
   onSearch,
   debounceTime = 500,
+  info,
   ...rest
 }: FormInputParams<T>) => {
   const [showPassword, setShowPassword] = useState(secureTextEntry);
@@ -81,6 +83,9 @@ export const FormInputSearch = <T extends FieldValues>({
               )}
             </View>
             {error && <ErrorMessage>{error.message}</ErrorMessage>}
+            {info && !error && (
+              <Text style={styles.textInfo}>{"Tipo: " + info}</Text>
+            )}
           </View>
         );
       }}

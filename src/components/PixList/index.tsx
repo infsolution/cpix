@@ -26,8 +26,14 @@ type ListProps = {
   own: number;
   keysToShare: KeysToShare[];
   setKeysToShare: (keys: KeysToShare[]) => void;
+  custoStyleListItem?: object;
 };
-export const PixList = ({ own, keysToShare, setKeysToShare }: ListProps) => {
+export const PixList = ({
+  own,
+  keysToShare,
+  setKeysToShare,
+  custoStyleListItem = {},
+}: ListProps) => {
   const { t } = useTranslation();
   const { notify } = useSnackbarContext();
   const { handleError } = useErrorHandler();
@@ -283,7 +289,7 @@ export const PixList = ({ own, keysToShare, setKeysToShare }: ListProps) => {
           </View>
         )}
 
-        <View style={styles.listItem}>
+        <View style={[styles.listItem, custoStyleListItem]}>
           {loadingList && (
             <View
               style={{

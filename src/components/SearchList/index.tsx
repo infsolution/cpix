@@ -10,7 +10,7 @@ import { usePixDatabase } from "@/database/usePixDatabase";
 import { getUsers } from "@/shared/services/c-pix/users.service";
 import { SUser } from "@/shared/interfaces/user-interface";
 import { useErrorHandler } from "@/shared/hooks/useErrorHandler";
-
+import { SearchEmptyList } from "../SearchEmptyList";
 export const SearchList = () => {
   const [term, setTerm] = useState("");
   const [listItems, setListItems] = useState<ItemSearch[] | SUser[]>([]);
@@ -41,6 +41,7 @@ export const SearchList = () => {
       setListItems([]);
     }
   };
+
   useEffect(() => {
     search();
   }, [term]);
@@ -52,6 +53,8 @@ export const SearchList = () => {
         placeholderTextColor={colors.text.tab}
         setTerm={setTerm}
         term={term}
+        secureTextEntry={false}
+        error=""
       />
       <ScrollView>
         {listItems &&
@@ -59,7 +62,7 @@ export const SearchList = () => {
           listItems.map((item) => (
             <SearchListItem itemPix={item} key={item.id} />
           ))}
-        {listItems && listItems.length == 0 && <EmptyList />}
+        {listItems && listItems.length == 0 && <SearchEmptyList />}
       </ScrollView>
     </View>
   );

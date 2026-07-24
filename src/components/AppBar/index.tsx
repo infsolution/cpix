@@ -75,7 +75,9 @@ export function AppBar({ children, currentRoute, keys = [] }: Props) {
       <View style={styles.appBar}>
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={() => navigation.navigate("home")}
+          onPress={() =>
+            navigation.reset({ index: 0, routes: [{ name: "home" }] })
+          }
           style={currentRoute === "home" ? styles.ActiveIcon : styles.icon}
         >
           <Feather

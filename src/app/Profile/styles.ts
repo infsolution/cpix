@@ -28,4 +28,7 @@ export const styles = StyleSheet.create({
     marginLeft: 2,
     fontSize: 12,
   },
+  list: {
+    flexDirection: "row",
+  },
 });

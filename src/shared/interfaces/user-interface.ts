@@ -18,6 +18,7 @@ export interface SUser {
   keyPix?: string;
   user_name: string;
   image: string;
+  connected: boolean;
 }
 
 export interface SUserResponse {
