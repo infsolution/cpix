@@ -9,7 +9,7 @@ import { schema } from "./schema";
 import { styles } from "./styles";
 import { FormInput } from "@/components/FormInput";
 import { FormButton } from "@/components/FormButton";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Checkbox } from "expo-checkbox";
 import { ErrorMessage } from "@/components/ErrorMessage";
 import { FormSelect } from "@/components/FormSelect";
@@ -20,15 +20,26 @@ import {
 } from "@/shared/services/c-pix/keys.service";
 import { DismissKeiboardview } from "@/components/DismissKeyboardView";
 import { useSnackbarContext } from "@/context/snackbar.context";
+import { FormInputSearch } from "@/components/FormInputSearch";
+import { identifyInput } from "@/utils/validateKey";
 
 type Params = {
   id?: string | undefined;
   own?: number | undefined;
 };
+type KeyTypeProp =
+  | "celular"
+  | "cpf"
+  | "cnpj"
+  | "email"
+  | "pix"
+  | "Chave inválida"
+  | "";
 export const AddForm = ({ id, own }: Params) => {
   const pixDatabase = usePixDatabase();
   const navigation = useNavigation();
   const { user } = useAuthContext();
+  const [keyType, setKeyType] = useState<KeyTypeProp>("");
   const routeToBack = own === 1 ? "profile" : "home";
   const {
     control,
@@ -117,8 +128,10 @@ export const AddForm = ({ id, own }: Params) => {
         }
       }
     } catch (error) {
-      Alert.alert("Error", "Error fetching keys");
-      console.error("Error fetching keys:", error);
+      notify({
+        message: "Error fetching in key",
+        messageType: "ERROR",
+      });
     }
   }
 
@@ -127,9 +140,17 @@ export const AddForm = ({ id, own }: Params) => {
       const { data } = await getKey(id);
       return data;
     } catch (error) {
-      Alert.alert("Error", "Error fetching in key in server");
+      notify({
+        message: "Error fetching in key in server",
+        messageType: "ERROR",
+      });
     }
   }
+
+  const validateKey = (term: string) => {
+    const key = identifyInput(term);
+    setKeyType(key);
+  };
 
   useEffect(() => {
     if (id) {
@@ -152,11 +173,13 @@ export const AddForm = ({ id, own }: Params) => {
         label="Banco"
         placeholder="Selecione o banco"
       />
-      <FormInput
+      <FormInputSearch
         control={control}
         name="key"
-        label="Chave"
+        label="chave"
         placeholder="Chave"
+        onSearch={validateKey}
+        info={keyType}
       />
       {own === 1 && (
         <Controller

@@ -15,6 +15,7 @@ type ItemProp = {
 export const SearchListItem = ({ itemPix }: ItemProp) => {
   const { handleError } = useErrorHandler();
   const { notify } = useSnackbarContext();
+
   const handleConnect = async (id: string | number) => {
     try {
       const { code } = await sendInvitation(id);
@@ -30,12 +31,16 @@ export const SearchListItem = ({ itemPix }: ItemProp) => {
   };
   return (
     <View style={styles.container}>
-      <View style={styles.text}>
+      <TouchableOpacity
+        style={styles.text}
+        activeOpacity={0.8}
+        onPress={() => console.log("Press")}
+      >
         <Text style={styles.name}>{itemPix?.name}</Text>
         <Text style={styles.bankName}>
           {itemPix?.nameBank ?? itemPix.user_name}
         </Text>
-      </View>
+      </TouchableOpacity>
       <View style={styles.icons}>
         {itemPix.user_name && (
           <TouchableOpacity

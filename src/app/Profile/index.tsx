@@ -54,6 +54,7 @@ export function Profile() {
         own={1}
         keysToShare={keysToShare}
         setKeysToShare={setKeysToShare}
+        custoStyleListItem={{ paddingBottom: 36 }}
       />
       <Banner custom={{ position: "absolute", bottom: "106" }} />
     </AppBar>
