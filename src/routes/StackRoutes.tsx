@@ -9,6 +9,7 @@ import { Edit } from "@/app/Edit";
 import { Friends } from "@/app/Friends";
 import { FriendProfile } from "@/app/FriendProfile";
 import { ProfileEdit } from "@/app/ProfileEdit";
+import { Subscription } from "@/app/Subscription";
 
 export type StackRoutelist = {
   home: undefined;
@@ -18,6 +19,7 @@ export type StackRoutelist = {
   edit: { id: string; own: number };
   friends: undefined;
   friend: { id: string };
+  subscription: undefined;
 };
 
 export type StackRouterProps<T extends keyof StackRoutelist> =
@@ -33,6 +35,7 @@ export function StackRoutes() {
       <Stack.Screen name="friends" component={Friends} />
       <Stack.Screen name="friend" component={FriendProfile} />
       <Stack.Screen name="profileEdit" component={ProfileEdit} />
+      <Stack.Screen name="subscription" component={Subscription} />
     </Stack.Navigator>
   );
 }
