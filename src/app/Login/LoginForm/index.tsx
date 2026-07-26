@@ -38,6 +38,7 @@ export const LoginForm = () => {
         const localUser = await userDatabase.getUserByUuid(
           loggedUser.universal_uuid,
         );
+        console.log(localUser, loggedUser);
         if (!localUser) {
           const newUser = {
             name: loggedUser.name,
