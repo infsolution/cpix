@@ -31,4 +31,33 @@ export const styles = StyleSheet.create({
   list: {
     flexDirection: "row",
   },
+  appBar: {
+    flexDirection: "row",
+    marginTop: 8,
+    marginBottom: 8,
+    alignItems: "center",
+    alignContent: "center",
+    justifyContent: "space-around",
+    width: "88%",
+    paddingHorizontal: 24,
+    paddingVertical: 2,
+    backgroundColor: colors.callAction.light,
+    borderRadius: 24,
+    height: 36,
+  },
+  btnBar: {
+    backgroundColor: colors.white,
+    width: "40%",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 4,
+    borderRadius: 24,
+  },
+  navActiveText: {
+    color: colors.callAction.main,
+    fontWeight: "bold",
+  },
+  navInactiveText: {
+    color: colors.text.subTitle,
+  },
 });
