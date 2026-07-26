@@ -19,6 +19,7 @@ import { copyText } from "@/utils/structure";
 import { QrCodeView } from "@/components/QrCodeView";
 import { Header } from "@/components/Header";
 import { Banner } from "@/ads/Banner";
+import { DismissKeiboardview } from "@/components/DismissKeyboardView";
 
 export function Edit({ route }: StackRouterProps<"edit">) {
   const pixDatabase = usePixDatabase();
@@ -79,7 +80,7 @@ export function Edit({ route }: StackRouterProps<"edit">) {
   }
 
   return (
-    <>
+    <DismissKeiboardview>
       <Header />
       <ScrollView>
         <View style={styles.container}>
@@ -109,6 +110,6 @@ export function Edit({ route }: StackRouterProps<"edit">) {
           )}
         </View>
       </ScrollView>
-    </>
+    </DismissKeiboardview>
   );
 }
