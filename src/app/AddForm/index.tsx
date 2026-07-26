@@ -97,6 +97,7 @@ export const AddForm = ({ id, own }: Params) => {
         }
 
         notify({ message: message, messageType: "SUCCESS" });
+        navigation.goBack();
       }
     } catch (error) {
       notify({
