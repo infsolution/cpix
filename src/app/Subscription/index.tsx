@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./styles";
 import { StackRouterProps } from "@/routes/StackRoutes";
 import { Header } from "@/components/Header";
@@ -8,7 +8,25 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { colors } from "@/theme/colors";
 import { LinearGradient } from "expo-linear-gradient";
 import { Button } from "@/components/Button";
+import { useState } from "react";
+type PlanPeriod = "Mensal" | "Anual";
 export function Subscription({ route }: StackRouterProps<"subscription">) {
+  const [planPeriod, setPlanPeriod] = useState<PlanPeriod>("Mensal");
+  const [planPeriodChange, setPlanPeriodChange] = useState<PlanPeriod>("Anual");
+  const [planPeriodValue, setPlanPeriodValue] =
+    useState<string>("R$ 6,99 /mês");
+
+  const changeCurrentPeriod = () => {
+    if (planPeriod === "Mensal") {
+      setPlanPeriod("Anual");
+      setPlanPeriodChange("Mensal");
+      setPlanPeriodValue("R$ 83,88 /ano");
+    } else {
+      setPlanPeriod("Mensal");
+      setPlanPeriodChange("Anual");
+      setPlanPeriodValue("R$ 6,99 /mês");
+    }
+  };
   return (
     <>
       <Header />
@@ -62,10 +80,18 @@ export function Subscription({ route }: StackRouterProps<"subscription">) {
             colors={[colors.header.max, colors.header.min]}
             style={styles.cardPlan}
           >
-            <View>
-              <Text style={styles.cardPeriod}>Mensal</Text>
+            <View style={styles.viewPeriod}>
+              <Text style={styles.cardPeriod}>{planPeriod}</Text>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={changeCurrentPeriod}
+              >
+                <Text style={styles.cardPeriodChange}>
+                  Trocar para {planPeriodChange}
+                </Text>
+              </TouchableOpacity>
             </View>
-            <Text style={styles.cardValue}>R$ 6.99 /mês</Text>
+            <Text style={styles.cardValue}>{planPeriodValue}</Text>
             <View style={styles.cardItem}>
               <FontAwesome5
                 name="check-circle"

@@ -73,4 +73,18 @@ export const styles = StyleSheet.create({
     fontSize: 26,
     fontWeight: "bold",
   },
+  cardPeriodChange: {
+    fontSize: 12,
+    color: colors.text.subTitle,
+    fontWeight: "bold",
+    padding: 6,
+    backgroundColor: colors.callAction.cardSecondary,
+    borderRadius: 22,
+  },
+  viewPeriod: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
 });
