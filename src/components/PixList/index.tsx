@@ -210,7 +210,10 @@ export const PixList = ({
         "Para aumentar seu limite assine o plano Pro!",
         [
           { text: "Ok", style: "cancel" },
-          { text: "Assinar", onPress: () => console.log("Assinar") },
+          {
+            text: "Assinar",
+            onPress: () => navigation.navigate("subscription"),
+          },
         ],
       );
       return;

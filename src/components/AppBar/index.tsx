@@ -33,7 +33,7 @@ export function AppBar({ children, currentRoute, keys = [] }: Props) {
         );
       });
     }
-    toShare += "\n\n" + t("message.downloadLink") + ": " + t("linkFromPlay");
+    toShare += "\n\n" + t("message.downloadLink") + t("linkFromPlay");
     //TODO: Desmarcar as chaves na lista
     shareText(toShare);
   }

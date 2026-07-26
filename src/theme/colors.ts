@@ -57,5 +57,6 @@ export const colors = {
     neutralMedium: "#6B7280",
     neutralDark: "#374151",
     danger: "#EF4444",
+    cardSecondary: "#aef79cef",
   },
 };
