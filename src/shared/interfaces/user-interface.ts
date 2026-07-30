@@ -84,3 +84,9 @@ export interface IPlan {
   have_dashboard: boolean;
   send_invoices: boolean;
 }
+
+export interface FormEditPlanParams {
+  last_payment: string;
+  renewal: string;
+  plan_id: number;
+}

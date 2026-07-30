@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     backgroundColor: colors.white,
+    paddingBottom: 22,
   },
   title: {
     fontSize: 26,
@@ -51,6 +52,7 @@ export const styles = StyleSheet.create({
     borderColor: colors.callAction.main,
     borderRadius: 12,
     padding: 22,
+    marginBottom: 8,
   },
   textCard: {
     fontSize: 14,

@@ -20,14 +20,37 @@ import "./src/i18n";
 import { AppModal } from "@/components/AppModal";
 import { BaseLoading } from "@/components/BaseLoading";
 import { useOneSignal } from "@/shared/hooks/useOneSignal";
+import Purchases, { LOG_LEVEL } from "react-native-purchases";
+import { Platform } from "react-native";
 SplashScreen.preventAutoHideAsync();
-const ONESIGNAL_APP_ID = process.env.EXPO_PUBLIC_ONESIGNAL_APP_ID;
+
+const ANDROID_PLAY_STORE_API_KEY =
+  process.env.EXPO_PUBLIC_ANDROID_TEST_STORE_API_KEY;
+
 export default function App() {
   const [loaded, error] = useFonts({
     Inter_400Regular,
     Inter_500Medium,
     Inter_700Bold,
   });
+  useEffect(() => {
+    Purchases.setLogLevel(LOG_LEVEL.VERBOSE);
+
+    if (Platform.OS === "ios") {
+      // Purchases.configure({ apiKey: <revenuecat_project_apple_api_key> });
+    } else if (Platform.OS === "android") {
+      Purchases.configure({ apiKey: ANDROID_PLAY_STORE_API_KEY });
+      // OR: if building for Amazon, be sure to follow the installation instructions then:
+      // Purchases.configure({ apiKey: <revenuecat_project_amazon_api_key>, useAmazon: true });
+
+      // OR: if building for Galaxy Store, install react-native-purchases-store-galaxy, then:
+      // Purchases.configure({
+      //   apiKey: <revenuecat_project_galaxy_api_key>,
+      //   store: 'GALAXY',
+      //   galaxyBillingMode: GALAXY_BILLING_MODE.TEST,
+      // });
+    }
+  }, []);
   useOneSignal();
   useEffect(() => {
     if (loaded || error) {
