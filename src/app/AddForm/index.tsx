@@ -193,7 +193,7 @@ export const AddForm = ({ id, own }: Params) => {
                   color="#AED9DA"
                   style={styles.checkbox}
                   onValueChange={onChange}
-                  value={value}
+                  value={!!value}
                 />
                 <Text>Compartilhar com conexões</Text>
               </View>

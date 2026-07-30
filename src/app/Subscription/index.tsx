@@ -25,6 +25,7 @@ import { FormEditPlanParams } from "@/shared/interfaces/user-interface";
 import { useSnackbarContext } from "@/context/snackbar.context";
 import { useNavigation } from "@react-navigation/native";
 import { useAuthContext } from "@/context/auth.context";
+import { removeItem, setStorageUser } from "@/shared/storage/service/user";
 export function Subscription({ route }: StackRouterProps<"subscription">) {
   const { t } = useTranslation();
   const navigation = useNavigation();
@@ -67,6 +68,8 @@ export function Subscription({ route }: StackRouterProps<"subscription">) {
             throw new Error(message);
           }
           setUser(data);
+          removeItem("user-data");
+          setStorageUser("user-data", data);
           notify({
             message: "Plano atualizado com sucesso.",
             messageType: "SUCCESS",
