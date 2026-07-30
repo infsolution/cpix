@@ -7,7 +7,11 @@
     "development": {
       "developmentClient": true,
       "distribution": "internal",
-      "env": {"EXPO_PUBLIC_ONESIGNAL_APP_ID":"c6c052ff-bb4f-49ee-9135-75e2efec7648"}
+      "env": {
+        "EXPO_PUBLIC_ONESIGNAL_APP_ID":"c6c052ff-bb4f-49ee-9135-75e2efec7648", 
+        "ANDROID_PLAY_STORE_API_KEY":"goog_IipNTaoYqMQbGnwLCDOaQkDpwFC",
+        "ANDROID_TEST_STORE_API_KEY":"test_YqBMEzFpjnmZYnIBEixUtIgPbYd"
+      }
     },
     "preview": {
       "distribution": "internal",

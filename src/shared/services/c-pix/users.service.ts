@@ -2,6 +2,7 @@ import { FormResetPasswordParams } from "@/app/Type/interfaces";
 import { ConnectionResponse } from "@/app/Type/types";
 import { cPixApi } from "@/shared/api/c-pix";
 import {
+  FormEditPlanParams,
   FormEditProfileParams,
   FormEditProfileResponse,
   FriendUserResponse,
@@ -252,5 +253,19 @@ export const recoveryPassword = async (
       },
     },
   );
+  return data;
+};
+
+export const updatePlan = async (
+  userData: FormEditPlanParams,
+): Promise<FormEditProfileResponse> => {
+  const token = await getJWT("user-jwt");
+
+  const { data } = await cPixApi.patch(`profile`, userData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: "application/json",
+    },
+  });
   return data;
 };

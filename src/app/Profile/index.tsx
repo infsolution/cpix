@@ -24,7 +24,7 @@ export function Profile() {
   return (
     <AppBar keys={keysToShare} currentRoute={"profile"}>
       <Header />
-      {user?.plan?.have_dashboard && (
+      {/* {user?.plan?.have_dashboard == true && (
         <View style={styles.appBar}>
           <TouchableOpacity
             style={styles.btnBar}
@@ -55,7 +55,7 @@ export function Profile() {
             </Text>
           </TouchableOpacity>
         </View>
-      )}
+      )} */}
       {navbar === "profile" ? (
         <>
           <View style={styles.profileContainer}>
@@ -87,7 +87,6 @@ export function Profile() {
                 Suas chaves {!user?.is_public && "não"} podem ser compartilhadas
                 com suas conexões
               </Text>
-              {!user?.is_public && "Não"}
             </View>
           </View>
           <PixList

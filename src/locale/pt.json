@@ -64,7 +64,9 @@
     "searchConnection": "Você também pode tocar na 🔍 e pesquisar por conexões"
   },
   "words": {
-    "key": "Chave"
+    "key": "Chave",
+    "MONTHLY": "Mensal",
+    "ANNUAL": "Anual"
   },
   "verbs": {
     "cancel": "Cancelar"
