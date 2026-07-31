@@ -25,7 +25,7 @@ import { Platform } from "react-native";
 SplashScreen.preventAutoHideAsync();
 
 const ANDROID_PLAY_STORE_API_KEY =
-  process.env.EXPO_PUBLIC_ANDROID_TEST_STORE_API_KEY;
+  process.env.EXPO_PUBLIC_ANDROID_PLAY_STORE_API_KEY;
 
 export default function App() {
   const [loaded, error] = useFonts({
