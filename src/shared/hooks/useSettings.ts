@@ -8,11 +8,12 @@ import {
 import { useAuthContext } from "@/context/auth.context";
 export const useSettings = () => {
   const { user } = useAuthContext();
-  const getSettings = (): Promise<Settings | null> => {
-    const settings = getStorageSettings(user?.universal_uuid || "");
+  const getSettings = async (): Promise<Settings | null> => {
+    const settings = await getStorageSettings(user?.universal_uuid || "");
     if (!settings) {
       throw new AppError("Settings not found");
     }
+    console.log("settings", settings);
     return settings;
   };
 
@@ -31,5 +32,15 @@ export const useSettings = () => {
       throw new AppError("Error removing settings from storage" + error);
     }
   };
-  return { getSettings, setSettings, removeSettings };
+
+  const calcTimeLastInteraction = (lastInteraction: Date | undefined) => {
+    const now = new Date();
+    if (lastInteraction !== undefined) {
+      const last = new Date(lastInteraction);
+      const diffInSeconds = Math.floor((now.getTime() - last.getTime()) / 1000);
+      return diffInSeconds > 432000;
+    }
+    return undefined;
+  };
+  return { getSettings, setSettings, removeSettings, calcTimeLastInteraction };
 };

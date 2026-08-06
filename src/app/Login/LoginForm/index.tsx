@@ -24,6 +24,7 @@ export const LoginForm = () => {
     defaultValues: {
       email: "",
       password: "",
+      player_id: "",
     },
     resolver: yupResolver(schema),
   });

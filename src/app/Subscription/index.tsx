@@ -1,7 +1,5 @@
 import Purchases, {
   CustomerInfo,
-  LOG_LEVEL,
-  PurchasesOffering,
   PurchasesOfferings,
   PurchasesPackage,
   PURCHASES_ERROR_CODE,
