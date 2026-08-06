@@ -11,6 +11,7 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { useNavigation } from "@react-navigation/native";
 import { mainUrl } from "@/shared/api/c-pix";
 import { useEffect, useState } from "react";
+import Feather from "@expo/vector-icons/Feather";
 
 export function Header() {
   const { user, handleLogout } = useAuthContext();
@@ -56,6 +57,12 @@ export function Header() {
             onPress={() => navigation.navigate("friends")}
           >
             <FontAwesome5 name="user-friends" size={26} color={colors.white} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => navigation.navigate("settings")}
+          >
+            <Feather name="settings" size={26} color={colors.white} />
           </TouchableOpacity>
           <TouchableOpacity activeOpacity={0.8} onPress={logout}>
             <MaterialIcons name="logout" size={26} color={colors.white} />
