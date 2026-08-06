@@ -10,6 +10,7 @@ export type RoootStackParamList = {
   friends: undefined;
   friend: { id: string };
   subscription: undefined;
+  settings: undefined;
 };
 
 declare global {
