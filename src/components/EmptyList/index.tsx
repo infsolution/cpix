@@ -11,7 +11,7 @@ export function EmptyList({ own }: EmptyListProps) {
     <View style={styles.container}>
       <FontAwesome6 name="pix" size={92} color={colors.green.btn} />
       <Text style={styles.titleMain}>OPA!</Text>
-      {own === 1 ? (
+      {own === 0 ? (
         <View style={styles.info}>
           <Text style={styles.title}>Você ainda não tem chave cadastrada!</Text>
           <Text style={styles.text}>Toque em Adicionar Chave</Text>
