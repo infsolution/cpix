@@ -1,6 +1,8 @@
 import { type SQLiteDatabase } from "expo-sqlite";
 import { seedDatabaseFromCSV } from "./bankSeeder";
 
+export const DATABASE_NAME = "cpix.db";
+
 export async function migrate(db: SQLiteDatabase) {
   await db.execAsync(`
         PRAGMA foreign_keys = ON;
