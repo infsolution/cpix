@@ -101,18 +101,3 @@ export const getFriendKeys = async (id: string) => {
   });
   return data;
 };
-
-export const updateOrCreateBackupKeys = async (values: string) => {
-  const token = await getJWT("user-jwt");
-  const { data } = await cPixApi.post<GetConfirmationResponse>(
-    "key/backup",
-    { data: values },
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: "application/json",
-      },
-    },
-  );
-  return data;
-};

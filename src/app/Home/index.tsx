@@ -5,22 +5,25 @@ import { Header } from "@/components/Header";
 import { PixList } from "@/components/PixList";
 import { KeysToShare } from "@/app/Type/types";
 import { Banner } from "@/ads/Banner";
-import { initializeBackgroundTask } from "@/tasks/backgroundBackupTask";
+// import { initializeBackgroundTask } from "@/tasks/backgroundBackupTask";
 import { useSettings } from "@/shared/hooks/useSettings";
 import * as Notifications from "expo-notifications";
 import { Alert, Linking, Platform } from "react-native";
+import { useAuthContext } from "@/context/auth.context";
 
-let resolver: (() => void) | null;
-const promise = new Promise<void>((resolve) => {
-  resolver = resolve;
-});
-initializeBackgroundTask(promise);
+// let resolver: (() => void) | null;
+// const promise = new Promise<void>((resolve) => {
+//   resolver = resolve;
+// });
+// initializeBackgroundTask(promise);
 export function Home({ route }: StackRouterProps<"home">) {
   const [keysToShare, setKeysToShare] = useState<KeysToShare[]>([]);
+  const { user } = useAuthContext();
   const { getSettings, calcTimeLastInteraction, setSettings } = useSettings();
 
   const getNotificationPermission = async () => {
-    const settings = await getSettings();
+    if (!user) return;
+    const settings = await getSettings(user);
     if (
       !settings ||
       calcTimeLastInteraction(settings.lastInteractionNotification)
@@ -30,7 +33,7 @@ export function Home({ route }: StackRouterProps<"home">) {
         return true;
       }
       if (!hasPermission.granted && !hasPermission.canAskAgain) {
-        setSettings({
+        await setSettings(user, {
           lastInteractionNotification: new Date(),
           authorizationBackup: settings?.authorizationBackup || false,
         });
@@ -48,11 +51,11 @@ export function Home({ route }: StackRouterProps<"home">) {
       }
     }
   };
-  useEffect(() => {
-    if (resolver) {
-      resolver();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (resolver) {
+  //     resolver();
+  //   }
+  // }, []);
 
   useEffect(() => {
     getNotificationPermission();

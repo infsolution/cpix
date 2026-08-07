@@ -5,19 +5,21 @@ import {
   removeStorageSettings,
   setStorageSettings,
 } from "@/shared/storage/service/settings";
-import { useAuthContext } from "@/context/auth.context";
+
+import { IUser } from "../interfaces/user-interface";
 export const useSettings = () => {
-  const { user } = useAuthContext();
-  const getSettings = async (): Promise<Settings | null> => {
+  const getSettings = async (user: IUser): Promise<Settings | null> => {
     const settings = await getStorageSettings(user?.universal_uuid || "");
     if (!settings) {
       throw new AppError("Settings not found");
     }
-    console.log("settings", settings);
     return settings;
   };
 
-  const setSettings = async (settings: Settings): Promise<void> => {
+  const setSettings = async (
+    user: IUser,
+    settings: Settings,
+  ): Promise<void> => {
     try {
       await setStorageSettings(user?.universal_uuid || "", settings);
     } catch (error) {
@@ -25,7 +27,7 @@ export const useSettings = () => {
     }
   };
 
-  const removeSettings = async (): Promise<void> => {
+  const removeSettings = async (user: IUser): Promise<void> => {
     try {
       await removeStorageSettings(user?.universal_uuid || "");
     } catch (error) {
