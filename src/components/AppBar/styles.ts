@@ -4,14 +4,14 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: colors.background,
+    backgroundColor: colors.list.circle,
   },
   appBar: {
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
     height: 106,
-    backgroundColor: colors.tab.background,
+    backgroundColor: colors.white,
     padding: 12,
     paddingTop: 4,
     borderTopLeftRadius: 16,
@@ -28,9 +28,7 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
   icon: {
-    borderRadius: 50,
     paddingTop: 12,
-    backgroundColor: colors.tab.background,
     height: 40,
     width: 40,
     alignItems: "center",

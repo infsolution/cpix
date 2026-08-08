@@ -43,8 +43,12 @@ export function Item({
         onPress={() => itemNavigation.navigate("edit", { id, own })}
         disabled={listType == "own" ? false : true}
       >
-        <Text style={styles.title}>{name}</Text>
-        <Text style={styles.text}>{nameBank}</Text>
+        <Text style={styles.title}>
+          {name.length > 20 ? name.substring(0, 20) + "..." : name}
+        </Text>
+        <Text style={styles.text}>
+          {nameBank.length > 20 ? nameBank.substring(0, 20) + "..." : nameBank}
+        </Text>
       </TouchableOpacity>
       <TouchableOpacity activeOpacity={0.8} onPress={() => onCopyItem(id)}>
         <Feather name="copy" size={24} color={colors.list.capitular} />

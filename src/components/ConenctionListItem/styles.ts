@@ -13,6 +13,7 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     justifyContent: "space-between",
     marginBottom: 4,
+    backgroundColor: colors.white,
   },
   name: {
     color: colors.text.titles,

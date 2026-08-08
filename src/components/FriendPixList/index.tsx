@@ -128,7 +128,7 @@ export const FriendPixList = ({
                 <MaterialIcons
                   name="filter-list-off"
                   size={20}
-                  color={colors.text.titles}
+                  color={colors.callAction.main}
                 />
                 <Text style={{ color: colors.text.titles }}>
                   Limpar Seleção

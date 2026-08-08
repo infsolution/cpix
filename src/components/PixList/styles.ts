@@ -24,8 +24,8 @@ export const styles = StyleSheet.create({
   },
   separators: {
     width: "100%",
-    height: 3,
-    backgroundColor: colors.background,
+    height: 4,
+    backgroundColor: colors.list.circle,
   },
   actions: {
     flexDirection: "row",

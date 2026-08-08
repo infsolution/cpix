@@ -8,13 +8,15 @@ import { Banner } from "@/ads/Banner";
 
 export function Add({ route }: StackRouterProps<"add">) {
   return (
-    <DismissKeiboardview>
-      <Header />
-      <View style={styles.container}>
-        <Banner custom={{ position: "absolute", top: "0" }} />
-        <Text style={styles.title}>Adicionar chave PIX</Text>
-        <AddForm own={route.params.own} />
-      </View>
-    </DismissKeiboardview>
+    <>
+      <DismissKeiboardview>
+        <Header />
+        <View style={styles.container}>
+          <Text style={styles.title}>Adicionar chave PIX</Text>
+          <AddForm own={route.params.own} />
+        </View>
+      </DismissKeiboardview>
+      <Banner custom={{ position: "absolute", bottom: "52" }} />
+    </>
   );
 }

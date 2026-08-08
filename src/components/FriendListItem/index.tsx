@@ -41,7 +41,9 @@ export function FriendListItem({
         <Text style={styles.title}>
           {keyPix.length > 20 ? keyPix.substring(0, 20) + "..." : keyPix}
         </Text>
-        <Text style={styles.text}>{nameBank}</Text>
+        <Text style={styles.text}>
+          {nameBank.length > 20 ? nameBank.substring(0, 20) + "..." : nameBank}
+        </Text>
       </TouchableOpacity>
       <TouchableOpacity activeOpacity={0.8} onPress={() => onCopyItem(id)}>
         <Feather name="copy" size={24} color={colors.list.capitular} />

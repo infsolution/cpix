@@ -6,12 +6,11 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     width: "100%",
-    backgroundColor: colors.white,
+    backgroundColor: colors.list.circle,
     paddingBottom: 48,
     minHeight: "100%",
   },
   title: {
-    marginTop: 52,
     fontSize: 24,
     fontWeight: 400,
   },
@@ -47,7 +46,6 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 48,
   },
   readyOnlyTitle: {
     fontSize: 28,
@@ -62,5 +60,11 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     color: colors.text.label,
     fontWeight: "bold",
+  },
+  cardUser: {
+    backgroundColor: colors.white,
+    marginTop: 52,
+    padding: 12,
+    borderRadius: 12,
   },
 });

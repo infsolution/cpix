@@ -7,25 +7,10 @@ export const styles = StyleSheet.create({
     width: "100%",
     height: 50,
     alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: colors.list.circle,
   },
-  inputSession: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    width: "100%",
-    paddingHorizontal: 24,
-  },
-  input: {
-    width: "60%",
-    color: "#fff",
-    backgroundColor: colors.header.inputBackground,
-    borderRadius: 26,
-    paddingHorizontal: 12,
-  },
-  profileImage: {
-    width: 54,
-    height: 54,
-    borderRadius: 50,
+  scroll: {
+    padding: 12,
+    width: "96%",
   },
 });

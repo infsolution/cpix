@@ -49,7 +49,7 @@ export const FriendProfile = ({ route }: StackRouterProps<"friend">) => {
         </>
         <View style={styles.info}>
           <View style={styles.userContainer}>
-            <Text style={styles.title}>{userFriend.name}</Text>
+            <Text style={styles.title}>{userFriend.name.substring(0, 30)}</Text>
             <Text style={styles.subTitle}>{userFriend.userName}</Text>
           </View>
           <View style={styles.dataContainer}>

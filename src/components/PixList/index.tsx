@@ -236,7 +236,7 @@ export const PixList = ({
               <MaterialIcons
                 name="format-list-bulleted-add"
                 size={20}
-                color={colors.text.titles}
+                color={colors.callAction.main}
               />
               <Text style={{ color: colors.text.titles }}>Adicionar Chave</Text>
             </TouchableOpacity>
@@ -256,7 +256,7 @@ export const PixList = ({
                 <MaterialIcons
                   name="filter-list-off"
                   size={20}
-                  color={colors.text.titles}
+                  color={colors.callAction.secondary}
                 />
                 <Text style={{ color: colors.text.titles }}>
                   Limpar Seleção
