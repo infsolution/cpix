@@ -6,11 +6,11 @@ import { updateOrCreateBackup } from "@/shared/services/c-pix/backup.service";
 export const BACKUP_TASK_NAME = "auto-backup";
 export const MINIMUM_INTERVAL = 1440;
 
-TaskManager.getRegisteredTasksAsync().then((tasks) => {
-  console.info("Task registradas: ", tasks);
-});
+// TaskManager.getRegisteredTasksAsync().then((tasks) => {
+//   console.info("Task registradas: ", tasks);
+// });
 
-console.info("Task definida:", TaskManager.isTaskDefined(BACKUP_TASK_NAME));
+// console.info("Task definida:", TaskManager.isTaskDefined(BACKUP_TASK_NAME));
 
 TaskManager.defineTask(BACKUP_TASK_NAME, async () => {
   const user = await getStorageUser("user-data");

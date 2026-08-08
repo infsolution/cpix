@@ -1,3 +1,4 @@
+import { identifyInput } from "@/utils/validateKey";
 import * as yup from "yup";
 
 export const schema = yup.object().shape({
@@ -10,6 +11,10 @@ export const schema = yup.object().shape({
   key: yup
     .string()
     .min(6, "A chave deve ter seis caracteres")
-    .required("A chave é obrigatória"),
+    .required("A chave é obrigatória")
+    .test("valid-key", "Informe uma chave PIX válida", (value) => {
+      if (!value) return false;
+      return identifyInput(value) !== "Chave inválida";
+    }),
   is_public: yup.boolean().required("O campo is_public é obrigatório"),
 });

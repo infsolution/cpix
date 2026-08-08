@@ -1,7 +1,7 @@
 import { usePixDatabase } from "@/database/usePixDatabase";
 import { useNavigation } from "@react-navigation/native";
 import { Controller, useForm } from "react-hook-form";
-import { View, Alert, Text } from "react-native";
+import { View, Text } from "react-native";
 import { KeyCreate } from "../Type/types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAuthContext } from "@/context/auth.context";
@@ -14,11 +14,9 @@ import { Checkbox } from "expo-checkbox";
 import { ErrorMessage } from "@/components/ErrorMessage";
 import { FormSelect } from "@/components/FormSelect";
 import {
-  addKey,
   createOrUpdateKey,
   getKey,
 } from "@/shared/services/c-pix/keys.service";
-import { DismissKeiboardview } from "@/components/DismissKeyboardView";
 import { useSnackbarContext } from "@/context/snackbar.context";
 import { FormInputSearch } from "@/components/FormInputSearch";
 import { identifyInput } from "@/utils/validateKey";
