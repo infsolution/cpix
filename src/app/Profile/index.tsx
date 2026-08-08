@@ -59,34 +59,27 @@ export function Profile() {
       {navbar === "profile" ? (
         <>
           <View style={styles.profileContainer}>
-            <View style={styles.formControl}></View>
-            <View style={styles.formControl}>
-              <Text style={styles.title}>{user?.name || ""}</Text>
-              <Entypo
-                name="chevron-thin-right"
-                size={16}
-                color={colors.text.titles}
-                onPress={() => navigation.navigate("profileEdit")}
-              />
-            </View>
-            <View style={styles.formControl}>
-              <Text style={styles.subTitle}>{user?.email || ""}</Text>
-            </View>
-            <View style={styles.formControl}>
-              <Text style={styles.subTitle}>{user?.user_name || ""}</Text>
-            </View>
-            <View style={styles.formControl}>
-              <Text style={styles.label}>
-                {user?.is_public
-                  ? "Sua conta está pública"
-                  : "Sua conta não está pública"}
-              </Text>
-            </View>
-            <View style={styles.formControl}>
-              <Text>
-                Suas chaves {!user?.is_public && "não"} podem ser compartilhadas
-                com suas conexões
-              </Text>
+            <View style={styles.card}>
+              <View style={styles.formControl}>
+                <Text style={styles.title}>{user?.name || ""}</Text>
+              </View>
+              <View style={styles.formControl}>
+                <Text style={styles.subTitle}>{user?.email || ""}</Text>
+              </View>
+              <View style={styles.formControl}>
+                <Text style={styles.subTitle}>{user?.user_name || ""}</Text>
+              </View>
+              <View style={styles.formControlPublic}>
+                <Text style={styles.descriptionPublicLabel}>
+                  {user?.is_public
+                    ? "Sua conta está pública:"
+                    : "Sua conta não está pública:"}
+                </Text>
+                <Text style={styles.descriptionPublicLabel}>
+                  Suas chaves {!user?.is_public && "não"} podem ser
+                  compartilhadas com suas conexões
+                </Text>
+              </View>
             </View>
           </View>
           <PixList

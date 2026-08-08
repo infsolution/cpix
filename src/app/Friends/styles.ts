@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     width: "100%",
-    backgroundColor: colors.white,
+    backgroundColor: colors.list.circle,
   },
   title: {
     fontSize: 16,
@@ -37,6 +37,8 @@ export const styles = StyleSheet.create({
     marginBottom: 16,
   },
   separators: {
-    //
+    width: "100%",
+    height: 4,
+    backgroundColor: colors.list.circle,
   },
 });

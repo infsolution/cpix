@@ -87,24 +87,27 @@ export function Edit({ route }: StackRouterProps<"edit">) {
           {!editable && (
             <View style={styles.readyOnlyContainer}>
               <Banner custom={{ position: "absolute", top: "0", left: 24 }} />
-              <View style={styles.readOnlyTitleConteiner}>
-                <Text style={styles.readyOnlyTitle}>{name}</Text>
-                <TouchableOpacity onPress={() => setEditable(true)}>
-                  <Feather name="edit-2" size={20} color="black" />
+              <View style={styles.cardUser}>
+                <View style={styles.readOnlyTitleConteiner}>
+                  <Text style={styles.readyOnlyTitle}>{name}</Text>
+                  <TouchableOpacity onPress={() => setEditable(true)}>
+                    <Feather name="edit-2" size={20} color="black" />
+                  </TouchableOpacity>
+                </View>
+                <Text style={styles.readyOnlyText}>{bank}</Text>
+                <TouchableOpacity activeOpacity={0.8} onPress={copyToClipboard}>
+                  <Text style={styles.readyOnlyTextkey}>{key}</Text>
                 </TouchableOpacity>
               </View>
-              <Text style={styles.readyOnlyText}>{bank}</Text>
-              <TouchableOpacity activeOpacity={0.8} onPress={copyToClipboard}>
-                <Text style={styles.readyOnlyTextkey}>{key}</Text>
-              </TouchableOpacity>
-
               <QrCodeView keyPix={key} userName={name} />
             </View>
           )}
           {editable && (
             <>
               <Banner custom={{ position: "absolute", top: "0" }} />
-              <Text style={styles.title}>Editar chave PIX</Text>
+              <Text style={[styles.title, { marginTop: 54 }]}>
+                Editar chave PIX
+              </Text>
               <AddForm id={route.params.id} own={route.params.own} />
             </>
           )}

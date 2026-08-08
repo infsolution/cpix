@@ -7,6 +7,12 @@ export const styles = StyleSheet.create({
     paddingTop: 20,
     paddingHorizontal: 24,
   },
+  card: {
+    backgroundColor: colors.white,
+    borderRadius: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+  },
   title: {
     fontSize: 18,
     fontWeight: "bold",
@@ -14,7 +20,7 @@ export const styles = StyleSheet.create({
   },
   subTitle: {
     fontSize: 12,
-    color: colors.text.titles,
+    color: colors.text.subTitle,
   },
   formControl: {
     flexDirection: "row",
@@ -22,9 +28,17 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
+  formControlPublic: {
+    width: "100%",
+    alignContent: "center",
+    marginTop: 8,
+  },
+  descriptionPublicLabel: {
+    color: colors.text.paragraph,
+  },
   label: {
     marginBottom: 8,
-    color: "#080808",
+    color: colors.text.paragraph,
     marginLeft: 2,
     fontSize: 12,
   },

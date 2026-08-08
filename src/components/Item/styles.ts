@@ -10,6 +10,7 @@ export const styles = StyleSheet.create({
     paddingStart: 12,
     paddingEnd: 12,
     backgroundColor: colors.background,
+    borderRadius: 12,
   },
   texts: {
     flex: 1,

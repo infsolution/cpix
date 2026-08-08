@@ -6,13 +6,15 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     width: "100%",
+    minHeight: "100%",
     justifyContent: "space-between",
-    backgroundColor: colors.white,
+    backgroundColor: colors.list.circle,
   },
   title: {
     fontSize: 24,
     fontWeight: 400,
-    marginTop: 52,
+    marginTop: 20,
+    color: colors.text.titles,
   },
   subTitle: {
     fontSize: 14,

@@ -7,6 +7,8 @@ export const styles = StyleSheet.create({
   },
   title: {
     marginBottom: 4,
+    color: colors.text.titles,
+    fontWeight: 600,
   },
   textInput: {
     width: "100%",
@@ -62,5 +64,10 @@ export const styles = StyleSheet.create({
   textShare: {
     marginTop: 8,
     fontSize: 16,
+  },
+  cardQr: {
+    backgroundColor: colors.white,
+    padding: 12,
+    borderRadius: 12,
   },
 });

@@ -4,17 +4,17 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    width: "100%",
+    width: "90%",
     backgroundColor: colors.white,
-    paddingHorizontal: 24,
+    paddingHorizontal: 12,
+    paddingVertical: 16,
     marginTop: 12,
     gap: 12,
     alignItems: "center",
     marginBottom: 12,
+    borderRadius: 12,
   },
   userContainer: {
-    flexDirection: "row",
-    width: "90%",
     justifyContent: "space-between",
   },
   title: {
