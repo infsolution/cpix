@@ -52,6 +52,7 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
     userData.player_id = playerId;
     const hasPermission = await Notifications.getPermissionsAsync();
     const { message, code, data } = await authService.authenticate(userData);
+
     const settings = await getSettings(data);
     if (data.token) {
       setJWT("user-jwt", data.token);

@@ -11,7 +11,7 @@ export const useSettings = () => {
   const getSettings = async (user: IUser): Promise<Settings | null> => {
     const settings = await getStorageSettings(user?.universal_uuid || "");
     if (!settings) {
-      throw new AppError("Settings not found");
+      return null;
     }
     return settings;
   };

@@ -53,6 +53,7 @@ export const LoginForm = () => {
         setUser(loggedUser);
       }
     } catch (error) {
+      console.error(error);
       handleError(error, "Falha ao fazer login");
     } finally {
       setIsLoading(false);
